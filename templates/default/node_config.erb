@@ -1,0 +1,14 @@
+{
+  "capabilities": <%= JSON.pretty_generate(@resource.capabilities) %>,
+  "configuration":
+  {
+    "proxy": "<%= @resource.proxy %>",
+    "maxSession": <%= @resource.maxSession %>,
+    "port": <%= @port %>,
+    "host": <%= @host %>,
+    "register": <%= @resource.register %>,
+    "registerCycle": <%= @resource.registerCycle %>,
+    "hubPort": <%= @resource.hubPort %>,
+    "hubHost": <%= @resource.hubHost.nil? ? 'ip' : @resource.hubHost %>
+  }
+}

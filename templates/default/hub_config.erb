@@ -1,0 +1,15 @@
+{
+  "host": <%= @host %>,
+  "port": <%= @port %>,
+  "newSessionWaitTimeout": <%= @resource.newSessionWaitTimeout %>,
+  "servlets": <%= @resource.servlets %>,
+  "prioritizer":  <%= @resource.prioritizer.nil? ? 'null' : @resource.prioritizer %>,
+  "capabilityMatcher": "<%= @resource.capabilityMatcher %>",
+  "throwOnCapabilityNotPresent": <%= @resource.throwOnCapabilityNotPresent %>,
+  "nodePolling": <%= @resource.nodePolling %>,
+  "cleanUpCycle": <%= @resource.cleanUpCycle %>,
+  "timeout": <%= @resource.timeout %>,
+  "browserTimeout": <%= @resource.browserTimeout %>,
+  "maxSession": <%= @resource.maxSession %>,
+  "jettyMaxThreads": <%= @resource.jettyMaxThreads %>
+}
