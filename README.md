@@ -12,12 +12,12 @@ This cookbook installs and configures Selenium and WebDriver components (http://
 
 This cookbook comes with the following Resource/Providers:
 
-- [selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub) - Installs and configures selenium-grid hubs.
-- [selenium_node](https://github.com/dhoer/chef-selenium#selenium_node) - Installs and configures selenium-grid nodes
+- **[selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub)** - Installs and configures selenium-grid hubs.
+- **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid nodes
 with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
 [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver), and
 [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver).
-- [selenium_phantomjs](https://github.com/dhoer/chef-selenium#selenium_phantomjs) - Installs and configures
+- **[selenium_phantomjs](https://github.com/dhoer/chef-selenium#selenium_phantomjs)** - Installs and configures
 [PhantomJS](http://phantomjs.org/) as a selenium-grid node or as a standalone server via
 [GhostDriver](https://github.com/detro/ghostdriver).
 
@@ -53,7 +53,7 @@ cookbook for working cross platform examples, and
 [default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes for global
 cookbook settings.
 
-Note that provided examples in this cookbook have passwords unencrypted for simplicity.
+Note that the provided examples in this cookbook have passwords unencrypted for simplicity.
 
 ## selenium_hub
 
@@ -145,9 +145,9 @@ of attributes.
 - `capabilities` - The following drivers are supported and installed based on
 [capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities):
     - [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html) -
-  Installed if capabilities contains browser name `chrome`
+Installed if capabilities contains browser name `chrome`
     - [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver) -
-  32-bit or 64-bit installed if capabilities contains browser name `internet explorer`
+32-bit or 64-bit installed if capabilities contains browser name `internet explorer`
     - [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver) - Pre-installed with Selenium server
 - `username` - Windows account username. Required for Windows only.
 - `password` - Windows account password. Required for Windows only.
