@@ -171,7 +171,7 @@ selenium_phantomjs 'selenium_phantomjs' do
 end
 ```
 
-##### Install PhantomJS as a standalone server by setting hubHost to false
+##### Install PhantomJS as a standalone server by setting webdriverSeleniumGridHub to false
 
 ```ruby
 selenium_phantomjs 'selenium_phantomjs_nogrid' do
