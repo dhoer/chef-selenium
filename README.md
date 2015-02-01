@@ -66,8 +66,6 @@ Installs and configures selenium-grid hubs.
 
 ```ruby
 selenium_hub 'selenium_hub' do
-  username 'Administrator' if platform?('windows')
-  password 'password' if platform?('windows')
   action :install
 end
 ```
