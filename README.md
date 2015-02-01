@@ -10,7 +10,7 @@
 
 This cookbook installs and configures Selenium and WebDriver components (http://www.seleniumhq.org/).
 
-This cookbook comes with the following resources:
+This cookbook comes with the following Resource/Providers:
 
 - [selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub) - Installs and configures selenium-grid hubs.
 - [selenium_node](https://github.com/dhoer/chef-selenium#selenium_node) - Installs and configures selenium-grid nodes
@@ -23,7 +23,7 @@ with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index
 
 #### Roadmap
 
-Add support for the following in the future (any volunteers?):
+Add support for the following (any volunteers?):
 
 - [HtmlUnit](https://code.google.com/p/selenium/wiki/HtmlUnitDriver)
 - Mac OS X platform and [SafariDriver](https://code.google.com/p/selenium/wiki/SafariDriver)
@@ -49,11 +49,41 @@ These cookbooks are referenced with suggests, so be sure to depend on cookbooks 
 ## Usage
 
 See [selenium_test](https://github.com/dhoer/chef-selenium/tree/master/test/fixtures/cookbooks/selenium_test)
-cookbook recipes for working cross platform examples.
+cookbook for working cross platform examples, and
+[default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes for global
+cookbook settings.
+
+Note that provided examples in this cookbook have passwords unencrypted for simplicity.
 
 ## selenium_hub
 
 Installs and configures selenium-grid hubs.
+
+#### Requirements
+
+- Java must be installed outside of this cookbook.
+
+### Example
+
+##### Install selenium-grid hub
+
+```ruby
+selenium_hub 'selenium_hub' do
+  username 'Administrator' if platform?('windows')
+  password 'password' if platform?('windows')
+  action :install
+end
+```
+
+#### Attributes
+
+See [hub](https://github.com/dhoer/chef-selenium/blob/master/resources/hub.rb) resource for a complete list
+of attributes.
+
+- `name` - Name attribute. The name of the service.
+- `host` - Hostname. Defaults to `null` if nil.
+- `port` - Port.  Defaults to `4444` if nil.
+- `jvm_args` - Jvm arguments (e.g., -Xmx256M) Optional. Defaults to `nil`
 
 ## selenium_node
 
@@ -61,6 +91,67 @@ Installs and configures selenium-grid nodes with support for
 [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
 [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver), and
 [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver).
+
+#### Requirements
+
+- Java must be installed outside of this cookbook.
+- Browsers (e.g., chrome, firefox, etc...) must be installed outside of this cookbook.
+- Linux nodes without a physical monitor require a headless display
+(e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), [x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
+etc...) and must be installed and configured outside this cookbook.
+- Windows nodes require an account (e.g., username/password/domain) for auto-logon. Note that the password is
+stored unencrypted under windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+
+### Example
+
+##### Install selenium-grid node with Chrome, Firefox and Internet Explorer capability
+
+```ruby
+selenium_node 'selenium_node' do
+  username 'Administrator' if platform?('windows')
+  password 'password' if platform?('windows')
+  capabilities [
+    {
+      browserName: 'chrome',
+      maxInstances: 5,
+      seleniumProtocol: 'WebDriver'
+    },
+    {
+      browserName: 'firefox',
+      maxInstances: 5,
+      seleniumProtocol: 'WebDriver'
+    },
+    {
+      browserName: 'internet explorer',
+      maxInstances: 1,
+      seleniumProtocol: 'WebDriver'
+    }
+  ]
+  action :install
+end
+```
+
+#### Attributes
+
+See [node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb) resource for a complete list
+of attributes.
+
+- `name` - Name attribute. The name of the service or auto-logon script (Windows nodes only).
+- `host` - Hostname. Defaults to null if nil.
+- `port` - Port.  Defaults to 4444 if nil.
+- `hubHost` - Selenium-grid hub hostname. Defaults to `ip` if nil.
+- `hubPort` - Selenium-grid hub port. Defaults to `4444`.
+- `jvm_args` - Jvm arguments (e.g., -Xmx256M) Optional. Defaults to `nil`.
+- `capabilities` - The following drivers are supported and installed based on
+[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities):
+    - [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html) -
+  Installed if capabilities contains browser name `chrome`
+    - [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver) -
+  32-bit or 64-bit installed if capabilities contains browser name `internet explorer`
+    - [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver) - Pre-installed with Selenium server
+- `username` - Windows account username. Required for Windows only.
+- `password` - Windows account password. Required for Windows only.
+- `domain` - Windows account domain. Optional.  Defaults to `nil`.
 
 ## selenium_phantomjs
 
@@ -96,20 +187,20 @@ end
 
 #### Attributes
 
-- `name` - Name of service or auto-login script.
-- `host` - Webdriver hostname. Defaults to `node['ipaddress']`. Use in conjunction with `host` to generate `webdriver`
+See [phantomjs](https://github.com/dhoer/chef-selenium/blob/master/resources/phantomjs.rb) resource for a complete list
+of attributes.
+
+- `name` - Name attribute. The name of the service or auto-logon script (Windows nodes only).
+- `host` - Webdriver hostname. Defaults to `node['ipaddress']`. Used in conjunction with `host` to generate `webdriver`
 parameter.
-- `port` - Webdriver port.  Defaults to `8910`. Use in conjunction with `host` to generate `webdriver` parameter.
-- `hubHost` - Selenium-grid hub hostname. Defaults to `node['ipaddress']`. Set to false to install as a standalone
-service. Use in conjunction with `hubPort` to replace `webdriverSeleniumGridHub` parameter.
-- `hubPort` - Selenium-grid hub port. Defaults to `4444`.  Use in conjunction with `hubHost` to generate
+- `port` - Webdriver port.  Defaults to `8910`. Used in conjunction with `host` to generate `webdriver` parameter.
+- `hubHost` - Selenium-grid hub hostname. Defaults to `node['ipaddress']`. Set to false to install PhantomJS as a
+standalone service. Used in conjunction with `hubPort` to generate `webdriverSeleniumGridHub` parameter.
+- `hubPort` - Selenium-grid hub port. Defaults to `4444`.  Used in conjunction with `hubHost` to generate
 `webdriverSeleniumGridHub` parameter.
 - `username` - Windows account username. Required for Windows only.
 - `password` - Windows account password. Required for Windows only.
-- `domain` - Windows account domain. Optional for Windows only.  Defaults to `nil`
-
-See [phantomjs](https://github.com/dhoer/chef-selenium/blob/master/resources/phantomjs.rb) resource a complete list
-of attributes.
+- `domain` - Windows account domain. Optional.  Defaults to `nil`.
 
 ## ChefSpec Matchers
 
