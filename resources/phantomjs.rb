@@ -2,14 +2,10 @@ actions :install
 default_action :install
 
 attribute :name, kind_of: String, name_attribute: true
-attribute :host, kind_of: String, default: node['ipaddress']
-attribute :port, kind_of: Integer, default: 8910
-attribute :hubHost, kind_of: [String, FalseClass], default: node['ipaddress']
-attribute :hubPort, kind_of: Integer, default: 4444
+attribute :webdriver, kind_of: String, default: "#{node['ipaddress']}:8910"
+attribute :webdriverSeleniumGridHub, kind_of: [String, FalseClass], default: "http://#{node['ipaddress']}:4444"
 
 # TODO: Create a config.json file with these and ghostdriver attributes.
-# attribute :webdriver, kind_of: String, default: '127.0.0.1:8910'
-# attribute :webdriverSeleniumGridHub, kind_of: String, default: 'http://127.0.0.1:4444'
 # attribute :cookiesFile, kind_of: String, default: nil
 # attribute :diskCacheEnabled, kind_of: [TrueClass, FalseClass], default: false
 # attribute :ignoreSslErrors, kind_of: [TrueClass, FalseClass], default: false

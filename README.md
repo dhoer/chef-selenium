@@ -49,11 +49,8 @@ These cookbooks are referenced with suggests, so be sure to depend on cookbooks 
 ## Usage
 
 See [selenium_test](https://github.com/dhoer/chef-selenium/tree/master/test/fixtures/cookbooks/selenium_test)
-cookbook for working cross platform examples, and
-[default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes for global
-cookbook settings.
-
-Note that the provided examples in this cookbook have passwords unencrypted for simplicity.
+cookbook for working cross platform examples. Note that the provided examples in this cookbook have passwords
+unencrypted for simplicity.
 
 ## selenium_hub
 
@@ -78,7 +75,8 @@ end
 #### Attributes
 
 See [hub](https://github.com/dhoer/chef-selenium/blob/master/resources/hub.rb) resource for a complete list
-of attributes.
+of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes
+for global cookbook settings.
 
 - `name` - Name attribute. The name of the service.
 - `host` - Hostname. Defaults to `null` if nil.
@@ -134,7 +132,8 @@ end
 #### Attributes
 
 See [node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb) resource for a complete list
-of attributes.
+of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes
+for global cookbook settings.
 
 - `name` - Name attribute. The name of the service or auto-logon script (Windows nodes only).
 - `host` - Hostname. Defaults to null if nil.
@@ -180,7 +179,7 @@ end
 selenium_phantomjs 'selenium_phantomjs_nogrid' do
   username 'Administrator' if platform?('windows')
   password 'password' if platform?('windows')
-  hubHost false
+  webdriverSeleniumGridHub false
   action :install
 end
 ```
@@ -188,16 +187,13 @@ end
 #### Attributes
 
 See [phantomjs](https://github.com/dhoer/chef-selenium/blob/master/resources/phantomjs.rb) resource for a complete list
-of attributes.
+of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes
+for global cookbook settings.
 
 - `name` - Name attribute. The name of the service or auto-logon script (Windows nodes only).
-- `host` - Webdriver hostname. Defaults to `node['ipaddress']`. Used in conjunction with `host` to generate `webdriver`
-parameter.
-- `port` - Webdriver port.  Defaults to `8910`. Used in conjunction with `host` to generate `webdriver` parameter.
-- `hubHost` - Selenium-grid hub hostname. Defaults to `node['ipaddress']`. Set to false to install PhantomJS as a
-standalone service. Used in conjunction with `hubPort` to generate `webdriverSeleniumGridHub` parameter.
-- `hubPort` - Selenium-grid hub port. Defaults to `4444`.  Used in conjunction with `hubHost` to generate
-`webdriverSeleniumGridHub` parameter.
+- `webdriver` - Webdriver ip:port.  Defaults to `"#{node['ipaddress']}:8910"`.
+- `webdriverSeleniumGridHub` -  Webdriver selenium-grid hub url.  Set to `false` to install PhantomJS as a standalone
+service. Defaults to `"http://#{node['ipaddress']}:4444"`.
 - `username` - Windows account username. Required for Windows only.
 - `password` - Windows account password. Required for Windows only.
 - `domain` - Windows account domain. Optional.  Defaults to `nil`.
