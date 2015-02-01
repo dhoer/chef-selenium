@@ -31,9 +31,47 @@ TODO: Document resources
 
 ### selenium_hub
 
-### selenium_grid
+Installs selenium hub.
+
+### selenium_node
+
+Installs selenium node.
 
 ### selenium_phantomjs
+
+Installs as a node or a standalone server via [GhostDriver](https://github.com/detro/ghostdriver).
+
+#### Requirements
+
+[PhantomJS](http://phantomjs.org/) must be installed outside of this cookbook.
+
+#### Examples
+
+##### Install as a grid node
+
+```ruby
+selenium_phantomjs 'selenium_phantomjs' do
+  username 'Administrator' if platform?('windows')
+  password 'password' if platform?('windows')
+  action :install
+end
+```
+
+##### Install as a standalone server
+
+```ruby
+selenium_phantomjs 'selenium_phantomjs_nogrid' do
+  username 'Administrator' if platform?('windows')
+  password 'password' if platform?('windows')
+  hubHost false
+  action :install
+end
+```
+
+#### Attributes
+
+
+
 
 ## ChefSpec Matchers
 

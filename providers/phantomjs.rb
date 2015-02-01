@@ -22,7 +22,9 @@ action :install do
     # args = [%(--config="#{config(new_resource)}")]
     args = []
     args << "--webdriver=#{new_resource.host}:#{new_resource.port}"
-    args << "--webdriver-selenium-grid-hub=http://#{new_resource.hubHost}:#{new_resource.hubPort}"
+    unless new_resource.hubHost == false
+      args << "--webdriver-selenium-grid-hub=http://#{new_resource.hubHost}:#{new_resource.hubPort}"
+    end
 
     if platform?('windows')
       windows_foreground(new_resource.name, node['selenium']['windows']['phantomjs'], args, new_resource.username)

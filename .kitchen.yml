@@ -7,12 +7,6 @@ provisioner:
 
 platforms:
   - name: ubuntu-14.04
-  - name: centos-6.5
-#    driver:
-#      network:
-#      - ["forwarded_port", {guest: 4444, host: 4445}]
-#      - ["forwarded_port", {guest: 5555, host: 5556}]
-#      - ["private_network", {ip: "192.168.33.65"}]
   - name: centos-7.0
     driver:
       network:
@@ -26,7 +20,7 @@ suites:
       - recipe[selenium_test::hub]
       - recipe[selenium_test::node]
       - recipe[selenium_test::phantomjs]
-      - recipe[selenium_test::rspec_setup]
+      - recipe[selenium_test::phantomjs_nogrid]
     attributes:
       java:
         jdk_version: '7'

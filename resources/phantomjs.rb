@@ -4,8 +4,8 @@ default_action :install
 attribute :name, kind_of: String, name_attribute: true
 attribute :host, kind_of: String, default: node['ipaddress']
 attribute :port, kind_of: Integer, default: 8910
+attribute :hubHost, kind_of: [String, FalseClass], default: node['ipaddress']
 attribute :hubPort, kind_of: Integer, default: 4444
-attribute :hubHost, kind_of: String, default: node['ipaddress']
 
 # attribute :webdriver, kind_of: String, default: '127.0.0.1:8910'
 # attribute :webdriverSeleniumGridHub, kind_of: String, default: 'http://127.0.0.1:4444'
