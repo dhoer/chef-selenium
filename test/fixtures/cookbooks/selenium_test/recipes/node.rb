@@ -41,6 +41,13 @@ if platform?('windows')
   }
 end
 
+capabilities <<  {
+  browserName: 'htmlunit',
+  maxInstances: 1,
+  platform: 'ANY',
+  seleniumProtocol: 'WebDriver'
+}
+
 selenium_node 'selenium_node' do
   username 'Administrator' if platform?('windows')
   password 'password' if platform?('windows')

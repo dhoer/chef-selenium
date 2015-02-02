@@ -15,6 +15,7 @@ This cookbook comes with the following Resource/Providers:
 - **[selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub)** - Installs and configures selenium-grid hubs.
 - **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid nodes
 with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
+[HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver),
 [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver), and
 [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver).
 - **[selenium_phantomjs](https://github.com/dhoer/chef-selenium#selenium_phantomjs)** - Installs and configures
@@ -25,8 +26,7 @@ with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index
 
 Add support for the following (any volunteers?):
 
-- [HtmlUnit](https://code.google.com/p/selenium/wiki/HtmlUnitDriver)
-- Mac OS X platform and [SafariDriver](https://code.google.com/p/selenium/wiki/SafariDriver)
+- Mac OS X platform
 - [Appium](http://appium.io)
 
 ## Requirements
@@ -85,6 +85,7 @@ for global cookbook settings.
 
 Installs and configures selenium-grid nodes with support for
 [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
+[HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver),
 [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver), and
 [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver).
 
@@ -121,6 +122,12 @@ selenium_node 'selenium_node' do
       browserName: 'internet explorer',
       maxInstances: 1,
       seleniumProtocol: 'WebDriver'
+    },
+    {
+      browserName: 'htmlunit',
+      maxInstances: 1,
+      platform: 'ANY',
+      seleniumProtocol: 'WebDriver'
     }
   ]
   action :install
@@ -143,6 +150,7 @@ for global cookbook settings.
 [capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities):
     - [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html) -
 Installed if capabilities contains browser name `chrome`
+    - [HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver) - Pre-installed with Selenium server
     - [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver) -
 32-bit or 64-bit installed if capabilities contains browser name `internet explorer`
     - [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver) - Pre-installed with Selenium server
