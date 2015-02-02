@@ -26,7 +26,7 @@ with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index
 
 Add support for the following (any volunteers?):
 
-- Mac OS X platform and [SafariDriver](https://code.google.com/p/selenium/wiki/SafariDriver)
+- Mac OS X platform
 - [Appium](http://appium.io)
 
 ## Requirements
