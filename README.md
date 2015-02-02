@@ -158,6 +158,8 @@ Installs and configures [PhantomJS](http://phantomjs.org/) as a selenium-grid no
 #### Requirements
 
 - [PhantomJS](http://phantomjs.org/) must be installed outside of this cookbook.
+- Windows nodes require an account (e.g., username/password/domain) for auto-logon. Note that the password is
+stored unencrypted under windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
 
 #### Examples
 
