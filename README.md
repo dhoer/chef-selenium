@@ -124,7 +124,7 @@ selenium_node 'selenium_node' do
       seleniumProtocol: 'WebDriver'
     },
     {
-      browserName: 'internet explorer',
+      browserName: 'htmlunit',
       maxInstances: 1,
       platform: 'ANY',
       seleniumProtocol: 'WebDriver'
