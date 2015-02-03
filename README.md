@@ -97,8 +97,6 @@ Installs and configures selenium-grid nodes with support for
 - Linux nodes without a physical monitor require a headless display
 (e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), [x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
 etc...) and must be installed and configured outside this cookbook.
-- Windows nodes require an account (e.g., username/password/domain) for auto-logon. Note that the password is
-stored unencrypted under windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
 - Windows nodes (with the exception of HtmlUnitDriver) must run in the foreground and that requires a username
 and password for auto-logon. Note that the password is stored unencrypted under windows registry:
 `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
