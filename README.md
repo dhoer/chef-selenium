@@ -78,8 +78,8 @@ of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/
 for global cookbook settings.
 
 - `name` - Name attribute. The name of the service.
-- `host` - Hostname. Defaults to `null` if nil.
-- `port` - Port.  Defaults to `4444` if nil.
+- `host` - Hostname. Defaults to `null`.
+- `port` - Port.  Defaults to `4444`.
 - `jvm_args` - Jvm arguments (e.g., -Xmx256M). Defaults to `nil`.
 
 ## selenium_node
@@ -144,9 +144,9 @@ of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/
 for global cookbook settings.
 
 - `name` - Name attribute. The name of the service or auto-logon script (Windows nodes only).
-- `host` - Hostname. Defaults to null if nil.
-- `port` - Port.  Defaults to 4444 if nil.
-- `hubHost` - Selenium-grid hub hostname. Defaults to `ip` if nil.
+- `host` - Hostname. Defaults to `null`.
+- `port` - Port.  Defaults to `4444`.
+- `hubHost` - Selenium-grid hub hostname. Defaults to `ip`.
 - `hubPort` - Selenium-grid hub port. Defaults to `4444`.
 - `jvm_args` - Jvm arguments (e.g., -Xmx256M). Defaults to `nil`.
 - `capabilities` - The following drivers are supported and installed based on

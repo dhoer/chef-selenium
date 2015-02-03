@@ -4,11 +4,11 @@
   {
     "proxy": "<%= @resource.proxy %>",
     "maxSession": <%= @resource.maxSession %>,
-    "port": <%= @port %>,
-    "host": <%= @host %>,
+    "port": <%= @resource.port %>,
+    "host": <%= @resource.host %>,
     "register": <%= @resource.register %>,
     "registerCycle": <%= @resource.registerCycle %>,
     "hubPort": <%= @resource.hubPort %>,
-    "hubHost": <%= @resource.hubHost.nil? ? 'ip' : @resource.hubHost %>
+    "hubHost": <%= @resource.hubHost %>
   }
 }

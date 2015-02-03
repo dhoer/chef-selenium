@@ -2,22 +2,12 @@ def whyrun_supported?
   true
 end
 
-def host(resource)
-  resource.host.nil? ? 'ip' : resource.host
-end
-
-def port(resource)
-  resource.port.nil? ? 5555 : resource.port
-end
-
 def config(resource)
   config_file = "#{selenium_home}/config/#{resource.name}.json"
   template config_file do
     source 'node_config.erb'
     cookbook 'selenium'
     variables(
-      host: host(resource),
-      port: port(resource),
       resource: resource
     )
     notifies :request, "windows_reboot[Reboot to start #{resource.name}]" if platform_family?('windows')
@@ -60,10 +50,10 @@ action :install do
       else
         windows_service(new_resource.name, node['selenium']['windows']['java'], args)
       end
-      windows_firewall(new_resource.name, port(new_resource))
+      windows_firewall(new_resource.name, new_resource.port)
     else
       linux_service(
-        new_resource.name, node['selenium']['linux']['java'], args, port(new_resource), new_resource.display)
+        new_resource.name, node['selenium']['linux']['java'], args, new_resource.port, new_resource.display)
     end
 
     windows_reboot "Reboot to start #{new_resource.name}" do

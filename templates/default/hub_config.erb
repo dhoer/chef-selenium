@@ -1,9 +1,9 @@
 {
-  "host": <%= @host %>,
-  "port": <%= @port %>,
+  "host": <%= @resource.host %>,
+  "port": <%= @resource.port %>,
   "newSessionWaitTimeout": <%= @resource.newSessionWaitTimeout %>,
   "servlets": <%= @resource.servlets %>,
-  "prioritizer":  <%= @resource.prioritizer.nil? ? 'null' : @resource.prioritizer %>,
+  "prioritizer":  <%= @resource.prioritizer %>,
   "capabilityMatcher": "<%= @resource.capabilityMatcher %>",
   "throwOnCapabilityNotPresent": <%= @resource.throwOnCapabilityNotPresent %>,
   "nodePolling": <%= @resource.nodePolling %>,
