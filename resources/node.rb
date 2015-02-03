@@ -13,10 +13,10 @@ attribute :hubPort, kind_of: Integer, default: 4444
 attribute :hubHost, kind_of: String, default: nil # defaults to ip if nil
 attribute :capabilities, kind_of: [Array, Hash], default: []
 
-# linux only
-attribute :display, kind_of: String, default: ':0' # DISPLAY must match running instance of Xvfb, x11vnc or equivalent
+# linux only - DISPLAY must match running instance of Xvfb, x11vnc or equivalent
+attribute :display, kind_of: String, default: ':0'
 
-# windows only
+# windows only - set username/password to run service in foreground or leave nil to run service in background
 attribute :domain, kind_of: String, default: nil
 attribute :username, kind_of: String, default: nil
 attribute :password, kind_of: String, default: nil

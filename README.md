@@ -13,11 +13,12 @@ This cookbook installs and configures Selenium and WebDriver components (http://
 This cookbook comes with the following Resource/Providers:
 
 - **[selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub)** - Installs and configures selenium-grid hubs.
-- **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid nodes
+- **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid
+nodes
 with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
-[HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver),
-[InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver), and
-[FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver).
+[FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver),
+[HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver), and
+[InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver).
 - **[selenium_phantomjs](https://github.com/dhoer/chef-selenium#selenium_phantomjs)** - Installs and configures
 [PhantomJS](http://phantomjs.org/) as a selenium-grid node or as a standalone server via
 [GhostDriver](https://github.com/detro/ghostdriver).
@@ -44,7 +45,7 @@ Chef 11 or greater
 These cookbooks are referenced with suggests, so be sure to depend on cookbooks that apply:
 
 - windows
-- nssm - Windows hubs only
+- nssm - Required for Windows hubs, and optional for Windows HtmlUnit and PhantomJS.
 
 ## Usage
 
@@ -85,9 +86,9 @@ for global cookbook settings.
 
 Installs and configures selenium-grid nodes with support for
 [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
-[HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver),
-[InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver), and
-[FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver).
+[FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver),
+[HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver), and
+[InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver).
 
 #### Requirements
 
@@ -98,6 +99,10 @@ Installs and configures selenium-grid nodes with support for
 etc...) and must be installed and configured outside this cookbook.
 - Windows nodes require an account (e.g., username/password/domain) for auto-logon. Note that the password is
 stored unencrypted under windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+- Windows nodes (with the exception of HtmlUnitDriver) must run in the foreground and that requires a username
+and password for auto-logon. Note that the password is stored unencrypted under windows registry:
+`HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+
 
 ### Example
 
@@ -119,14 +124,14 @@ selenium_node 'selenium_node' do
       seleniumProtocol: 'WebDriver'
     },
     {
-      browserName: 'internet explorer',
-      maxInstances: 1,
-      seleniumProtocol: 'WebDriver'
-    },
-    {
       browserName: 'htmlunit',
       maxInstances: 1,
       platform: 'ANY',
+      seleniumProtocol: 'WebDriver'
+    },
+    {
+      browserName: 'internet explorer',
+      maxInstances: 1,
       seleniumProtocol: 'WebDriver'
     }
   ]
@@ -150,13 +155,16 @@ for global cookbook settings.
 [capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities):
     - [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html) -
 Installed if capabilities contains browser name `chrome`
-    - [HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver) - Pre-installed with Selenium server
-    - [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver) -
-32-bit or 64-bit installed if capabilities contains browser name `internet explorer`
     - [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver) - Pre-installed with Selenium server
-- `username` - Windows account username. Required for Windows only.
-- `password` - Windows account password. Required for Windows only.
-- `domain` - Windows account domain. Optional.  Defaults to `nil`.
+    - [HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver) - Pre-installed with Selenium server
+    - [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver) - 32-bit or 64-bit
+installed if capabilities contains browser name `internet explorer`
+- Windows only - Set both username and password to run service in foreground or leave nil to run service in background:
+    - `username` - Windows account username. Defaults to `nil`.
+    - `password` - Windows account password. Defaults to `nil`. Note that the password is stored unencrypted under
+    windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+    - `domain` - Windows account domain. Optional.  Defaults to `nil`.
+
 
 ## selenium_phantomjs
 
@@ -166,8 +174,9 @@ Installs and configures [PhantomJS](http://phantomjs.org/) as a selenium-grid no
 #### Requirements
 
 - [PhantomJS](http://phantomjs.org/) must be installed outside of this cookbook.
-- Windows nodes require an account (e.g., username/password/domain) for auto-logon. Note that the password is
-stored unencrypted under windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+- Windows nodes have the option to run in the foreground and that requires a username and password for auto-logon.
+Note that the password is stored unencrypted under windows registry:
+`HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
 
 #### Examples
 
@@ -175,8 +184,6 @@ stored unencrypted under windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsof
 
 ```ruby
 selenium_phantomjs 'selenium_phantomjs' do
-  username 'Administrator' if platform?('windows')
-  password 'password' if platform?('windows')
   action :install
 end
 ```
@@ -185,8 +192,6 @@ end
 
 ```ruby
 selenium_phantomjs 'selenium_phantomjs_nogrid' do
-  username 'Administrator' if platform?('windows')
-  password 'password' if platform?('windows')
   webdriverSeleniumGridHub false
   action :install
 end
@@ -202,9 +207,11 @@ for global cookbook settings.
 - `webdriver` - Webdriver ip:port.  Defaults to `"#{node['ipaddress']}:8910"`.
 - `webdriverSeleniumGridHub` -  Webdriver selenium-grid hub url.  Set to `false` to install PhantomJS as a standalone
 service. Defaults to `"http://#{node['ipaddress']}:4444"`.
-- `username` - Windows account username. Required for Windows only.
-- `password` - Windows account password. Required for Windows only.
-- `domain` - Windows account domain. Optional.  Defaults to `nil`.
+- Windows only - Set both username and password to run service in foreground or leave nil to run service in background:
+    - `username` - Windows account username. Defaults to `nil`.
+    - `password` - Windows account password. Defaults to `nil`. Note that the password is stored unencrypted under
+    windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+    - `domain` - Windows account domain. Optional.  Defaults to `nil`.
 
 ## ChefSpec Matchers
 

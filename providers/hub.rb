@@ -25,22 +25,6 @@ def config(resource)
   config_file
 end
 
-def windows_service(resource, args)
-  log_file = "#{selenium_home}/log/#{resource.name}.log"
-  nssm resource.name do
-    program node['selenium']['windows']['java']
-    args args.join(' ').gsub('"', '"""')
-    params(
-      AppDirectory: selenium_home,
-      AppStdout: log_file,
-      AppStderr: log_file,
-      AppRotateFiles: 1
-    )
-    action :install
-  end
-  windows_firewall(resource.name, port(resource))
-end
-
 def include_recipes
   recipe_eval do
     run_context.include_recipe 'selenium::server'
@@ -56,7 +40,8 @@ action :install do
     args << %(-jar "#{selenium_server_standalone}" -role hub -hubConfig "#{config(new_resource)}")
 
     if platform?('windows')
-      windows_service(new_resource, args)
+      windows_service(new_resource.name, node['selenium']['windows']['java'], args)
+      windows_firewall(new_resource.name, port(new_resource))
     else
       linux_service(new_resource.name, node['selenium']['linux']['java'], args, port(new_resource), nil)
     end

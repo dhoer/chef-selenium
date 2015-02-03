@@ -54,9 +54,12 @@ action :install do
     end
 
     if platform?('windows')
-      # http://sqa.stackexchange.com/a/6267
-      windows_foreground(new_resource.name, node['selenium']['windows']['java'], args, new_resource.username)
-      autologon(new_resource.username, new_resource.password, new_resource.domain)
+      if new_resource.username && new_resource.password
+        windows_foreground(new_resource.name, node['selenium']['windows']['java'], args, new_resource.username)
+        autologon(new_resource.username, new_resource.password, new_resource.domain)
+      else
+        windows_service(new_resource.name, node['selenium']['windows']['java'], args)
+      end
       windows_firewall(new_resource.name, port(new_resource))
     else
       linux_service(

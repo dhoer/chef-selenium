@@ -19,23 +19,17 @@ describe 'selenium_test::phantomjs' do
     #     )
     # end
 
-    it 'creates auto login registry_key' do
-      expect(chef_run).to create_registry_key(
-        'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
-      )
-    end
-
-    it 'creates shortcut to selenium cmd file' do
-      expect(chef_run).to create_windows_shortcut(
-        'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\selenium_phantomjs.lnk'
-      )
-    end
-
-    it 'creates selenium foreground command' do
-      expect(chef_run).to create_file('C:/selenium/bin/selenium_phantomjs.cmd').with(
-        content: '"phantomjs" --webdriver=10.0.0.2:8910 --webdriver-selenium-grid-hub=http://10.0.0.2:4444 '\
-          '-log "C:/selenium/log/selenium_phantomjs.log"'
-      )
+    it 'install selenium_phantomjs' do
+      expect(chef_run).to install_nssm('selenium_phantomjs').with(
+          program: 'phantomjs',
+          args: '--webdriver=10.0.0.2:8910 --webdriver-selenium-grid-hub=http://10.0.0.2:4444',
+          params: {
+            AppDirectory: 'C:/selenium',
+            AppStdout: 'C:/selenium/log/selenium_phantomjs.log',
+            AppStderr: 'C:/selenium/log/selenium_phantomjs.log',
+            AppRotateFiles: 1
+          }
+        )
     end
 
     it 'creates firewall rule' do

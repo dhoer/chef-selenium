@@ -34,8 +34,12 @@ action :install do
     end
 
     if platform?('windows')
-      windows_foreground(new_resource.name, node['selenium']['windows']['phantomjs'], args, new_resource.username)
-      autologon(new_resource.username, new_resource.password, new_resource.domain)
+      if new_resource.username && new_resource.password
+        windows_foreground(new_resource.name, node['selenium']['windows']['phantomjs'], args, new_resource.username)
+        autologon(new_resource.username, new_resource.password, new_resource.domain)
+      else
+        windows_service(new_resource.name, node['selenium']['windows']['phantomjs'], args)
+      end
       windows_firewall(new_resource.name, port(new_resource.webdriver))
     else
       linux_service(new_resource.name, node['selenium']['linux']['phantomjs'], args, port(new_resource.webdriver), nil)

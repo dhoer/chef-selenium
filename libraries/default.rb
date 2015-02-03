@@ -22,6 +22,22 @@ def selenium_iedriver?(capabilities)
   selenium_browser?(IE, capabilities)
 end
 
+def windows_service(name, exec, args)
+  log_file = "#{selenium_home}/log/#{name}.log"
+  nssm name do
+    program exec
+    args args.join(' ').gsub('"', '"""')
+    params(
+      AppDirectory: selenium_home,
+      AppStdout: log_file,
+      AppStderr: log_file,
+      AppRotateFiles: 1
+    )
+    action :install
+  end
+end
+
+# http://sqa.stackexchange.com/a/6267
 def windows_foreground(name, exec, args, username)
   args << %(-log "#{selenium_home}/log/#{name}.log")
   cmd = "#{selenium_home}/bin/#{name}.cmd"
