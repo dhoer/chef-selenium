@@ -8,14 +8,14 @@ end
 
 def selenium_java_exec
   java = platform_family?('windows') ? node['selenium']['windows']['java'] : node['selenium']['linux']['java']
-  validate_exec("#{java} -version")
+  validate_exec(%("#{java}" -version))
   java
 end
 
 def selenium_phantomjs_exec
   phantomjs =
     platform_family?('windows') ? node['selenium']['windows']['phantomjs'] : node['selenium']['linux']['phantomjs']
-  validate_exec("#{phantomjs} -v")
+  validate_exec(%("#{phantomjs}" -v))
   phantomjs
 end
 
