@@ -25,7 +25,7 @@ describe 'selenium_test::phantomjs' do
 
     it 'install selenium_phantomjs' do
       expect(chef_run).to install_nssm('selenium_phantomjs').with(
-          program: 'phantomjs',
+          program: 'C:\tools\PhantomJS\phantomjs.exe',
           args: '--webdriver=10.0.0.2:8910 --webdriver-selenium-grid-hub=http://10.0.0.2:4444',
           params: {
             AppDirectory: 'C:/selenium',

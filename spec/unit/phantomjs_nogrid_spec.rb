@@ -38,7 +38,8 @@ describe 'selenium_test::phantomjs_nogrid' do
 
     it 'creates selenium foreground command' do
       expect(chef_run).to create_file('C:/selenium/bin/selenium_phantomjs_nogrid.cmd').with(
-        content: '"phantomjs" --webdriver=localhost:8911 -log "C:/selenium/log/selenium_phantomjs_nogrid.log"'
+        content: '"C:\tools\PhantomJS\phantomjs.exe" --webdriver=localhost:8911 -log '\
+          '"C:/selenium/log/selenium_phantomjs_nogrid.log"'
       )
     end
 

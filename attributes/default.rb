@@ -7,7 +7,7 @@ default['selenium']['chromedriver_url'] = 'https://chromedriver.storage.googleap
 
 default['selenium']['windows']['home'] = 'C:/selenium'
 default['selenium']['windows']['java'] = 'C:\Windows\System32\java.exe'
-default['selenium']['windows']['phantomjs'] = 'phantomjs'
+default['selenium']['windows']['phantomjs'] = 'C:\tools\PhantomJS\phantomjs.exe'
 
 default['selenium']['linux']['home'] = '/usr/local/selenium'
 default['selenium']['linux']['java'] = '/usr/bin/java'
