@@ -25,15 +25,15 @@ describe 'selenium_test::phantomjs' do
 
     it 'install selenium_phantomjs' do
       expect(chef_run).to install_nssm('selenium_phantomjs').with(
-          program: 'C:\tools\PhantomJS\phantomjs.exe',
-          args: '--webdriver=10.0.0.2:8910 --webdriver-selenium-grid-hub=http://10.0.0.2:4444',
-          params: {
-            AppDirectory: 'C:/selenium',
-            AppStdout: 'C:/selenium/log/selenium_phantomjs.log',
-            AppStderr: 'C:/selenium/log/selenium_phantomjs.log',
-            AppRotateFiles: 1
-          }
-        )
+        program: 'C:\tools\PhantomJS\phantomjs.exe',
+        args: '--webdriver=10.0.0.2:8910 --webdriver-selenium-grid-hub=http://10.0.0.2:4444',
+        params: {
+          AppDirectory: 'C:/selenium',
+          AppStdout: 'C:/selenium/log/selenium_phantomjs.log',
+          AppStderr: 'C:/selenium/log/selenium_phantomjs.log',
+          AppRotateFiles: 1
+        }
+      )
     end
 
     it 'creates firewall rule' do
@@ -48,7 +48,7 @@ describe 'selenium_test::phantomjs' do
   context 'linux' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-          file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_phantomjs']
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_phantomjs']
       ).converge(described_recipe)
     end
 

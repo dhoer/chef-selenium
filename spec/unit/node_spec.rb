@@ -21,9 +21,9 @@ describe 'selenium_test::node' do
 
     it 'creates node config file' do
       expect(chef_run).to create_template('C:/selenium/config/selenium_node.json').with(
-          source: 'node_config.erb',
-          cookbook: 'selenium'
-        )
+        source: 'node_config.erb',
+        cookbook: 'selenium'
+      )
     end
 
     it 'creates auto login registry_key' do
@@ -60,7 +60,7 @@ describe 'selenium_test::node' do
   context 'linux' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-          file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']) do
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']) do
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
       end.converge(described_recipe)

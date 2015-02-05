@@ -19,23 +19,23 @@ describe 'selenium_test::htmlunit' do
 
     it 'creates node config file' do
       expect(chef_run).to create_template('C:/selenium/config/selenium_htmlunit.json').with(
-          source: 'node_config.erb',
-          cookbook: 'selenium'
-        )
+        source: 'node_config.erb',
+        cookbook: 'selenium'
+      )
     end
 
     it 'install selenium_htmlunit' do
       expect(chef_run).to install_nssm('selenium_htmlunit').with(
-          program: 'C:\\Windows\\System32\\java.exe',
-          args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
-            ' -role node -nodeConfig """C:/selenium/config/selenium_htmlunit.json"""',
-          params: {
-            AppDirectory: 'C:/selenium',
-            AppStdout: 'C:/selenium/log/selenium_htmlunit.log',
-            AppStderr: 'C:/selenium/log/selenium_htmlunit.log',
-            AppRotateFiles: 1
-          }
-        )
+        program: 'C:\\Windows\\System32\\java.exe',
+        args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
+          ' -role node -nodeConfig """C:/selenium/config/selenium_htmlunit.json"""',
+        params: {
+          AppDirectory: 'C:/selenium',
+          AppStdout: 'C:/selenium/log/selenium_htmlunit.log',
+          AppStderr: 'C:/selenium/log/selenium_htmlunit.log',
+          AppRotateFiles: 1
+        }
+      )
     end
 
     it 'creates firewall rule' do
@@ -50,7 +50,7 @@ describe 'selenium_test::htmlunit' do
   context 'linux' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-          file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']) do
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']) do
       end.converge(described_recipe)
     end
 

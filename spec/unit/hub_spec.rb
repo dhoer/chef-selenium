@@ -26,16 +26,16 @@ describe 'selenium_test::hub' do
 
     it 'install selenium_hub' do
       expect(chef_run).to install_nssm('selenium_hub').with(
-          program: 'C:\\Windows\\System32\\java.exe',
-          args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
-            ' -role hub -hubConfig """C:/selenium/config/selenium_hub.json"""',
-          params: {
-            AppDirectory: 'C:/selenium',
-            AppStdout: 'C:/selenium/log/selenium_hub.log',
-            AppStderr: 'C:/selenium/log/selenium_hub.log',
-            AppRotateFiles: 1
-          }
-        )
+        program: 'C:\\Windows\\System32\\java.exe',
+        args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
+          ' -role hub -hubConfig """C:/selenium/config/selenium_hub.json"""',
+        params: {
+          AppDirectory: 'C:/selenium',
+          AppStdout: 'C:/selenium/log/selenium_hub.log',
+          AppStderr: 'C:/selenium/log/selenium_hub.log',
+          AppRotateFiles: 1
+        }
+      )
     end
 
     it 'creates firewall rule' do

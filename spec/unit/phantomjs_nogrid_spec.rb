@@ -55,7 +55,7 @@ describe 'selenium_test::phantomjs_nogrid' do
   context 'linux' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-          file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_phantomjs']
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_phantomjs']
       ).converge(described_recipe)
     end
 
