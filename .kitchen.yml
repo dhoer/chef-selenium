@@ -19,6 +19,7 @@ suites:
     run_list:
       - recipe[selenium_test::hub]
       - recipe[selenium_test::node]
+      - recipe[selenium_test::htmlunit]
       - recipe[selenium_test::phantomjs]
       - recipe[selenium_test::phantomjs_nogrid]
     attributes:
