@@ -30,10 +30,10 @@ action :install do
     args << %(-jar "#{selenium_server_standalone}" -role hub -hubConfig "#{config(new_resource)}")
 
     if platform?('windows')
-      windows_service(new_resource.name, node['selenium']['windows']['java'], args)
+      windows_service(new_resource.name, selenium_java_exec, args)
       windows_firewall(new_resource.name, new_resource.port)
     else
-      linux_service(new_resource.name, node['selenium']['linux']['java'], args, new_resource.port, nil)
+      linux_service(new_resource.name, selenium_java_exec, args, new_resource.port, nil)
     end
   end
 end

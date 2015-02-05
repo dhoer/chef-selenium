@@ -6,7 +6,7 @@
 
 [supermarket]: https://supermarket.chef.io/cookbooks/selenium
 [travis]: https://travis-ci.org/dhoer/chef-selenium
-[github]: https://github.com/dhoer/chef-selenium
+[github]: https://github.com/dhoer/chef-selenium/issues
 
 This cookbook installs and configures Selenium and WebDriver components (http://www.seleniumhq.org/).
 

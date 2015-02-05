@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe 'selenium_test::phantomjs_nogrid' do
+  let(:shellout) { double(run_command: nil, error!: nil, stdout: ' ') }
+
+  before { allow(Mixlib::ShellOut).to receive(:new).and_return(shellout) }
+
   context 'windows' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2', step_into: ['selenium_phantomjs']) do

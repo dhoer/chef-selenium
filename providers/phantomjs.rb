@@ -2,7 +2,7 @@ def whyrun_supported?
   true
 end
 
-# returns port for 'localhost:1234' or '1234'
+# returns webdriver port for 'localhost:1234' or '1234'
 def port(webdriver)
   webdriver.match(/.*[:](.*)/).captures[0].to_i
 rescue
@@ -35,14 +35,14 @@ action :install do
 
     if platform?('windows')
       if new_resource.username && new_resource.password
-        windows_foreground(new_resource.name, node['selenium']['windows']['phantomjs'], args, new_resource.username)
+        windows_foreground(new_resource.name, selenium_phantomjs_exec, args, new_resource.username)
         autologon(new_resource.username, new_resource.password, new_resource.domain)
       else
-        windows_service(new_resource.name, node['selenium']['windows']['phantomjs'], args)
+        windows_service(new_resource.name, selenium_phantomjs_exec, args)
       end
       windows_firewall(new_resource.name, port(new_resource.webdriver))
     else
-      linux_service(new_resource.name, node['selenium']['linux']['phantomjs'], args, port(new_resource.webdriver), nil)
+      linux_service(new_resource.name, selenium_phantomjs_exec, args, port(new_resource.webdriver), nil)
     end
 
     windows_reboot "Reboot to start #{new_resource.name}" do

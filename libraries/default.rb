@@ -6,6 +6,25 @@ def selenium_home
   platform_family?('windows') ? node['selenium']['windows']['home'] : node['selenium']['linux']['home']
 end
 
+def selenium_java_exec
+  java = platform_family?('windows') ? node['selenium']['windows']['java'] : node['selenium']['linux']['java']
+  validate_exec("#{java} -version")
+  java
+end
+
+def selenium_phantomjs_exec
+  phantomjs =
+    platform_family?('windows') ? node['selenium']['windows']['phantomjs'] : node['selenium']['linux']['phantomjs']
+  validate_exec("#{phantomjs} -v")
+  phantomjs
+end
+
+def validate_exec(cmd)
+  exec = Mixlib::ShellOut.new(cmd)
+  exec.run_command
+  exec.error!
+end
+
 def selenium_server_standalone
   "#{selenium_home}/server/selenium-server-standalone.jar"
 end

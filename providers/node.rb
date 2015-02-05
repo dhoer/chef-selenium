@@ -45,15 +45,15 @@ action :install do
 
     if platform?('windows')
       if new_resource.username && new_resource.password
-        windows_foreground(new_resource.name, node['selenium']['windows']['java'], args, new_resource.username)
+        windows_foreground(new_resource.name, selenium_java_exec, args, new_resource.username)
         autologon(new_resource.username, new_resource.password, new_resource.domain)
       else
-        windows_service(new_resource.name, node['selenium']['windows']['java'], args)
+        windows_service(new_resource.name, selenium_java_exec, args)
       end
       windows_firewall(new_resource.name, new_resource.port)
     else
       linux_service(
-        new_resource.name, node['selenium']['linux']['java'], args, new_resource.port, new_resource.display)
+        new_resource.name, selenium_java_exec, args, new_resource.port, new_resource.display)
     end
 
     windows_reboot "Reboot to start #{new_resource.name}" do
