@@ -104,7 +104,7 @@ and password for auto-logon. Note that the password is stored unencrypted under 
 
 ### Example
 
-##### Install selenium-grid node with Chrome, Firefox and Internet Explorer capability
+##### Install selenium-grid node with Chrome, Firefox, HtmlUnit and Internet Explorer capability
 
 ```ruby
 selenium_node 'selenium_node' do
@@ -143,7 +143,7 @@ See [node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb)
 of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes
 for global cookbook settings.
 
-- `name` - Name attribute. The name of the service or auto-logon script (Windows nodes only).
+- `name` - Name attribute. The name of the service or Windows foreground startup script.
 - `host` - Hostname. Defaults to `null`.
 - `port` - Port.  Defaults to `4444`.
 - `hubHost` - Selenium-grid hub hostname. Defaults to `ip`.
@@ -201,7 +201,7 @@ See [phantomjs](https://github.com/dhoer/chef-selenium/blob/master/resources/pha
 of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes
 for global cookbook settings.
 
-- `name` - Name attribute. The name of the service or auto-logon script (Windows nodes only).
+- `name` - Name attribute. The name of the service or Windows foreground startup script.
 - `webdriver` - Webdriver ip:port.  Defaults to `"#{node['ipaddress']}:8910"`.
 - `webdriverSeleniumGridHub` -  Webdriver selenium-grid hub url.  Set to `false` to install PhantomJS as a standalone
 service. Defaults to `"http://#{node['ipaddress']}:4444"`.
