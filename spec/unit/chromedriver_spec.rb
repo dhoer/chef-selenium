@@ -5,18 +5,18 @@ describe 'selenium_test::chromedriver' do
     let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2').converge(described_recipe) }
 
     it 'create directory' do
-      expect(chef_run).to create_directory('C:/selenium/drivers/chromedriver_win32-2.12')
+      expect(chef_run).to create_directory('C:/selenium/drivers/chromedriver_win32-2.14')
     end
 
     it 'download and unzip driver' do
-      expect(chef_run).to unzip_windows_zipfile_to('C:/selenium/drivers/chromedriver_win32-2.12').with(
-        source: 'https://chromedriver.storage.googleapis.com/2.12/chromedriver_win32.zip'
+      expect(chef_run).to unzip_windows_zipfile_to('C:/selenium/drivers/chromedriver_win32-2.14').with(
+        source: 'https://chromedriver.storage.googleapis.com/2.14/chromedriver_win32.zip'
       )
     end
 
     it 'link driver' do
       expect(chef_run).to create_link('C:/selenium/drivers/chromedriver').with(
-        to: 'C:/selenium/drivers/chromedriver_win32-2.12'
+        to: 'C:/selenium/drivers/chromedriver_win32-2.14'
       )
     end
   end
@@ -28,12 +28,12 @@ describe 'selenium_test::chromedriver' do
     end
 
     it 'create directory' do
-      expect(chef_run).to create_directory('/usr/local/selenium/drivers/chromedriver_linux64-2.12')
+      expect(chef_run).to create_directory('/usr/local/selenium/drivers/chromedriver_linux64-2.14')
     end
 
     it 'downloads chromedriver' do
-      expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/chromedriver_linux64-2.12.zip").with(
-        source: 'https://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip'
+      expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/chromedriver_linux64-2.14.zip").with(
+        source: 'https://chromedriver.storage.googleapis.com/2.14/chromedriver_linux64.zip'
       )
     end
 
@@ -43,7 +43,7 @@ describe 'selenium_test::chromedriver' do
 
     it 'link driver' do
       expect(chef_run).to create_link('/usr/local/selenium/drivers/chromedriver').with(
-        to: '/usr/local/selenium/drivers/chromedriver_linux64-2.12'
+        to: '/usr/local/selenium/drivers/chromedriver_linux64-2.14'
       )
     end
   end
