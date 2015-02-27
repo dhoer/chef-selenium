@@ -1,4 +1,4 @@
-default['selenium']['server_version'] = '2.44.0'
+default['selenium']['server_version'] = '2.45.0'
 default['selenium']['iedriver_version'] = '2.44.0'
 default['selenium']['chromedriver_version'] = '2.14'
 

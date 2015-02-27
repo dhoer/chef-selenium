@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.2 - 2/26/2015
+
+- Firefox 36 breaks WebDriver 2.44.0
+
 ## 2.2.1 - 2/18/2015
 
 - Update ChromeDriver from 2.12 to 2.14
