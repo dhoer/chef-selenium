@@ -145,7 +145,7 @@ for global cookbook settings.
 
 - `name` - Name attribute. The name of the service or Windows foreground startup script.
 - `host` - Hostname. Defaults to `null`.
-- `port` - Port.  Defaults to `4444`.
+- `port` - Port.  Defaults to `5555`.
 - `hubHost` - Selenium-grid hub hostname. Defaults to `ip`.
 - `hubPort` - Selenium-grid hub port. Defaults to `4444`.
 - `jvm_args` - Jvm arguments (e.g., -Xmx256M). Defaults to `nil`.
