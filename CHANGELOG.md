@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2.3 - 3//2015
+## 2.2.3 - 3/23/2015
 
 - Wrap host and hubHost in quotes in node config
 - Update IE driver from 2.44.0 to 2.45.0
