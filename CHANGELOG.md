@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.3 - 3//2015
+
+- Wrap host and hubHost in quotes in node config
+- Update IE driver from 2.44.0 to 2.45.0
+
 ## 2.2.2 - 2/26/2015
 
 - Firefox 36 breaks WebDriver 2.44.0

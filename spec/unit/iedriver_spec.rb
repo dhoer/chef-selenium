@@ -5,16 +5,16 @@ describe 'selenium_test::iedriver' do
     let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2').converge(described_recipe) }
 
     it 'create directory' do
-      expect(chef_run).to create_directory('C:/selenium/drivers/iedriver-2.44.0')
+      expect(chef_run).to create_directory('C:/selenium/drivers/iedriver-2.45.0')
     end
 
     it 'download and unzip driver' do
-      expect(chef_run).to unzip_windows_zipfile_to('C:/selenium/drivers/iedriver-2.44.0')
+      expect(chef_run).to unzip_windows_zipfile_to('C:/selenium/drivers/iedriver-2.45.0')
     end
 
     it 'link driver' do
       expect(chef_run).to create_link('C:/selenium/drivers/iedriver').with(
-        to: 'C:/selenium/drivers/iedriver-2.44.0'
+        to: 'C:/selenium/drivers/iedriver-2.45.0'
       )
     end
   end

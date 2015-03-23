@@ -45,7 +45,7 @@ Chef 11 or greater
 These cookbooks are referenced with suggests, so be sure to depend on cookbooks that apply:
 
 - windows
-- nssm - Required for Windows hubs, and optional for Windows HtmlUnit and PhantomJS.
+- nssm - Required for Windows services only (e.g. Hub, PhantomJS, and HtmlUnit running in background)
 
 ## Usage
 
@@ -99,7 +99,7 @@ Installs and configures selenium-grid nodes with support for
 etc...) and must be installed and configured outside this cookbook.
 - Windows nodes (with the exception of HtmlUnitDriver) must run in the foreground and that requires a username
 and password for auto-logon. Note that the password is stored unencrypted under windows registry:
-`HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
 
 
 ### Example
@@ -160,7 +160,7 @@ installed if capabilities contains browser name `internet explorer`
 - Windows only - Set both username and password to run service in foreground or leave nil to run service in background:
     - `username` - Windows account username. Defaults to `nil`.
     - `password` - Windows account password. Defaults to `nil`. Note that the password is stored unencrypted under
-    windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+    windows registry: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
     - `domain` - Windows account domain. Optional.  Defaults to `nil`.
 
 
@@ -174,7 +174,7 @@ Installs and configures [PhantomJS](http://phantomjs.org/) as a selenium-grid no
 - [PhantomJS](http://phantomjs.org/) must be installed outside of this cookbook.
 - Windows nodes have the option to run in the foreground and that requires a username and password for auto-logon.
 Note that the password is stored unencrypted under windows registry:
-`HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
 
 #### Examples
 
@@ -208,7 +208,7 @@ service. Defaults to `"http://#{node['ipaddress']}:4444"`.
 - Windows only - Set both username and password to run service in foreground or leave nil to run service in background:
     - `username` - Windows account username. Defaults to `nil`.
     - `password` - Windows account password. Defaults to `nil`. Note that the password is stored unencrypted under
-    windows registry: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+    windows registry: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
     - `domain` - Windows account domain. Optional.  Defaults to `nil`.
 
 ## ChefSpec Matchers
