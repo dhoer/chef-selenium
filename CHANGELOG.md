@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.4 - 3/28/2015
+
+- Configure Windows IE in selenium_test cookbook
+- Set Windows display resolution in selenium_test cookbook
+
 ## 2.2.3 - 3/23/2015
 
 - Wrap host and hubHost in quotes in node config

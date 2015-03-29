@@ -29,13 +29,31 @@ unless platform_family?('rhel') && node['platform_version'] == '6.5'
   }
 end
 
-# TODO: get ie version in a way that is friendly with chefspec
-# ie_version = Registry.get_value('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer', 'svcVersion')
 if platform?('windows')
+  # https://code.google.com/p/selenium/wiki/InternetExplorerDriver#Required_Configuration
+  node.set['ie']['enhanced_security_configuration'] = false
+  include_recipe 'ie::enhanced_security_configuration'
+
+  major_version = ie_version.split('.')[0].to_i
+
+  # On IE 7 or higher, you must set the Protected Mode settings for each zone to be the same value. The value can be on
+  # or off, as long as it is the same or every zone.
+  if major_version >= 7
+    node.set['ie']['zone']['internet'] = { '2500' => 0, '1400' => 0 } # enable both protected mode and javascript
+    include_recipe 'ie::security_zones'
+  end
+
+  # For IE 11 only, you will need to set a registry entry on the target computer so that the driver can maintain a
+  # connection to the instance of Internet Explorer it creates.
+  if major_version >= 11
+    node.set['ie']['feature_bfcache'] = true
+    include_recipe 'ie::feature_bfcache'
+  end
+
   capabilities <<  {
     browserName: 'internet explorer',
     maxInstances: 1,
-    # version: ie_version,
+    version: ie_version,
     platform: platform,
     seleniumProtocol: 'WebDriver'
   }
@@ -46,4 +64,13 @@ selenium_node 'selenium_node' do
   password 'password' if platform?('windows')
   capabilities capabilities
   action :install
+end
+
+# Call windows_display after selenium_node because windows_display will override auto-login created by
+# selenium_node.
+windows_display 'Administrator' do
+  password 'password'
+  width 1440
+  height 900
+  only_if { platform?('windows') }
 end

@@ -11,6 +11,8 @@ describe 'selenium_test::node' do
         node.set['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
+        allow_any_instance_of(Chef::Recipe).to receive(:ie_version).and_return('11.0.0.0')
+        allow_any_instance_of(Chef::DSL::RegistryHelper).to receive(:registry_key_exists?).and_return(true)
         stub_command("netsh advfirewall firewall show rule name=\"selenium_node\" > nul")
       end.converge(described_recipe)
     end
@@ -54,6 +56,14 @@ describe 'selenium_test::node' do
 
     it 'reboots windows server' do
       expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_node')
+    end
+
+    it 'sets windows display' do
+      expect(chef_run).to run_windows_display('Administrator').with(
+        password: 'password',
+        width: 1440,
+        height: 900
+      )
     end
   end
 
