@@ -26,8 +26,8 @@ action :install do
     include_recipes
 
     args = []
-    args << new_resource.jvm_args unless new_resource.jvm_args.nil?
     args << %(-jar "#{selenium_server_standalone}" -role hub -hubConfig "#{config(new_resource)}")
+    args << new_resource.jvm_args unless new_resource.jvm_args.nil?
 
     if platform?('windows')
       windows_service(new_resource.name, selenium_java_exec, args)
