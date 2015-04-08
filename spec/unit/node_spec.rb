@@ -42,7 +42,7 @@ describe 'selenium_test::node' do
 
     it 'creates selenium foreground command' do
       expect(chef_run).to create_file('C:/selenium/bin/selenium_node.cmd').with(
-        content: '"C:\Windows\System32\java.exe" -jar "C:/selenium/server/selenium-server-standalone.jar" '\
+        content: '"C:\Windows\System32\java.exe" -Xms1024m -jar "C:/selenium/server/selenium-server-standalone.jar" '\
           '-role node -nodeConfig "C:/selenium/config/selenium_node.json" '\
           '-Dwebdriver.chrome.driver="C:/selenium/drivers/chromedriver/chromedriver.exe" '\
           '-Dwebdriver.ie.driver="C:/selenium/drivers/iedriver/IEDriverServer.exe" '\
@@ -92,7 +92,7 @@ describe 'selenium_test::node' do
         variables: {
           name: 'selenium_node',
           exec: '/usr/bin/java',
-          args: '-jar "/usr/local/selenium/server/selenium-server-standalone.jar" -role node '\
+          args: '-Xms1024m -jar "/usr/local/selenium/server/selenium-server-standalone.jar" -role node '\
             '-nodeConfig "/usr/local/selenium/config/selenium_node.json" '\
             '-Dwebdriver.chrome.driver="/usr/local/selenium/drivers/chromedriver/chromedriver"',
           display: ':0',
