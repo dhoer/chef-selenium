@@ -80,7 +80,6 @@ for global cookbook settings.
 - `name` - Name attribute. The name of the service.
 - `host` - Hostname. Defaults to `null`.
 - `port` - Port.  Defaults to `4444`.
-- `jvm_args` - Jvm arguments (e.g., -Xmx256M). Defaults to `nil`.
 
 ## selenium_node
 
@@ -148,7 +147,6 @@ for global cookbook settings.
 - `port` - Port.  Defaults to `5555`.
 - `hubHost` - Selenium-grid hub hostname. Defaults to `ip`.
 - `hubPort` - Selenium-grid hub port. Defaults to `4444`.
-- `jvm_args` - Jvm arguments (e.g., -Xmx256M). Defaults to `nil`.
 - `capabilities` - The following drivers are supported and installed based on
 [capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities):
     - [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html) -
