@@ -73,9 +73,9 @@ end
 
 #### Attributes
 
-See [hub](https://github.com/dhoer/chef-selenium/blob/master/resources/hub.rb) resource for a complete list
-of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes
-for global cookbook settings.
+This is a partial list of attributes available.  See
+[hub](https://github.com/dhoer/chef-selenium/blob/master/resources/hub.rb)
+resource for a complete listing of attributes.
 
 - `name` - Name attribute. The name of the service.
 - `host` - Hostname. Defaults to `null`.
@@ -138,9 +138,9 @@ end
 
 #### Attributes
 
-See [node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb) resource for a complete list
-of attributes. See [default](https://github.com/dhoer/chef-selenium/blob/master/attributes/default.rb) attributes
-for global cookbook settings.
+This is a partial list of attributes available.  See
+[node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb)
+resource for a complete listing of attributes.
 
 - `name` - Name attribute. The name of the service or Windows foreground startup script.
 - `host` - Hostname. Defaults to `null`.
