@@ -9,7 +9,7 @@ platform = platform?('windows') ? 'WINDOWS' : 'LINUX'
 
 unless platform?('debian')
   include_recipe 'firefox'
-  capabilities <<  {
+  capabilities << {
     browserName: 'firefox',
     maxInstances: 5,
     version: firefox_version,
@@ -18,9 +18,9 @@ unless platform?('debian')
   }
 end
 
-unless platform_family?('rhel') && node['platform_version'] == '6.5'
+unless platform_family?('rhel') && node['platform_version'].split('.')[0] == '6'
   include_recipe 'chrome'
-  capabilities <<  {
+  capabilities << {
     browserName: 'chrome',
     maxInstances: 5,
     version: chrome_version,
@@ -30,27 +30,28 @@ unless platform_family?('rhel') && node['platform_version'] == '6.5'
 end
 
 if platform?('windows')
-  # https://code.google.com/p/selenium/wiki/InternetExplorerDriver#Required_Configuration
-  node.set['ie']['enhanced_security_configuration'] = false
-  include_recipe 'ie::enhanced_security_configuration'
+  # TODO: get IE driver required configuration to work
+  # # https://code.google.com/p/selenium/wiki/InternetExplorerDriver#Required_Configuration
+  # node.set['ie']['enhanced_security_configuration'] = false
+  # include_recipe 'ie::enhanced_security_configuration'
+  #
+  # major_version = ie_version.split('.')[0].to_i
+  #
+  # # On IE 7 or higher, you must set the Protected Mode settings for each zone to be the same value.
+  # # The value can be on or off, as long as it is the same or every zone.
+  # if major_version >= 7
+  #   node.set['ie']['zone']['internet'] = { '2500' => 0, '1400' => 0 } # enable both protected mode and javascript
+  #   include_recipe 'ie::security_zones'
+  # end
+  #
+  # # For IE 11 only, you will need to set a registry entry on the target computer so that the driver can maintain a
+  # # connection to the instance of Internet Explorer it creates.
+  # if major_version >= 11
+  #   node.set['ie']['feature_bfcache'] = true
+  #   include_recipe 'ie::feature_bfcache'
+  # end
 
-  major_version = ie_version.split('.')[0].to_i
-
-  # On IE 7 or higher, you must set the Protected Mode settings for each zone to be the same value. The value can be on
-  # or off, as long as it is the same or every zone.
-  if major_version >= 7
-    node.set['ie']['zone']['internet'] = { '2500' => 0, '1400' => 0 } # enable both protected mode and javascript
-    include_recipe 'ie::security_zones'
-  end
-
-  # For IE 11 only, you will need to set a registry entry on the target computer so that the driver can maintain a
-  # connection to the instance of Internet Explorer it creates.
-  if major_version >= 11
-    node.set['ie']['feature_bfcache'] = true
-    include_recipe 'ie::feature_bfcache'
-  end
-
-  capabilities <<  {
+  capabilities << {
     browserName: 'internet explorer',
     maxInstances: 1,
     version: ie_version,
@@ -63,6 +64,7 @@ selenium_node 'selenium_node' do
   username 'Administrator' if platform?('windows')
   password 'password' if platform?('windows')
   capabilities capabilities
+  jvm_args '-Xms1024m'
   action :install
 end
 
