@@ -200,9 +200,9 @@ This is a partial list of attributes available. See
 resource for the complete listing of attributes.
 
 - `name` - Name attribute. The name of the service or Windows foreground startup script.
-- `webdriver` - Webdriver ip:port.  Defaults to `"#{node['ipaddress']}:8910"`.
+- `webdriver` - Webdriver ip:port.  Defaults to `#{node['ipaddress']}:8910`.
 - `webdriverSeleniumGridHub` -  Webdriver selenium-grid hub url.  Set to `false` to install PhantomJS as a standalone
-service. Defaults to `"http://#{node['ipaddress']}:4444"`.
+service. Defaults to `http://#{node['ipaddress']}:4444`.
 - Windows only - Set both username and password to run service in foreground or leave nil to run service in background:
     - `username` - Windows account username. Defaults to `nil`.
     - `password` - Windows account password. Defaults to `nil`. Note that the password is stored unencrypted under
