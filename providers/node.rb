@@ -51,16 +51,14 @@ action :install do
         windows_service(new_resource.name, selenium_java_exec, args)
       end
       windows_firewall(new_resource.name, new_resource.port)
-    else
-      linux_service(
-        new_resource.name, selenium_java_exec, args, new_resource.port, new_resource.display)
-    end
 
-    windows_reboot "Reboot to start #{new_resource.name}" do
-      reason "Reboot to start #{new_resource.name}"
-      timeout node['windows']['reboot_timeout']
-      action :nothing
-      only_if { platform_family?('windows') }
+      windows_reboot "Reboot to start #{new_resource.name}" do
+        reason "Reboot to start #{new_resource.name}"
+        timeout node['windows']['reboot_timeout']
+        action :nothing
+      end
+    else
+      linux_service(new_resource.name, selenium_java_exec, args, new_resource.port, new_resource.display)
     end
   end
 end

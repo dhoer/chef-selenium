@@ -68,11 +68,12 @@ selenium_node 'selenium_node' do
   action :install
 end
 
-# Call windows_display after selenium_node because windows_display will override auto-login created by
-# selenium_node.
-windows_display 'Administrator' do
-  password 'password'
-  width 1440
-  height 900
-  only_if { platform?('windows') }
+if platform?('windows')
+  # Call windows_display after selenium_node because windows_display will override auto-login created by
+  # selenium_node.
+  windows_display 'Administrator' do
+    password 'password'
+    width 1440
+    height 900
+  end
 end

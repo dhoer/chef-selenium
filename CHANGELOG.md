@@ -1,8 +1,8 @@
 # Changelog
 
-## 2.2.4 - 3/28/2015
+## 2.2.4 - 4/12/2015
 
-- Configure Windows IE in selenium_test cookbook
+- Fix selenium_node provider depends on windows
 - Set Windows display resolution in selenium_test cookbook
 
 ## 2.2.3 - 3/23/2015

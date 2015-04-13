@@ -41,15 +41,14 @@ action :install do
         windows_service(new_resource.name, selenium_phantomjs_exec, args)
       end
       windows_firewall(new_resource.name, port(new_resource.webdriver))
+
+      windows_reboot "Reboot to start #{new_resource.name}" do
+        reason "Reboot to start #{new_resource.name}"
+        timeout node['windows']['reboot_timeout']
+        action :nothing
+      end
     else
       linux_service(new_resource.name, selenium_phantomjs_exec, args, port(new_resource.webdriver), nil)
-    end
-
-    windows_reboot "Reboot to start #{new_resource.name}" do
-      reason "Reboot to start #{new_resource.name}"
-      timeout node['windows']['reboot_timeout']
-      action :nothing
-      only_if { platform_family?('windows') }
     end
   end
 end

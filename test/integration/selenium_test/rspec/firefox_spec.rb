@@ -9,8 +9,9 @@ describe 'Firefox Grid' do
     @selenium.quit
   end
 
-  it 'Should return the-internet.herokuapp.com page' do
-    @selenium.get 'http://the-internet.herokuapp.com'
-    expect(@selenium.title).to eq('The Internet')
+  it 'Should return display resolution of 1280x1024' do
+    @selenium.get 'http://www.whatismyscreenresolution.com/'
+    element = @selenium.find_element(:id, 'resolutionNumber')
+    expect(element.text).to eq('1280 x 1024')
   end
 end
