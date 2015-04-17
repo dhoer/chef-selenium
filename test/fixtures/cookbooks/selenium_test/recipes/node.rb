@@ -1,7 +1,5 @@
-include_recipe 'apt' if platform?('ubuntu')
-include_recipe 'yum' if platform_family?('rhel')
-include_recipe 'java'
-
+include_recipe 'selenium_test::package'
+include_recipe 'selenium_test::java'
 include_recipe 'xvfb' unless platform?('windows')
 
 capabilities = []
