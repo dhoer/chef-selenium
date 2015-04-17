@@ -1,12 +1,18 @@
 ---
 driver:
   name: vagrant
+  provider: vmware_fusion
+  customize:
+      memory: 2048
 
 provisioner:
   name: chef_solo
 #  require_chef_omnibus: 11.8.0
 
 platforms:
+  - name: macosx-10.10
+    driver:
+      box: macosx-10.10
   - name: ubuntu-14.04
   - name: centos-6.6
   - name: centos-7.0
