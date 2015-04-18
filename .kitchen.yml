@@ -25,7 +25,7 @@ platforms:
 suites:
   - name: selenium_test
     run_list:
-#      - recipe[selenium_test::hub]
+      - recipe[selenium_test::hub]
       - recipe[selenium_test::node]
       - recipe[selenium_test::htmlunit]
       - recipe[selenium_test::phantomjs]

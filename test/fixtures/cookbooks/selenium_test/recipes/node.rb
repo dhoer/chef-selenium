@@ -1,6 +1,11 @@
 include_recipe 'selenium_test::package'
 include_recipe 'selenium_test::java'
-include_recipe 'xvfb' unless platform?('windows')
+include_recipe 'xvfb' unless platform?('windows', 'mac_os_x')
+
+if platform?('mac_os_x')
+  include_recipe 'homebrew::cask'
+  homebrew_cask 'xquartz'
+end
 
 capabilities = []
 platform = platform?('windows') ? 'WINDOWS' : 'LINUX'
