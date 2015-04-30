@@ -33,7 +33,8 @@ action :install do
       args << "--webdriver-selenium-grid-hub=#{new_resource.webdriverSeleniumGridHub}"
     end
 
-    if platform?('windows')
+    case node[:platform]
+    when 'windows'
       if new_resource.username && new_resource.password
         windows_foreground(new_resource.name, selenium_phantomjs_exec, args, new_resource.username)
         autologon(new_resource.username, new_resource.password, new_resource.domain)
@@ -47,6 +48,8 @@ action :install do
         timeout node['windows']['reboot_timeout']
         action :nothing
       end
+    when 'mac_os_x'
+      # TODO: Add mac_service that uses launchd
     else
       linux_service(new_resource.name, selenium_phantomjs_exec, args, port(new_resource.webdriver), nil)
     end

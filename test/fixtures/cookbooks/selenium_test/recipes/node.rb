@@ -32,6 +32,16 @@ unless platform_family?('rhel') && node['platform_version'].split('.')[0] == '6'
   }
 end
 
+if platform_family?('mac_os_x')
+  capabilities << {
+    browserName: 'safari',
+    maxInstances: 5,
+    version: '',
+    platform: platform,
+    seleniumProtocol: 'WebDriver'
+  }
+end
+
 if platform?('windows')
   # TODO: get IE driver required configuration to work
   # # https://code.google.com/p/selenium/wiki/InternetExplorerDriver#Required_Configuration
