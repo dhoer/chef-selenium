@@ -2,17 +2,29 @@ require 'spec_helper'
 
 describe 'selenium_test::iedriver' do
   context 'windows' do
-    let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2').converge(described_recipe) }
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+        file_cache_path: 'C:/chef/cache', platform: 'windows', version: '2008R2').converge(described_recipe)
+    end
 
-    it 'create directory' do
+    it 'creates directory' do
       expect(chef_run).to create_directory('C:/selenium/drivers/iedriver-2.45.0')
     end
 
-    it 'download and unzip driver' do
-      expect(chef_run).to unzip_windows_zipfile_to('C:/selenium/drivers/iedriver-2.45.0')
+    it 'downloads driver' do
+      expect(chef_run).to create_remote_file('C:/chef/cache/IEDriverServer_x64_2.45.0.zip').with(
+        source: 'https://selenium-release.storage.googleapis.com/2.45/IEDriverServer_x64_2.45.0.zip')
     end
 
-    it 'link driver' do
+    it 'unzips driver' do
+      expect(chef_run).to run_batch('unzip ie driver')
+        .with(code: "powershell.exe -nologo -noprofile -command \"& { Add-Type -A "\
+        "'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory("\
+        "'C:/chef/cache/IEDriverServer_x64_2.45.0.zip', "\
+        "'C:/selenium/drivers/iedriver-2.45.0'); }\"")
+    end
+
+    it 'links driver' do
       expect(chef_run).to create_link('C:/selenium/drivers/iedriver').with(
         to: 'C:/selenium/drivers/iedriver-2.45.0'
       )
