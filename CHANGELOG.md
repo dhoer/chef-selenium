@@ -2,7 +2,7 @@
 
 ## 2.2.5 - 5/1/2015
 
-- Fix 'failed to allocate memory' exception on Windows 2008
+- Fix #10 'failed to allocate memory' exception on Windows 2008
 
 ## 2.2.4 - 4/12/2015
 
