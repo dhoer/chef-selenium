@@ -29,7 +29,7 @@ action :install do
     args << new_resource.jvm_args unless new_resource.jvm_args.nil?
     args << %(-jar "#{selenium_server_standalone}" -role hub -hubConfig "#{config(new_resource)}")
 
-    case node[:platform]
+    case node['platform']
     when 'windows'
       windows_service(new_resource.name, selenium_java_exec, args)
       windows_firewall(new_resource.name, new_resource.port)

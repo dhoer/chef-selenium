@@ -33,7 +33,7 @@ action :install do
       args << "--webdriver-selenium-grid-hub=#{new_resource.webdriverSeleniumGridHub}"
     end
 
-    case node[:platform]
+    case node['platform']
     when 'windows'
       if new_resource.username && new_resource.password
         windows_foreground(new_resource.name, selenium_phantomjs_exec, args, new_resource.username)
