@@ -8,15 +8,30 @@ directory dir do
   action :create
 end
 
-src = "#{node['selenium']['chromedriver_url']}/#{node['selenium']['chromedriver_version']}"\
-    "/chromedriver_#{os}#{bit}.zip"
+src = "#{node['selenium']['chromedriver_url']}/#{node['selenium']['chromedriver_version']}/chromedriver_#{os}#{bit}.zip"
 link = "#{selenium_home}/drivers/chromedriver"
 
 if platform_family?('windows')
-  windows_zipfile dir do
+  zip = "#{Chef::Config[:file_cache_path]}/chromedriver_#{os}#{bit}.zip"
+
+  remote_file zip do
     source src
-    action :unzip
     not_if { ::File.exist?("#{link}/chromedriver.exe") }
+  end
+
+  # Fixes #10: windows_zipfile rubyzip failure to allocate memory (requires PowerShell 3 or greater & .NET Framework 4)
+  begin
+    batch 'unzip chrome driver' do
+      code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';"\
+        " [IO.Compression.ZipFile]::ExtractToDirectory('#{zip}', '#{dir}'); }\""
+      not_if { ::File.exist?("#{link}/chromedriver.exe") }
+    end
+  rescue # cheesy attempt at backward compatibility
+    windows_zipfile dir do
+      source zip
+      action :unzip
+      not_if { ::File.exist?("#{link}/chromedriver.exe") }
+    end
   end
 else # linux
   cache = "#{Chef::Config[:file_cache_path]}/chromedriver_linux#{bit}-#{node['selenium']['chromedriver_version']}.zip"

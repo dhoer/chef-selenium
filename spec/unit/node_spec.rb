@@ -7,7 +7,11 @@ describe 'selenium_test::node' do
 
   context 'windows' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2', step_into: ['selenium_node']) do |node|
+      ChefSpec::SoloRunner.new(
+        file_cache_path: 'C:/chef/cache',
+        platform: 'windows',
+        version: '2008R2',
+        step_into: ['selenium_node']) do |node|
         node.set['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')

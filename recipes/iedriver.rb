@@ -9,12 +9,26 @@ if platform_family?('windows')
   end
 
   bit = node['kernel']['machine'] == 'x86_64' ? 'x64' : 'Win32'
+  zip = "#{Chef::Config[:file_cache_path]}/IEDriverServer_#{bit}_#{version}.zip"
 
-  windows_zipfile iedriver_dir do
-    source "#{node['selenium']['release_url']}/"\
-      "#{selenium_version(version)}/IEDriverServer_#{bit}_#{version}.zip"
-    action :unzip
+  remote_file zip do
+    source "#{node['selenium']['release_url']}/#{selenium_version(version)}/IEDriverServer_#{bit}_#{version}.zip"
     not_if { ::File.exist?("#{iedriver_dir}/IEDriverServer.exe") }
+  end
+
+  # Fixes #10: windows_zipfile rubyzip failure to allocate memory (requires PowerShell 3 or greater & .NET Framework 4)
+  begin
+    batch 'unzip ie driver' do
+      code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';"\
+        " [IO.Compression.ZipFile]::ExtractToDirectory('#{zip}', '#{iedriver_dir}'); }\""
+      not_if { ::File.exist?("#{iedriver_dir}/IEDriverServer.exe") }
+    end
+  rescue # cheesy attempt at backward compatibility
+    windows_zipfile iedriver_dir do
+      source zip
+      action :unzip
+      not_if { ::File.exist?("#{iedriver_dir}/IEDriverServer.exe") }
+    end
   end
 
   link "#{selenium_home}/drivers/iedriver" do
