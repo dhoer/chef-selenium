@@ -1,7 +1,16 @@
 include_recipe 'selenium::default'
 
-bit = node['kernel']['machine'] == 'x86_64' && !platform?('windows') ? '64' : '32'
-os = platform?('windows') ? 'win' : 'linux'
+bit = '32'
+case node['platform']
+when 'windows'
+  os = 'win'
+when 'mac_os_x'
+  os = 'mac'
+else
+  os = 'linux'
+  bit = '64' if node['kernel']['machine'] == 'x86_64'
+end
+
 dir = "#{selenium_home}/drivers/chromedriver_#{os}#{bit}-#{node['selenium']['chromedriver_version']}"
 
 directory dir do
@@ -12,9 +21,9 @@ src = "#{node['selenium']['chromedriver_url']}/#{node['selenium']['chromedriver_
 link = "#{selenium_home}/drivers/chromedriver"
 
 if platform_family?('windows')
-  zip = "#{Chef::Config[:file_cache_path]}/chromedriver_#{os}#{bit}.zip"
+  cache = "#{Chef::Config[:file_cache_path]}/chromedriver_#{os}#{bit}.zip"
 
-  remote_file zip do
+  remote_file cache do
     source src
     not_if { ::File.exist?("#{link}/chromedriver.exe") }
   end
@@ -23,18 +32,18 @@ if platform_family?('windows')
   begin
     batch 'unzip chrome driver' do
       code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';"\
-        " [IO.Compression.ZipFile]::ExtractToDirectory('#{zip}', '#{dir}'); }\""
+        " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{dir}'); }\""
       not_if { ::File.exist?("#{link}/chromedriver.exe") }
     end
   rescue # cheesy attempt at backward compatibility
     windows_zipfile dir do
-      source zip
+      source cache
       action :unzip
       not_if { ::File.exist?("#{link}/chromedriver.exe") }
     end
   end
-else # linux
-  cache = "#{Chef::Config[:file_cache_path]}/chromedriver_linux#{bit}-#{node['selenium']['chromedriver_version']}.zip"
+else # linux/mac
+  cache = "#{Chef::Config[:file_cache_path]}/chromedriver_#{os}#{bit}-#{node['selenium']['chromedriver_version']}.zip"
 
   execute 'unpack chromedriver' do
     command "unzip -o #{cache} -d #{dir}"
