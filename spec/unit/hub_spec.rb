@@ -88,7 +88,7 @@ describe 'selenium_test::hub' do
   context 'mac_os_x' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10', step_into: ['selenium_hub']) do
-        stub_command('which git').and_return('')
+        stub_command('which git').and_return('') # have no clue why this is needed
       end.converge(described_recipe)
     end
 
