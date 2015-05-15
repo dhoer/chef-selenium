@@ -97,7 +97,7 @@ def autologon(username, password, domain)
 end
 
 def linux_service(name, exec, args, port, display)
-  template "/etc/init.d/#{new_resource.name}" do
+  template "/etc/init.d/#{name}" do
     source "#{node['platform_family']}_initd.erb"
     cookbook 'selenium'
     mode '0755'
@@ -108,11 +108,36 @@ def linux_service(name, exec, args, port, display)
       port: port,
       display: display
     )
-    notifies :restart, "service[#{new_resource.name}]"
+    notifies :restart, "service[#{name}]"
   end
 
-  service new_resource.name do
+  service name do
     action [:enable]
+  end
+end
+
+def mac_service(name, exec, args, plist, username)
+  execute "reload #{name}" do
+    command "launchctl unload #{plist}; launchctl load #{plist}"
+    user username
+    action :nothing
+    returns [0,112] # 112 'Could not find domain for' is ignored because not logged in to gui
+  end
+
+  directory '/var/log/selenium' do
+    user username
+  end
+
+  template plist do
+    source 'org.seleniumhq.plist.erb'
+    cookbook 'selenium'
+    mode '0755'
+    variables(
+      name: name,
+      exec: exec,
+      args: args
+    )
+    notifies :run, "execute[reload #{name}]", :immediately
   end
 end
 

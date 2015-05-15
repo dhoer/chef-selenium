@@ -2,20 +2,28 @@ def whyrun_supported?
   true
 end
 
-def config(resource)
-  config_file = "#{selenium_home}/config/#{resource.name}.json"
+def config
+  config_file = "#{selenium_home}/config/#{new_resource.name}.json"
   template config_file do
     source 'hub_config.erb'
     cookbook 'selenium'
     variables(
-      resource: resource
+      resource: new_resource
     )
-    notifies :restart, "service[#{resource.name}]" unless platform_family?('windows')
+    notifies :restart, "service[#{new_resource.name}]", :delayed unless platform_family?('windows', 'mac_os_x')
+    notifies :run, "execute[reload org.seleniumhq.#{new_resource.name}]", :immediately if platform_family?('mac_os_x')
   end
   config_file
 end
 
-def include_recipes
+def args
+  args = []
+  args << new_resource.jvm_args unless new_resource.jvm_args.nil?
+  args << %W(-jar "#{selenium_server_standalone}" -role hub -hubConfig "#{config}")
+  args.flatten!
+end
+
+def install_recipes
   recipe_eval do
     run_context.include_recipe 'selenium::server'
   end
@@ -23,18 +31,15 @@ end
 
 action :install do
   converge_by("Install Hub Service: #{new_resource.name}") do
-    include_recipes
-
-    args = []
-    args << new_resource.jvm_args unless new_resource.jvm_args.nil?
-    args << %(-jar "#{selenium_server_standalone}" -role hub -hubConfig "#{config(new_resource)}")
+    install_recipes
 
     case node['platform']
     when 'windows'
       windows_service(new_resource.name, selenium_java_exec, args)
       windows_firewall(new_resource.name, new_resource.port)
     when 'mac_os_x'
-      # TODO: Add mac_service that uses launchd
+      plist = "/Library/LaunchDaemons/#{new_resource.name}.plist"
+      mac_service("org.seleniumhq.#{new_resource.name}", selenium_java_exec, args, plist, nil)
     else
       linux_service(new_resource.name, selenium_java_exec, args, new_resource.port, nil)
     end

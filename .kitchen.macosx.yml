@@ -13,16 +13,15 @@ platforms:
   - name: macosx-10.10
     driver:
       box: macosx-10.10
+    driver_config:
       network:
       - ["forwarded_port", {guest: 4444, host: 4444}]
-      - ["forwarded_port", {guest: 5555, host: 5555}]
-      - ["private_network", {ip: "192.168.33.70"}]
 
 suites:
   - name: selenium_test
     run_list:
       - recipe[selenium_test::hub]
-#      - recipe[selenium_test::node]
+      - recipe[selenium_test::node]
 #      - recipe[selenium_test::htmlunit]
 #      - recipe[selenium_test::phantomjs]
 #      - recipe[selenium_test::phantomjs_nogrid]
