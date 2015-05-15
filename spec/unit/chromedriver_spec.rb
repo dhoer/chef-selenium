@@ -58,4 +58,31 @@ describe 'selenium_test::chromedriver' do
       )
     end
   end
+
+  context 'mac_os_x' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+        file_cache_path: '/var/chef/cache', platform: 'mac_os_x', version: '10.10').converge(described_recipe)
+    end
+
+    it 'create directory' do
+      expect(chef_run).to create_directory('/usr/local/selenium/drivers/chromedriver_mac32-2.14')
+    end
+
+    it 'downloads chromedriver' do
+      expect(chef_run).to create_remote_file("#{Chef::Config[:file_cache_path]}/chromedriver_mac32-2.14.zip").with(
+        source: 'https://chromedriver.storage.googleapis.com/2.14/chromedriver_mac32.zip'
+      )
+    end
+
+    it 'unpack chromedriver' do
+      expect(chef_run).to_not run_execute('unpack chromedriver')
+    end
+
+    it 'link driver' do
+      expect(chef_run).to create_link('/usr/local/selenium/drivers/chromedriver').with(
+        to: '/usr/local/selenium/drivers/chromedriver_mac32-2.14'
+      )
+    end
+  end
 end

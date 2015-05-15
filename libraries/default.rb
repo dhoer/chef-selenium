@@ -143,6 +143,10 @@ end
 
 private
 
+def mac_service_name(name)
+  "org.seleniumhq.#{name}"
+end
+
 def selenium_browser?(browser, capabilities)
   return false if capabilities.nil?
   capabilities.each do |capability|

@@ -11,7 +11,7 @@ def config
       resource: new_resource
     )
     notifies :restart, "service[#{new_resource.name}]", :delayed unless platform_family?('windows', 'mac_os_x')
-    notifies :run, "execute[reload org.seleniumhq.#{new_resource.name}]", :immediately if platform_family?('mac_os_x')
+    notifies :run, "execute[reload #{mac_service_name(new_resource.name)}]", :immediately if platform?('mac_os_x')
   end
   config_file
 end
@@ -38,8 +38,8 @@ action :install do
       windows_service(new_resource.name, selenium_java_exec, args)
       windows_firewall(new_resource.name, new_resource.port)
     when 'mac_os_x'
-      plist = "/Library/LaunchDaemons/#{new_resource.name}.plist"
-      mac_service("org.seleniumhq.#{new_resource.name}", selenium_java_exec, args, plist, nil)
+      plist = "/Library/LaunchDaemons/#{mac_service_name(new_resource.name)}.plist"
+      mac_service(mac_service_name(new_resource.name), selenium_java_exec, args, plist, nil)
     else
       linux_service(new_resource.name, selenium_java_exec, args, new_resource.port, nil)
     end
