@@ -84,9 +84,18 @@ if platform?('windows')
   }
 end
 
+case node['platform_family']
+when 'windows'
+  username = 'Administrator'
+when 'mac_os_x'
+  username = 'vagrant'
+else
+  username = nil
+end
+
 selenium_node 'selenium_node' do
-  username 'vagrant' if platform_family?('windows', 'mac_os_x')
-  password 'vagrant' if platform_family?('windows', 'mac_os_x')
+  username username
+  password 'password' if platform_family?('windows')
   capabilities capabilities
   action :install
 end
@@ -94,8 +103,8 @@ end
 if platform?('windows')
   # Call windows_display after selenium_node because windows_display will override auto-login created by
   # selenium_node.
-  windows_display 'vagrant' do
-    password 'vagrant'
+  windows_display 'Administrator' do
+    password 'password'
     width 1440
     height 900
   end

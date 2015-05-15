@@ -121,7 +121,7 @@ def mac_service(name, exec, args, plist, username)
     command "launchctl unload #{plist}; launchctl load #{plist}"
     user username
     action :nothing
-    returns [0,112] # 112 'Could not find domain for' is ignored because not logged in to gui
+    returns [0, 112] # 112 'Could not find domain for' is ignored because not logged in to gui
   end
 
   directory '/var/log/selenium' do
