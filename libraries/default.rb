@@ -1,3 +1,6 @@
+
+private
+
 CHROME ||= 'chrome'
 FIREFOX ||= 'firefox'
 IE ||= 'internet explorer'
@@ -118,10 +121,10 @@ end
 
 def mac_service(name, exec, args, plist, username)
   execute "reload #{name}" do
-    command "launchctl unload #{plist}; launchctl load #{plist}"
+    command "launchctl unload -w #{plist}; launchctl load -w #{plist}"
     user username
     action :nothing
-    returns [0, 112] # 112 'Could not find domain for' is ignored because not logged in to gui
+    returns [0, 112] # 112 not logged in to gui
   end
 
   directory '/var/log/selenium' do
@@ -140,8 +143,6 @@ def mac_service(name, exec, args, plist, username)
     notifies :run, "execute[reload #{name}]", :immediately
   end
 end
-
-private
 
 def mac_service_name(name)
   "org.seleniumhq.#{name}"
