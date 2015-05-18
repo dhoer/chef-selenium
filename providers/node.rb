@@ -63,8 +63,8 @@ action :install do
         action :nothing
       end
     when 'mac_os_x'
-      plist = "/Library/LaunchAgents/#{new_resource.name}.plist"
-      mac_service("org.seleniumhq.#{new_resource.name}", selenium_java_exec, args, plist, new_resource.username)
+      plist = "/Users/#{new_resource.username}/Library/LaunchAgents/#{mac_domain(new_resource.name)}.plist"
+      mac_service(mac_domain(new_resource.name), selenium_java_exec, args, plist, new_resource.username)
     else
       linux_service(new_resource.name, selenium_java_exec, args, new_resource.port, new_resource.display)
     end

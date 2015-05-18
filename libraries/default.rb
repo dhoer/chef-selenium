@@ -128,7 +128,12 @@ def mac_service(name, exec, args, plist, username)
   end
 
   directory '/var/log/selenium' do
-    user username
+    mode '0755'
+  end
+
+  file "/var/log/selenium/#{name}.log" do
+    mode '0664'
+    action :touch
   end
 
   template plist do
@@ -144,7 +149,7 @@ def mac_service(name, exec, args, plist, username)
   end
 end
 
-def mac_service_name(name)
+def mac_domain(name)
   "org.seleniumhq.#{name}"
 end
 
