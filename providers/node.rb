@@ -12,7 +12,7 @@ def config
     )
     notifies :request, "windows_reboot[Reboot to start #{new_resource.name}]", :delayed if platform_family?('windows')
     notifies :restart, "service[#{new_resource.name}]", :delayed unless platform_family?('windows', 'mac_os_x')
-    notifies :run, "execute[reload org.seleniumhq.#{new_resource.name}]", :immediately if platform_family?('mac_os_x')
+    notifies :run, "execute[reload #{mac_domain(new_resource.name)}]", :immediately if platform_family?('mac_os_x')
   end
   config_file
 end
@@ -63,7 +63,7 @@ action :install do
         action :nothing
       end
     when 'mac_os_x'
-      plist = "/Users/#{new_resource.username}/Library/LaunchAgents/#{mac_domain(new_resource.name)}.plist"
+      plist = "/Library/LaunchAgents/#{mac_domain(new_resource.name)}.plist"
       mac_service(mac_domain(new_resource.name), selenium_java_exec, args, plist, new_resource.username)
     else
       linux_service(new_resource.name, selenium_java_exec, args, new_resource.port, new_resource.display)

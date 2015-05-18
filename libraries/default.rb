@@ -133,6 +133,7 @@ def mac_service(name, exec, args, plist, username)
 
   file "/var/log/selenium/#{name}.log" do
     mode '0664'
+    user username
     action :touch
   end
 

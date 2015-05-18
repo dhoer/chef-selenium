@@ -11,7 +11,7 @@ def config
       resource: new_resource
     )
     notifies :restart, "service[#{new_resource.name}]", :delayed unless platform_family?('windows', 'mac_os_x')
-    notifies :run, "execute[reload #{mac_domain(new_resource.name)}]", :immediately if platform?('mac_os_x')
+    notifies :run, "execute[reload #{mac_domain(new_resource.name)}]", :immediately if platform_family?('mac_os_x')
   end
   config_file
 end
