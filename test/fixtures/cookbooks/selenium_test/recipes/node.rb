@@ -87,15 +87,18 @@ end
 case node['platform_family']
 when 'windows'
   username = 'Administrator'
+  password = 'password'
 when 'mac_os_x'
   username = 'vagrant'
+  password = 'vagrant'
 else
   username = nil
+  password = nil
 end
 
 selenium_node 'selenium_node' do
   username username
-  password 'password' if platform_family?('windows')
+  password password
   capabilities capabilities
   action :install
 end
@@ -103,8 +106,8 @@ end
 if platform?('windows')
   # Call windows_display after selenium_node because windows_display will override auto-login created by
   # selenium_node.
-  windows_display 'Administrator' do
-    password 'password'
+  windows_display username do
+    password password
     width 1440
     height 900
   end

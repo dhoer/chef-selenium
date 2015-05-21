@@ -1,12 +1,15 @@
-
-private
-
 CHROME ||= 'chrome'
 FIREFOX ||= 'firefox'
 IE ||= 'internet explorer'
 
-def selenium_home
-  platform_family?('windows') ? node['selenium']['windows']['home'] : node['selenium']['linux']['home']
+private
+
+def selenium_browser?(browser, capabilities)
+  return false if capabilities.nil?
+  capabilities.each do |capability|
+    return true if capability[:browserName] == browser
+  end
+  false
 end
 
 def selenium_java_exec
@@ -28,20 +31,16 @@ def validate_exec(cmd)
   exec.error!
 end
 
+def selenium_home
+  platform_family?('windows') ? node['selenium']['windows']['home'] : node['selenium']['linux']['home']
+end
+
 def selenium_server_standalone
   "#{selenium_home}/server/selenium-server-standalone.jar"
 end
 
 def selenium_version(version)
   version.slice(0, version.rindex('.'))
-end
-
-def selenium_chromedriver?(capabilities)
-  selenium_browser?(CHROME, capabilities)
-end
-
-def selenium_iedriver?(capabilities)
-  selenium_browser?(IE, capabilities)
 end
 
 def windows_service(name, exec, args)
@@ -67,7 +66,7 @@ def windows_foreground(name, exec, args, username)
   file cmd do
     content %("#{exec}" #{args.join(' ')})
     action :create
-    notifies :request, "windows_reboot[Reboot to start #{name}]"
+    notifies :request_reboot, "reboot[Reboot to start #{name}]"
   end
 
   windows_shortcut "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu"\
@@ -87,6 +86,7 @@ def windows_firewall(name, port)
   end
 end
 
+# TODO: REPLACE WITH windows_autologin cookbook
 def autologon(username, password, domain)
   registry_key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' do
     values [
@@ -147,17 +147,10 @@ def mac_service(name, exec, args, plist, username)
       args: args
     )
     notifies :run, "execute[reload #{name}]", :immediately
+    notifies :request_reboot, "reboot[Reboot to start #{name}]" if username # assume node
   end
 end
 
 def mac_domain(name)
   "org.seleniumhq.#{name}"
-end
-
-def selenium_browser?(browser, capabilities)
-  return false if capabilities.nil?
-  capabilities.each do |capability|
-    return true if capability[:browserName] == browser
-  end
-  false
 end

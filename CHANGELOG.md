@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0 - 6/5/2015
+
+- Add support for Mac OS X (Chef 12.3 or higher required)
+
 ## 2.2.5 - 5/1/2015
 
 - Fix #10 'failed to allocate memory' exception on Windows 2008
