@@ -1,5 +1,3 @@
-include_recipe 'selenium_test::package'
-include_recipe 'selenium_test::java'
 include_recipe 'xvfb' unless platform?('windows', 'mac_os_x')
 
 capabilities = []
