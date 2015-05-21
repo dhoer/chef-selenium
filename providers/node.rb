@@ -10,7 +10,7 @@ def config
     variables(
       resource: new_resource
     )
-    notifies :request_reboot, "reboot[Reboot to start #{new_resource.name}]", :delayed if platform_family?('windows')
+    notifies :request, "windows_reboot[Reboot to start #{new_resource.name}]", :delayed if platform_family?('windows')
     notifies :restart, "service[#{new_resource.name}]", :delayed unless platform_family?('windows', 'mac_os_x')
     notifies :run, "execute[reload #{mac_domain(new_resource.name)}]", :immediately if platform_family?('mac_os_x')
   end
@@ -39,6 +39,7 @@ def install_recipes
     run_context.include_recipe 'selenium::server'
     run_context.include_recipe 'selenium::chromedriver' if selenium_browser?(CHROME, new_resource.capabilities)
     run_context.include_recipe 'selenium::iedriver' if selenium_browser?(IE, new_resource.capabilities)
+    run_context.include_recipe 'windows::reboot_handler' if platform_family?('windows')
   end
 end
 
@@ -56,9 +57,10 @@ action :install do
       end
       windows_firewall(new_resource.name, new_resource.port)
 
-      reboot "Reboot to start #{new_resource.name}" do
-        delay_mins 1
-        action :cancel # A hack for Chef 12.0.3 because it is missing action :nothing
+      windows_reboot "Reboot to start #{new_resource.name}" do
+        reason "Reboot to start #{new_resource.name}"
+        timeout node['windows']['reboot_timeout']
+        action :nothing
       end
     when 'mac_os_x'
       plist = "/Library/LaunchAgents/#{mac_domain(new_resource.name)}.plist"

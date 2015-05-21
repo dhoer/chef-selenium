@@ -42,9 +42,9 @@ describe 'selenium_test::hub' do
       expect(chef_run).to run_execute('Firewall rule selenium_hub for port 4444')
     end
 
-    # it 'reboots server' do
-    #   expect(chef_run).to cancel_reboot('Reboot to start selenium_hub')
-    # end
+    it 'reboots windows server' do
+      expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_hub')
+    end
   end
 
   context 'linux' do

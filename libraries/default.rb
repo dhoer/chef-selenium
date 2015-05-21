@@ -66,7 +66,7 @@ def windows_foreground(name, exec, args, username)
   file cmd do
     content %("#{exec}" #{args.join(' ')})
     action :create
-    notifies :request_reboot, "reboot[Reboot to start #{name}]"
+    notifies :request, "windows_reboot[Reboot to start #{name}]"
   end
 
   windows_shortcut "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu"\

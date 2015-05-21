@@ -18,7 +18,7 @@ end
 #     variables(
 #       resource: resource
 #     )
-#     notifies :request_reboot, "reboot[Reboot to start #{resource.name}]" if platform_family?('windows')
+#     notifies :request, "windows_reboot[Reboot to start #{resource.name}]" if platform_family?('windows')
 #     notifies :restart, "service[#{resource.name}]" unless platform_family?('windows')
 #   end
 #   config_file
@@ -43,19 +43,15 @@ action :install do
       end
       windows_firewall(new_resource.name, port(new_resource.webdriver))
 
-      reboot "Reboot to start #{new_resource.name}" do
-        delay_mins 1
-        action :cancel # A hack for Chef 12.0.3 because it is missing action :nothing
+      windows_reboot "Reboot to start #{new_resource.name}" do
+        reason "Reboot to start #{new_resource.name}"
+        timeout node['windows']['reboot_timeout']
+        action :nothing
       end
     when 'mac_os_x'
       # TODO: Add mac_service that uses launchd
     else
       linux_service(new_resource.name, selenium_phantomjs_exec, args, port(new_resource.webdriver), nil)
-    end
-
-    reboot "Reboot to start #{mac_domain(new_resource.name)}" do
-      delay_mins 1
-      action :cancel # A hack for Chef 12.0.3 because it is missing action :nothing
     end
   end
 end

@@ -1,8 +1,8 @@
 # Changelog
 
-## 3.0.0 - 6/5/2015
+## 2.3.0 - 6/5/2015
 
-- Add support for Mac OS X (Chef 12.0.3 or higher required)
+- Add support for Mac OS X (Chef 11.14 or higher required)
 
 ## 2.2.5 - 5/1/2015
 

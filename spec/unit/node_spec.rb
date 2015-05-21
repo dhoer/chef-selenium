@@ -58,9 +58,9 @@ describe 'selenium_test::node' do
       expect(chef_run).to run_execute('Firewall rule selenium_node for port 5555')
     end
 
-    # it 'reboots windows server' do
-    #   expect(chef_run).to cancel_reboot('Reboot to start selenium_node')
-    # end
+    it 'reboots windows server' do
+      expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_node')
+    end
 
     it 'sets windows display' do
       expect(chef_run).to run_windows_display('Administrator').with(

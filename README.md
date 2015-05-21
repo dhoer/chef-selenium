@@ -31,7 +31,7 @@ Add support for the following (any volunteers?):
 
 ## Requirements
 
-- Chef 12.3 (added reboot `action :nothing` support) or higher 
+- Chef 11.14 or higher (`sensitive` resource introduced)
 
 ### Platforms
 

@@ -42,9 +42,9 @@ describe 'selenium_test::htmlunit' do
       expect(chef_run).to run_execute('Firewall rule selenium_htmlunit for port 5556')
     end
 
-    # it 'reboots server' do
-    #   expect(chef_run).to cancel_reboot('Reboot to start selenium_htmlunit')
-    # end
+    it 'reboots windows server' do
+      expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_htmlunit')
+    end
   end
 
   context 'linux' do

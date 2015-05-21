@@ -40,9 +40,9 @@ describe 'selenium_test::phantomjs' do
       expect(chef_run).to run_execute('Firewall rule selenium_phantomjs for port 8910')
     end
 
-    # it 'reboots windows server' do
-    #   expect(chef_run).to cancel_reboot('Reboot to start selenium_phantomjs')
-    # end
+    it 'reboots windows server' do
+      expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_phantomjs')
+    end
   end
 
   context 'linux' do
