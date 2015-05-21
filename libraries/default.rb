@@ -147,7 +147,7 @@ def mac_service(name, exec, args, plist, username)
       args: args
     )
     notifies :run, "execute[reload #{name}]", :immediately
-    notifies :request_reboot, "reboot[Reboot to start #{name}]" if username # assume node
+    notifies :run, "execute[Reboot to start #{name}]" if username # assume node
   end
 end
 

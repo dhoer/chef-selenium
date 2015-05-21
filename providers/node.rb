@@ -71,9 +71,9 @@ action :install do
         restart_loginwindow false
       end
 
-      reboot "Reboot to start #{mac_domain(new_resource.name)}" do
-        delay_mins 1
-        action :cancel # A hack for Chef 12.0.3 because it is missing action :nothing
+      execute "Reboot to start #{mac_domain(new_resource.name)}" do
+        command 'sudo shutdown -r +1'
+        action :nothing
       end
     else
       linux_service(new_resource.name, selenium_java_exec, args, new_resource.port, new_resource.display)
