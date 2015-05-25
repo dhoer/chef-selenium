@@ -86,16 +86,25 @@ def windows_firewall(name, port)
   end
 end
 
-# TODO: REPLACE WITH windows_autologin cookbook
-def autologon(username, password, domain)
-  registry_key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' do
-    values [
-      { name: 'AutoAdminLogon', type: :string, data: '1' },
-      { name: 'DefaultUsername', type: :string, data: username },
-      { name: 'DefaultPassword', type: :string, data: password },
-      { name: 'DefaultDomainName', type: :string, data: domain }
-    ]
-    action :create
+def autologon(username, password, domain = nil)
+  case node['platform_family']
+  when 'windows'
+    # TODO: REPLACE WITH windows_autologin cookbook
+    registry_key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' do
+      values [
+        { name: 'AutoAdminLogon', type: :string, data: '1' },
+        { name: 'DefaultUsername', type: :string, data: username },
+        { name: 'DefaultPassword', type: :string, data: password },
+        { name: 'DefaultDomainName', type: :string, data: domain }
+      ]
+      action :create
+    end
+  when 'mac_os_x'
+    node.set['macosx_autologin']['username'] = username
+    node.set['macosx_autologin']['password'] = password
+    recipe_eval do
+      run_context.include_recipe 'macosx_autologin::default'
+    end
   end
 end
 

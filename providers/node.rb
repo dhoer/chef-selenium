@@ -65,11 +65,7 @@ action :install do
     when 'mac_os_x'
       plist = "/Library/LaunchAgents/#{mac_domain(new_resource.name)}.plist"
       mac_service(mac_domain(new_resource.name), selenium_java_exec, args, plist, new_resource.username)
-
-      macosx_autologin new_resource.username do
-        password new_resource.password
-        restart_loginwindow false
-      end
+      autologon(new_resource.username, new_resource.password)
 
       execute "Reboot to start #{mac_domain(new_resource.name)}" do
         command 'sudo shutdown -r +1'
