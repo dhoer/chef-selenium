@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.6 - 5/26/2015
+
+- Fix #11 chromedriver version does not update
+- Update ChromeDriver from 2.14 to 2.15
+
 ## 2.2.5 - 5/1/2015
 
 - Fix #10 'failed to allocate memory' exception on Windows 2008
