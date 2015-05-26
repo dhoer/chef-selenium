@@ -72,7 +72,8 @@ describe 'selenium_test::chromedriver' do
     end
 
     it 'downloads driver' do
-      expect(chef_run).to create_remote_file("#{Chef::Config[:file_cache_path]}/chromedriver_mac32-2.15.zip").with(
+      expect(chef_run).to create_remote_file('download chromedriver').with(
+        path: "#{Chef::Config[:file_cache_path]}/chromedriver_mac32-2.15.zip",
         source: 'https://chromedriver.storage.googleapis.com/2.15/chromedriver_mac32.zip'
       )
     end
