@@ -1,7 +1,15 @@
 include_recipe 'selenium::default'
 
-bit = node['kernel']['machine'] == 'x86_64' && !platform?('windows') ? '64' : '32'
-os = platform?('windows') ? 'win' : 'linux'
+bit = '32'
+case node['platform']
+when 'windows'
+  os = 'win'
+when 'mac_os_x'
+  os = 'mac'
+else
+  os = 'linux'
+  bit = '64' if node['kernel']['machine'] == 'x86_64'
+end
 version = node['selenium']['chromedriver_version']
 
 name = "chromedriver_#{os}#{bit}-#{version}"

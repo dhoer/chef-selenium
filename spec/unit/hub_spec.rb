@@ -73,7 +73,7 @@ describe 'selenium_test::hub' do
           name: 'selenium_hub',
           exec: '/usr/bin/java',
           args: '-jar "/usr/local/selenium/server/selenium-server-standalone.jar" -role hub '\
-            '-hubConfig "/usr/local/selenium/config/selenium_hub.json"',
+          '-hubConfig "/usr/local/selenium/config/selenium_hub.json"',
           display: nil,
           port: 4444
         }
@@ -82,6 +82,51 @@ describe 'selenium_test::hub' do
 
     it 'start selenium_hub' do
       expect(chef_run).to_not start_service('selenium_hub')
+    end
+  end
+
+  context 'mac_os_x' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10', step_into: ['selenium_hub']) do
+        stub_command('which git').and_return('') # have no clue why this is needed
+      end.converge(described_recipe)
+    end
+
+    it 'installs selenium_hub server' do
+      expect(chef_run).to install_selenium_hub('selenium_hub')
+    end
+
+    it 'creates hub config file' do
+      expect(chef_run).to create_template('/usr/local/selenium/config/selenium_hub.json').with(
+        source: 'hub_config.erb',
+        cookbook: 'selenium'
+      )
+    end
+
+    it 'creates log directory' do
+      expect(chef_run).to create_directory('/var/log/selenium').with(user: nil)
+    end
+
+    it 'adds permissions to log file' do
+      expect(chef_run).to touch_file('/var/log/selenium/org.seleniumhq.selenium_hub.log').with(user: nil, mode: '0664')
+    end
+
+    it 'install selenium_hub' do
+      expect(chef_run).to create_template('/Library/LaunchDaemons/org.seleniumhq.selenium_hub.plist').with(
+        source: 'org.seleniumhq.plist.erb',
+        cookbook: 'selenium',
+        mode: '0755',
+        variables: {
+          name: 'org.seleniumhq.selenium_hub',
+          exec: '/usr/bin/java',
+          args: ['-jar', "\"/usr/local/selenium/server/selenium-server-standalone.jar\"", '-role', 'hub',
+                 '-hubConfig', "\"/usr/local/selenium/config/selenium_hub.json\""]
+        }
+      )
+    end
+
+    it 'executes launchd reload' do
+      expect(chef_run).to_not run_execute('reload org.seleniumhq.selenium_hub')
     end
   end
 end

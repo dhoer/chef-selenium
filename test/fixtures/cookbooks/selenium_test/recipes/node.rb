@@ -1,11 +1,6 @@
-include_recipe 'apt' if platform?('ubuntu')
-include_recipe 'yum' if platform_family?('rhel')
-include_recipe 'java'
-
-include_recipe 'xvfb' unless platform?('windows')
+include_recipe 'xvfb' unless platform?('windows', 'mac_os_x')
 
 capabilities = []
-platform = platform?('windows') ? 'WINDOWS' : 'LINUX'
 
 unless platform?('debian')
   include_recipe 'firefox'
@@ -13,7 +8,6 @@ unless platform?('debian')
     browserName: 'firefox',
     maxInstances: 5,
     version: firefox_version,
-    platform: platform,
     seleniumProtocol: 'WebDriver'
   }
 end
@@ -24,7 +18,16 @@ unless platform_family?('rhel') && node['platform_version'].split('.')[0] == '6'
     browserName: 'chrome',
     maxInstances: 5,
     version: chrome_version,
-    platform: platform,
+    seleniumProtocol: 'WebDriver'
+  }
+end
+
+if platform?('mac_os_x')
+  # include_recipe 'safari'
+  capabilities << {
+    browserName: 'safari',
+    maxInstances: 5,
+    version: safari_version,
     seleniumProtocol: 'WebDriver'
   }
 end
@@ -70,24 +73,34 @@ if platform?('windows')
     browserName: 'internet explorer',
     maxInstances: 1,
     version: ie_version,
-    platform: platform,
     seleniumProtocol: 'WebDriver'
   }
 end
 
+case node['platform_family']
+when 'windows'
+  username = 'Administrator'
+  password = 'password'
+when 'mac_os_x'
+  username = 'vagrant'
+  password = 'vagrant'
+else
+  username = nil
+  password = nil
+end
+
 selenium_node 'selenium_node' do
-  username 'Administrator' if platform?('windows')
-  password 'password' if platform?('windows')
+  username username
+  password password
   capabilities capabilities
-  jvm_args '-Xms1024m'
   action :install
 end
 
 if platform?('windows')
   # Call windows_display after selenium_node because windows_display will override auto-login created by
   # selenium_node.
-  windows_display 'Administrator' do
-    password 'password'
+  windows_display username do
+    password password
     width 1440
     height 900
   end

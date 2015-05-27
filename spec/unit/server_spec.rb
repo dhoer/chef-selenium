@@ -28,4 +28,18 @@ describe 'selenium::server' do
       )
     end
   end
+
+  context 'mac_os_x' do
+    let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10').converge(described_recipe) }
+
+    it 'downloads jar' do
+      expect(chef_run).to create_remote_file('/usr/local/selenium/server/selenium-server-standalone-2.45.0.jar')
+    end
+
+    it 'creates link to jar' do
+      expect(chef_run).to create_link('/usr/local/selenium/server/selenium-server-standalone.jar').with(
+        to: '/usr/local/selenium/server/selenium-server-standalone-2.45.0.jar'
+      )
+    end
+  end
 end

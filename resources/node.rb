@@ -16,7 +16,9 @@ attribute :capabilities, kind_of: [Array, Hash], default: []
 # linux only - DISPLAY must match running instance of Xvfb, x11vnc or equivalent
 attribute :display, kind_of: String, default: ':0'
 
-# windows only - set username/password to run service in foreground or leave nil to run service in background
+# windows only
 attribute :domain, kind_of: String, default: nil
+
+# mac/windows only - set username/password to run service in gui or leave nil to run service in background
 attribute :username, kind_of: String, default: nil
 attribute :password, kind_of: String, default: nil

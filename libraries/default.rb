@@ -2,8 +2,14 @@ CHROME ||= 'chrome'
 FIREFOX ||= 'firefox'
 IE ||= 'internet explorer'
 
-def selenium_home
-  platform_family?('windows') ? node['selenium']['windows']['home'] : node['selenium']['linux']['home']
+private
+
+def selenium_browser?(browser, capabilities)
+  return false if capabilities.nil?
+  capabilities.each do |capability|
+    return true if capability[:browserName] == browser
+  end
+  false
 end
 
 def selenium_java_exec
@@ -25,20 +31,16 @@ def validate_exec(cmd)
   exec.error!
 end
 
+def selenium_home
+  platform_family?('windows') ? node['selenium']['windows']['home'] : node['selenium']['linux']['home']
+end
+
 def selenium_server_standalone
   "#{selenium_home}/server/selenium-server-standalone.jar"
 end
 
 def selenium_version(version)
   version.slice(0, version.rindex('.'))
-end
-
-def selenium_chromedriver?(capabilities)
-  selenium_browser?(CHROME, capabilities)
-end
-
-def selenium_iedriver?(capabilities)
-  selenium_browser?(IE, capabilities)
 end
 
 def windows_service(name, exec, args)
@@ -84,20 +86,30 @@ def windows_firewall(name, port)
   end
 end
 
-def autologon(username, password, domain)
-  registry_key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' do
-    values [
-      { name: 'AutoAdminLogon', type: :string, data: '1' },
-      { name: 'DefaultUsername', type: :string, data: username },
-      { name: 'DefaultPassword', type: :string, data: password },
-      { name: 'DefaultDomainName', type: :string, data: domain }
-    ]
-    action :create
+def autologon(username, password, domain = nil)
+  case node['platform_family']
+  when 'windows'
+    # TODO: REPLACE WITH windows_autologin cookbook
+    registry_key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' do
+      values [
+        { name: 'AutoAdminLogon', type: :string, data: '1' },
+        { name: 'DefaultUsername', type: :string, data: username },
+        { name: 'DefaultPassword', type: :string, data: password },
+        { name: 'DefaultDomainName', type: :string, data: domain }
+      ]
+      action :create
+    end
+  when 'mac_os_x'
+    node.set['macosx_autologin']['username'] = username
+    node.set['macosx_autologin']['password'] = password
+    recipe_eval do
+      run_context.include_recipe 'macosx_autologin::default'
+    end
   end
 end
 
 def linux_service(name, exec, args, port, display)
-  template "/etc/init.d/#{new_resource.name}" do
+  template "/etc/init.d/#{name}" do
     source "#{node['platform_family']}_initd.erb"
     cookbook 'selenium'
     mode '0755'
@@ -108,20 +120,46 @@ def linux_service(name, exec, args, port, display)
       port: port,
       display: display
     )
-    notifies :restart, "service[#{new_resource.name}]"
+    notifies :restart, "service[#{name}]"
   end
 
-  service new_resource.name do
+  service name do
     action [:enable]
   end
 end
 
-private
-
-def selenium_browser?(browser, capabilities)
-  return false if capabilities.nil?
-  capabilities.each do |capability|
-    return true if capability[:browserName] == browser
+def mac_service(name, exec, args, plist, username)
+  execute "reload #{name}" do
+    command "launchctl unload -w #{plist}; launchctl load -w #{plist}"
+    user username
+    action :nothing
+    returns [0, 112] # 112 not logged in to gui
   end
-  false
+
+  directory '/var/log/selenium' do
+    mode '0755'
+  end
+
+  file "/var/log/selenium/#{name}.log" do
+    mode '0664'
+    user username
+    action :touch
+  end
+
+  template plist do
+    source 'org.seleniumhq.plist.erb'
+    cookbook 'selenium'
+    mode '0755'
+    variables(
+      name: name,
+      exec: exec,
+      args: args
+    )
+    notifies :run, "execute[reload #{name}]", :immediately
+    notifies :run, "execute[Reboot to start #{name}]" if username # assume node
+  end
+end
+
+def mac_domain(name)
+  "org.seleniumhq.#{name}"
 end

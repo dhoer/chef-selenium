@@ -1,4 +1,4 @@
-package 'unzip' unless platform?('windows')
+package 'unzip' unless platform?('windows', 'mac_os_x')
 
 dirs = %w(config drivers server)
 dirs.push('bin', 'log') if platform?('windows')

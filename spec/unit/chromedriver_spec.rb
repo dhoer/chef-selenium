@@ -7,7 +7,7 @@ describe 'selenium_test::chromedriver' do
         file_cache_path: 'C:/chef/cache', platform: 'windows', version: '2008R2').converge(described_recipe)
     end
 
-    it 'create directory' do
+    it 'creates directory' do
       expect(chef_run).to create_directory('C:/selenium/drivers/chromedriver_win32-2.15')
     end
 
@@ -26,7 +26,7 @@ describe 'selenium_test::chromedriver' do
         "'C:/selenium/drivers/chromedriver_win32-2.15'); }\"")
     end
 
-    it 'link driver' do
+    it 'links driver' do
       expect(chef_run).to create_link('C:/selenium/drivers/chromedriver').with(
         to: 'C:/selenium/drivers/chromedriver_win32-2.15'
       )
@@ -39,7 +39,7 @@ describe 'selenium_test::chromedriver' do
         file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0').converge(described_recipe)
     end
 
-    it 'create directory' do
+    it 'creates directory' do
       expect(chef_run).to create_directory('/usr/local/selenium/drivers/chromedriver_linux64-2.15')
     end
 
@@ -50,13 +50,41 @@ describe 'selenium_test::chromedriver' do
       )
     end
 
-    it 'unpack driver' do
+    it 'unzips driver' do
       expect(chef_run).to_not run_execute('unzip chromedriver')
     end
 
-    it 'link driver' do
+    it 'links driver' do
       expect(chef_run).to create_link('/usr/local/selenium/drivers/chromedriver').with(
         to: '/usr/local/selenium/drivers/chromedriver_linux64-2.15'
+      )
+    end
+  end
+
+  context 'mac_os_x' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+        file_cache_path: '/var/chef/cache', platform: 'mac_os_x', version: '10.10').converge(described_recipe)
+    end
+
+    it 'creates directory' do
+      expect(chef_run).to create_directory('/usr/local/selenium/drivers/chromedriver_mac32-2.15')
+    end
+
+    it 'downloads driver' do
+      expect(chef_run).to create_remote_file('download chromedriver').with(
+        path: "#{Chef::Config[:file_cache_path]}/chromedriver_mac32-2.15.zip",
+        source: 'https://chromedriver.storage.googleapis.com/2.15/chromedriver_mac32.zip'
+      )
+    end
+
+    it 'unzips driver' do
+      expect(chef_run).to_not run_execute('unpack chromedriver')
+    end
+
+    it 'links driver' do
+      expect(chef_run).to create_link('/usr/local/selenium/drivers/chromedriver').with(
+        to: '/usr/local/selenium/drivers/chromedriver_mac32-2.15'
       )
     end
   end

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0 - 6/5/2015
+
+- Add support for Mac OS X (Chef 11.14 or higher required)
+
 ## 2.2.6 - 5/26/2015
 
 - Fix #11 chromedriver version does not update
