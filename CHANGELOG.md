@@ -1,6 +1,12 @@
 # Changelog
 
-## 2.3.0 - 6/5/2015
+## 2.3.1 - 5/26/2015
+
+- Add supports 'mac_os_x' to metadata
+
+# Changelog
+
+## 2.3.0 - 5/26/2015
 
 - Add support for Mac OS X (Chef 11.14 or higher required)
 
