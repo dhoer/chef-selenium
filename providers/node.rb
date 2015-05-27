@@ -55,6 +55,7 @@ action :install do
       else
         windows_service(new_resource.name, selenium_java_exec, args)
       end
+
       windows_firewall(new_resource.name, new_resource.port)
 
       windows_reboot "Reboot to start #{new_resource.name}" do
@@ -63,7 +64,12 @@ action :install do
         action :nothing
       end
     when 'mac_os_x'
-      plist = "/Library/LaunchAgents/#{mac_domain(new_resource.name)}.plist"
+      if new_resource.username && new_resource.password
+        plist = "/Library/LaunchAgents/#{mac_domain(new_resource.name)}.plist"
+      else
+        plist = "/Library/LaunchDaemons/#{mac_domain(new_resource.name)}.plist"
+      end
+
       mac_service(mac_domain(new_resource.name), selenium_java_exec, args, plist, new_resource.username)
       autologon(new_resource.username, new_resource.password)
 

@@ -25,9 +25,7 @@ with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index
 
 #### Roadmap
 
-Add support for the following (any volunteers?):
-
-- [Appium](http://appium.io)
+- Add support for [Appium](http://appium.io)
 
 ## Requirements
 
@@ -49,7 +47,7 @@ These cookbooks are referenced with suggests, so be sure to depend on cookbooks 
 ## Usage
 
 See [selenium_test](https://github.com/dhoer/chef-selenium/tree/master/test/fixtures/cookbooks/selenium_test)
-cookbook for working cross platform examples. Note that the provided examples in this cookbook have passwords
+cookbook for working cross platform examples. Note that provided examples in this cookbook have passwords
 unencrypted for simplicity.
 
 ## selenium_hub
@@ -95,9 +93,10 @@ Installs and configures selenium-grid nodes with support for
 - Linux nodes without a physical monitor require a headless display
 (e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), [x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
 etc...) and must be installed and configured outside this cookbook.
-- Windows nodes (with the exception of HtmlUnitDriver) must run in the foreground and that requires a username
-and password for auto-logon. Note that the password is stored unencrypted under windows registry:
-`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+- Mac OS X/Windows nodes (with the exception of HtmlUnitDriver) must run as a GUI service and that requires a username
+and password for automatic login. Note that Windows password is stored unencrypted under windows registry
+`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
+`/etc/kcpassword` but it can be easily decrypted.
 
 
 ### Example
@@ -154,24 +153,28 @@ Installed if capabilities contains browser name `chrome`
     - [HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver) - Pre-installed with Selenium server
     - [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver) - 32-bit or 64-bit
 installed if capabilities contains browser name `internet explorer`
-- Windows only - Set both username and password to run service in foreground or leave nil to run service in background:
-    - `username` - Windows account username. Defaults to `nil`.
-    - `password` - Windows account password. Defaults to `nil`. Note that the password is stored unencrypted under
-    windows registry: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
-    - `domain` - Windows account domain. Optional.  Defaults to `nil`.
+- Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
+background:
+    - `username` - Defaults to `nil`.
+    - `password` - Defaults to `nil`. Note that Windows password is stored unencrypted under windows registry
+`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
+`/etc/kcpassword` but it can be easily decrypted.
+    - `domain` - Optional.  Defaults to `nil`.
 
 
 ## selenium_phantomjs
 
 Installs and configures [PhantomJS](http://phantomjs.org/) as a selenium-grid node or as a standalone server via
-[GhostDriver](https://github.com/detro/ghostdriver).
+[GhostDriver](https://github.com/detro/ghostdriver) (Mac OS X is not supported).
 
 #### Requirements
 
 - [PhantomJS](http://phantomjs.org/) must be installed outside of this cookbook.
-- Windows nodes have the option to run in the foreground and that requires a username and password for auto-logon.
-Note that the password is stored unencrypted under windows registry:
-`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+- Windows nodes have the option to run as a GUI service and that requires a username and password to automatically 
+login.
+Note that Windows password is stored unencrypted under windows registry
+`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
+`/etc/kcpassword` but it can be easily decrypted.
 
 #### Examples
 
@@ -202,11 +205,11 @@ resource for the complete listing of attributes.
 - `webdriver` - Webdriver ip:port.  Defaults to `#{node['ipaddress']}:8910`.
 - `webdriverSeleniumGridHub` -  Webdriver selenium-grid hub url.  Set to `false` to install PhantomJS as a standalone
 service. Defaults to `http://#{node['ipaddress']}:4444`.
-- Windows only - Set both username and password to run service in foreground or leave nil to run service in background:
-    - `username` - Windows account username. Defaults to `nil`.
-    - `password` - Windows account password. Defaults to `nil`. Note that the password is stored unencrypted under
-    windows registry: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
-    - `domain` - Windows account domain. Optional.  Defaults to `nil`.
+- Windows only - Set both username and password to run as a GUI service or leave nil to run service in background:
+    - `username` - Defaults to `nil`.
+    - `password` - Defaults to `nil`. Note that Windows password is stored unencrypted under windows registry
+`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
+    - `domain` - Optional.  Defaults to `nil`.
 
 ## ChefSpec Matchers
 

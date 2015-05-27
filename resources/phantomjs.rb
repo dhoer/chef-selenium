@@ -25,7 +25,7 @@ attribute :webdriverSeleniumGridHub, kind_of: [String, FalseClass], default: "ht
 # attribute :sslCertificatesPath, kind_of: String, default: nil
 # attribute :webSecurityEnabled, kind_of: [TrueClass, FalseClass], default: true # forbids cross-domain XHR
 
-# windows only - set username/password to run service in foreground or leave nil to run service in background
+# windows only - set username/password to run service in gui or leave nil to run service in background
 attribute :domain, kind_of: String, default: nil
 attribute :username, kind_of: String, default: nil
 attribute :password, kind_of: String, default: nil

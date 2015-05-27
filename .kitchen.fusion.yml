@@ -25,9 +25,9 @@ suites:
       - recipe[selenium_test::java]
       - recipe[selenium_test::hub]
       - recipe[selenium_test::node]
-#      - recipe[selenium_test::htmlunit]
-#      - recipe[selenium_test::phantomjs]
-#      - recipe[selenium_test::phantomjs_nogrid]
+      - recipe[selenium_test::htmlunit]
+      - recipe[selenium_test::phantomjs]
+      - recipe[selenium_test::phantomjs_nogrid]
     attributes:
       java:
         jdk_version: '7'
