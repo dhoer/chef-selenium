@@ -34,6 +34,7 @@ with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index
 ### Platforms
 
 - CentOS, RedHat
+- Mac OS X
 - Ubuntu
 - Windows
 
@@ -173,8 +174,7 @@ Installs and configures [PhantomJS](http://phantomjs.org/) as a selenium-grid no
 - Windows nodes have the option to run as a GUI service and that requires a username and password to automatically 
 login.
 Note that Windows password is stored unencrypted under windows registry
-`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
-`/etc/kcpassword` but it can be easily decrypted.
+`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
 
 #### Examples
 
