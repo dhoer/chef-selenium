@@ -1,7 +1,7 @@
 require 'serverspec_helper'
 
 describe 'selenium::server' do
-  describe file('/usr/local/selenium/server/selenium-server-standalone-2.45.0.jar') do
+  describe file('/usr/local/selenium/server/selenium-server-standalone-2.46.0.jar') do
     it { should be_file }
     it { should be_executable.by_user('root') }
   end
