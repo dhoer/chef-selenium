@@ -1,5 +1,5 @@
-default['selenium']['server_version'] = '2.45.0'
-default['selenium']['iedriver_version'] = '2.45.0'
+default['selenium']['server_version'] = '2.46.0'
+default['selenium']['iedriver_version'] = '2.46.0'
 default['selenium']['chromedriver_version'] = '2.15'
 
 default['selenium']['release_url'] = 'https://selenium-release.storage.googleapis.com'

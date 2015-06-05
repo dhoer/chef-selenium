@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.2 - 6/4/2015
+
+- Update Selenium and IE driver from 2.45.0 to 2.46.0
+
 ## 2.3.1 - 5/26/2015
 
 - Add supports 'mac_os_x' to metadata
