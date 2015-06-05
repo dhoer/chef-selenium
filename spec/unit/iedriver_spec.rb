@@ -13,7 +13,7 @@ describe 'selenium_test::iedriver' do
 
     it 'downloads driver' do
       expect(chef_run).to create_remote_file('C:/chef/cache/IEDriverServer_x64_2.46.0.zip').with(
-        source: 'https://selenium-release.storage.googleapis.com/2.45/IEDriverServer_x64_2.46.0.zip')
+        source: 'https://selenium-release.storage.googleapis.com/2.46/IEDriverServer_x64_2.46.0.zip')
     end
 
     it 'unzips driver' do
