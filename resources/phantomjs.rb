@@ -2,8 +2,10 @@ actions :install
 default_action :install
 
 attribute :name, kind_of: String, name_attribute: true
-attribute :webdriver, kind_of: String, default: "#{node['ipaddress']}:8910"
-attribute :webdriverSeleniumGridHub, kind_of: [String, FalseClass], default: "http://#{node['ipaddress']}:4444"
+attribute :webdriver, kind_of: String, default: node['selenium']['phantomjs']['webdriver']
+attribute :webdriverSeleniumGridHub,
+          kind_of: [String, FalseClass],
+          default: node['selenium']['phantomjs']['webdriverSeleniumGridHub']
 
 # TODO: Create a config.json file with these and ghostdriver attributes.
 # attribute :cookiesFile, kind_of: String, default: nil
@@ -26,6 +28,6 @@ attribute :webdriverSeleniumGridHub, kind_of: [String, FalseClass], default: "ht
 # attribute :webSecurityEnabled, kind_of: [TrueClass, FalseClass], default: true # forbids cross-domain XHR
 
 # windows only - set username/password to run service in gui or leave nil to run service in background
-attribute :domain, kind_of: String, default: nil
-attribute :username, kind_of: String, default: nil
-attribute :password, kind_of: String, default: nil
+attribute :domain, kind_of: String, default: node['selenium']['phantomjs']['domain']
+attribute :username, kind_of: String, default: node['selenium']['phantomjs']['username']
+attribute :password, kind_of: String, default: node['selenium']['phantomjs']['password']
