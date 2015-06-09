@@ -11,6 +11,7 @@
 
 set -e
 
+user=<%=@user%>
 exec=<%=@exec%>
 args="<%=@args%>"
 pidfile="/var/run/<%=@name%>.pid"
@@ -38,9 +39,12 @@ fi
 
 if [ "$1" = "start" -o "$1" = "restart" ]; then
   if [ ! -f "$pidfile" ]; then
-    export DISPLAY=$display
-    nohup $exec $args >> $logfile 2>&1 &
-    PID=$!
-    echo $PID > $pidfile
+    touch $pidfile
+    chown $user $pidfile
+
+    touch $logfile
+    chown $user $logfile
+
+    /bin/su - $user -c "DISPLAY=\"$display\" nohup $exec $args >> $logfile 2>&1 & echo \$! > $pidfile"
   fi
 fi
