@@ -109,14 +109,22 @@ def autologon(username, password, domain = nil)
 end
 
 def linux_service(name, exec, args, port, display)
+  # TODO: make selenium username default and pass it in as a param
+  username = 'selenium'
+
+  user "ensure user #{username} exits for #{name}" do
+    username username
+  end
+
   template "/etc/init.d/#{name}" do
     source "#{node['platform_family']}_initd.erb"
     cookbook 'selenium'
     mode '0755'
     variables(
       name: name,
+      user: username,
       exec: exec,
-      args: args.join(' '),
+      args: args.join(' ').gsub('"', '\"'),
       port: port,
       display: display
     )
@@ -124,6 +132,7 @@ def linux_service(name, exec, args, port, display)
   end
 
   service name do
+    supports restart: true, reload: true, status: true
     action [:enable]
   end
 end

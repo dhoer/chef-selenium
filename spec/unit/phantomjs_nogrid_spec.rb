@@ -63,6 +63,11 @@ describe 'selenium_test::phantomjs_nogrid' do
       expect(chef_run).to install_selenium_phantomjs('selenium_phantomjs_nogrid')
     end
 
+    it 'creates selenium user' do
+      expect(chef_run).to create_user('ensure user selenium exits for selenium_phantomjs_nogrid').with(
+        username: 'selenium')
+    end
+
     # it 'creates phantomjs nogrid config file' do
     #   expect(chef_run).to create_template('/usr/local/selenium/config/selenium_phantomjs_nogrid.json')
     # end
@@ -74,6 +79,7 @@ describe 'selenium_test::phantomjs_nogrid' do
         mode: '0755',
         variables: {
           name: 'selenium_phantomjs_nogrid',
+          user: 'selenium',
           exec: '/usr/local/bin/phantomjs',
           # args: '--config="/usr/local/selenium/config/selenium_phantomjs.json"',
           args: '--webdriver=localhost:8911',

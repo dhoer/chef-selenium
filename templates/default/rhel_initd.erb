@@ -8,6 +8,7 @@
 # Source function library.
 . /etc/init.d/functions
 
+user=<%=@user%>
 exec="<%=@exec%>"
 args="<%=@args%>"
 lockfile="/var/lock/subsys/<%=@name%>"
@@ -21,11 +22,20 @@ RETVAL=0
 
 start() {
   echo -n $"Starting $prog: "
-  export DISPLAY=$display
-  $exec $args >> $logfile 2>&1 &
+
+  touch $pidfile
+  chown $user $pidfile
+
+  touch $logfile
+  chown $user $logfile
+
+  /bin/su - $user -c "DISPLAY=\"$display\" $exec $args >> $logfile 2>&1 & echo \$! > $pidfile"
+
+  sleep 2
+
+  pgrep -fl $prog
   RETVAL=$?
-  pid=$!
-  echo $pid > $pidfile
+  [ $RETVAL -eq 0 ] && echo_success || echo_failure
 
   listen=0
   while [ $listen -eq 0 ];
@@ -33,8 +43,6 @@ start() {
     listen=`netstat -ltn | awk '{print $4}' | grep "${port}$" | wc -l`
     sleep 1
   done
-
-  [ $RETVAL -eq 0 ] && echo_success || echo_failure
 
   echo
   [ $RETVAL -eq 0 ] && touch $lockfile
