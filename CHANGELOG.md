@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.3 - 6/9/2015
+
+- Fix #13 org.openqa.selenium.WebDriverException: chrome not reachable on CentOS 7.0/Ubuntu 14.04
+
 ## 2.3.2 - 6/4/2015
 
 - Update Selenium and IE driver from 2.45.0 to 2.46.0

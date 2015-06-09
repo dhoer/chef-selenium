@@ -57,6 +57,10 @@ describe 'selenium_test::hub' do
       expect(chef_run).to install_selenium_hub('selenium_hub')
     end
 
+    it 'creates selenium user' do
+      expect(chef_run).to create_user('ensure user selenium exits for selenium_hub').with(username: 'selenium')
+    end
+
     it 'creates hub config file' do
       expect(chef_run).to create_template('/usr/local/selenium/config/selenium_hub.json').with(
         source: 'hub_config.erb',
@@ -71,11 +75,12 @@ describe 'selenium_test::hub' do
         mode: '0755',
         variables: {
           name: 'selenium_hub',
+          user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar "/usr/local/selenium/server/selenium-server-standalone.jar" -role hub '\
-          '-hubConfig "/usr/local/selenium/config/selenium_hub.json"',
-          display: nil,
-          port: 4444
+          args: '-jar \"/usr/local/selenium/server/selenium-server-standalone.jar\" -role hub '\
+          '-hubConfig \"/usr/local/selenium/config/selenium_hub.json\"',
+          port: 4444,
+          display: nil
         }
       )
     end

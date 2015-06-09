@@ -56,6 +56,10 @@ describe 'selenium_test::phantomjs' do
       expect(chef_run).to install_selenium_phantomjs('selenium_phantomjs')
     end
 
+    it 'creates selenium user' do
+      expect(chef_run).to create_user('ensure user selenium exits for selenium_phantomjs').with(username: 'selenium')
+    end
+
     # it 'creates phantomjs config file' do
     #   expect(chef_run).to create_template('/usr/local/selenium/config/selenium_phantomjs.json')
     # end
@@ -67,6 +71,7 @@ describe 'selenium_test::phantomjs' do
         mode: '0755',
         variables: {
           name: 'selenium_phantomjs',
+          user: 'selenium',
           exec: '/usr/local/bin/phantomjs',
           # args: '--config="/usr/local/selenium/config/selenium_phantomjs.json"',
           args: '--webdriver=10.0.0.2:8910 --webdriver-selenium-grid-hub=http://10.0.0.2:4444',

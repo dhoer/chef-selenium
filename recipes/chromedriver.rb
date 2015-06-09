@@ -38,7 +38,7 @@ rescue # cheesy attempt at backward compatibility
 end
 
 execute 'unzip chromedriver' do
-  command "unzip -o #{cache_path} -d #{driver_path}"
+  command "unzip -o #{cache_path} -d #{driver_path} && chmod -R 0755 #{driver_path}"
   action :nothing
 end
 

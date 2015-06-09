@@ -58,6 +58,10 @@ describe 'selenium_test::htmlunit' do
       expect(chef_run).to install_selenium_node('selenium_htmlunit')
     end
 
+    it 'creates selenium user' do
+      expect(chef_run).to create_user('ensure user selenium exits for selenium_htmlunit').with(username: 'selenium')
+    end
+
     it 'creates node config file' do
       expect(chef_run).to create_template('/usr/local/selenium/config/selenium_htmlunit.json')
     end
@@ -69,11 +73,12 @@ describe 'selenium_test::htmlunit' do
         mode: '0755',
         variables: {
           name: 'selenium_htmlunit',
+          user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar "/usr/local/selenium/server/selenium-server-standalone.jar" -role node '\
-            '-nodeConfig "/usr/local/selenium/config/selenium_htmlunit.json"',
-          display: ':0',
-          port: 5556
+          args: '-jar \"/usr/local/selenium/server/selenium-server-standalone.jar\" -role node '\
+            '-nodeConfig \"/usr/local/selenium/config/selenium_htmlunit.json\"',
+          port: 5556,
+          display: ':0'
         }
       )
     end

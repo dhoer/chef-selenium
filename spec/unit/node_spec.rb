@@ -84,6 +84,10 @@ describe 'selenium_test::node' do
       expect(chef_run).to install_selenium_node('selenium_node')
     end
 
+    it 'creates selenium user' do
+      expect(chef_run).to create_user('ensure user selenium exits for selenium_node').with(username: 'selenium')
+    end
+
     it 'creates node config file' do
       expect(chef_run).to create_template('/usr/local/selenium/config/selenium_node.json')
     end
@@ -95,12 +99,13 @@ describe 'selenium_test::node' do
         mode: '0755',
         variables: {
           name: 'selenium_node',
+          user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar "/usr/local/selenium/server/selenium-server-standalone.jar" -role node '\
-            '-nodeConfig "/usr/local/selenium/config/selenium_node.json" '\
-            '-Dwebdriver.chrome.driver="/usr/local/selenium/drivers/chromedriver/chromedriver"',
-          display: ':0',
-          port: 5555
+          args: '-jar \"/usr/local/selenium/server/selenium-server-standalone.jar\" -role node '\
+            '-nodeConfig \"/usr/local/selenium/config/selenium_node.json\" '\
+            '-Dwebdriver.chrome.driver=\"/usr/local/selenium/drivers/chromedriver/chromedriver\"',
+          port: 5555,
+          display: ':0'
         }
       )
     end
