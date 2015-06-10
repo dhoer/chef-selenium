@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.0 - 6/9/2015
+
+- Allow resources to be globally configured
+
 ## 2.3.3 - 6/9/2015
 
 - Fix #13 org.openqa.selenium.WebDriverException: chrome not reachable on CentOS 7.0/Ubuntu 14.04
