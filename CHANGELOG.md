@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.2 - 6/29/2015
+
+- Add powershell_version check
+
 ## 2.4.1 - 6/29/2015
 
 - Fix #16: Errror provisioning chromedriver on centos7
