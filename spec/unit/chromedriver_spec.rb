@@ -18,12 +18,18 @@ describe 'selenium_test::chromedriver' do
       )
     end
 
-    it 'unzips driver' do
-      expect(chef_run).to_not run_batch('unzip chromedriver')
-        .with(code: "powershell.exe -nologo -noprofile -command \"& { Add-Type -A "\
-        "'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory("\
-        "'C:/chef/cache/chromedriver_win32.zip', "\
-        "'C:/selenium/drivers/chromedriver_win32-2.15'); }\"")
+    it 'unzips via powershell' do
+      expect(chef_run).to_not run_batch('unzip chromedriver').with(
+        code: "powershell.exe -nologo -noprofile -command \"& { Add-Type -A "\
+          "'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory("\
+          "'C:/chef/cache/chromedriver_win32.zip', "\
+          "'C:/selenium/drivers/chromedriver_win32-2.15'); }\"")
+    end
+
+    it 'unzips via window_zipfile' do
+      expect(chef_run).to_not unzip_windows_zipfile_to('C:/selenium/drivers/chromedriver_win32-2.15').with(
+        source: 'C:/chef/cache/chromedriver_win32.zip'
+      )
     end
 
     it 'links driver' do

@@ -23,17 +23,20 @@ directory driver_path do
   action :create
 end
 
-# Fixes #10: windows_zipfile rubyzip failure to allocate memory (requires PowerShell 3 or greater & .NET Framework 4)
-begin
+# Fixes #16: Errror provisioning chromedriver on centos7
+if platform?('windows')
+  # Fixes #10: windows_zipfile rubyzip failure to allocate memory (requires PowerShell 3 or greater & .NET Framework 4)
   batch 'unzip chromedriver' do
     code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';"\
       " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache_path}', '#{driver_path}'); }\""
     action :nothing
+    only_if { powershell_version >= 3 }
   end
-rescue # cheesy attempt at backward compatibility
+
   windows_zipfile driver_path do
     source cache_path
-    action :unzip
+    action :nothing
+    not_if { powershell_version >= 3 }
   end
 end
 
@@ -48,6 +51,7 @@ remote_file 'download chromedriver' do
   use_etag true
   use_conditional_get true
   notifies :run, 'batch[unzip chromedriver]', :immediately if platform?('windows')
+  notifies :unzip, "windows_zipfile[#{driver_path}]", :immediately if platform?('windows')
   notifies :run, 'execute[unzip chromedriver]', :immediately unless platform?('windows')
 end
 
