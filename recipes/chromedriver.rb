@@ -23,7 +23,7 @@ directory driver_path do
   action :create
 end
 
-# Fixes #16: Errror provisioning chromedriver on centos7
+# Fixes #16: Error provisioning chromedriver on centos7
 if platform?('windows')
   # Fixes #10: windows_zipfile rubyzip failure to allocate memory (requires PowerShell 3 or greater & .NET Framework 4)
   batch 'unzip chromedriver' do
