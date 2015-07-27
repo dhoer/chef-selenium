@@ -8,7 +8,7 @@ provisioner:
 
 platforms:
   - name: centos-6.6
-  - name: centos-7.0
+  - name: centos-7.1
     driver:
       network:
       - ["forwarded_port", {guest: 4444, host: 4444}]
@@ -18,6 +18,12 @@ platforms:
       network:
       - ["forwarded_port", {guest: 4444, host: 4445}]
       - ["forwarded_port", {guest: 5555, host: 5556}]
+  - name: windows-2012r2
+    driver:
+      box: dhoer/windows-2012r2
+        network:
+        - ["forwarded_port", {guest: 4444, host: 4446}]
+        - ["forwarded_port", {guest: 5555, host: 5557}]
 
 suites:
   - name: selenium_test
