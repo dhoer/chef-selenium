@@ -11,7 +11,7 @@ depends 'java'
 depends 'firefox'
 depends 'chrome'
 depends 'safari'
-depends 'windows'
+depends 'windows', '~> 1.37.0' # 1.38 spams warning about windows_reboot being removed
 depends 'nssm'
 depends 'ie'
 depends 'windows_screenresolution'
