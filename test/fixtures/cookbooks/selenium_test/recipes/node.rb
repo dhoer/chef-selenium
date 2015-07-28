@@ -77,11 +77,7 @@ if platform?('windows')
   }
 end
 
-case node['platform_family']
-when 'windows'
-  username = 'Administrator'
-  password = 'password'
-when 'mac_os_x'
+if platform?('windows', 'mac_os_x')
   username = 'vagrant'
   password = 'vagrant'
 else
@@ -99,9 +95,13 @@ end
 if platform?('windows')
   # Call windows_display after selenium_node because windows_display will override auto-login created by
   # selenium_node.
-  windows_display username do
-    password password
-    width 1440
-    height 900
-  end
+  node.set['windows_screenresolution']['username'] = username
+  node.set['windows_screenresolution']['password'] = password
+  node.set['windows_screenresolution']['width'] = 1440
+  node.set['windows_screenresolution']['height'] = 900
+
+  # meets windows password policy requirements for a new user
+  node.set['windows_screenresolution']['rdp_password'] = 'S6M;b.v+{DTYAQW4'
+
+  include_recipe 'windows_screenresolution::default'
 end
