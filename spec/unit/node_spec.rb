@@ -3,7 +3,10 @@ require 'spec_helper'
 describe 'selenium_test::node' do
   let(:shellout) { double(run_command: nil, error!: nil, stdout: ' ') }
 
-  before { allow(Mixlib::ShellOut).to receive(:new).and_return(shellout) }
+  before do
+    stub_command("netsh advfirewall firewall show rule name=\"RDP\" > nul").and_return(true)
+    allow(Mixlib::ShellOut).to receive(:new).and_return(shellout)
+  end
 
   context 'windows' do
     let(:chef_run) do
@@ -40,7 +43,7 @@ describe 'selenium_test::node' do
 
     it 'creates shortcut to selenium cmd file' do
       expect(chef_run).to create_windows_shortcut(
-        'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\selenium_node.lnk'
+        'C:\Users\vagrant\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\selenium_node.lnk'
       )
     end
 
@@ -60,14 +63,6 @@ describe 'selenium_test::node' do
 
     it 'reboots windows server' do
       expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_node')
-    end
-
-    it 'sets windows display' do
-      expect(chef_run).to run_windows_display('Administrator').with(
-        password: 'password',
-        width: 1440,
-        height: 900
-      )
     end
   end
 
