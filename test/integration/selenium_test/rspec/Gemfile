@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
+gem 'selenium-webdriver', '~> 2.46'
 gem 'rspec'
-gem 'selenium-webdriver'
 gem 'rspec-expectations'
