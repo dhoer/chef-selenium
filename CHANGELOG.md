@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.0 - 7/29/2015
+
+- Deprecate PhantomJS 
+
 ## 2.4.2 - 6/29/2015
 
 - Add powershell_version check

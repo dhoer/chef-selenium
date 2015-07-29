@@ -14,18 +14,14 @@ This cookbook comes with the following Resource/Providers:
 
 - **[selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub)** - Installs and configures selenium-grid hubs.
 - **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid
-nodes
-with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
+nodes with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
 [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver),
 [HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver), and
 [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver).
-- **[selenium_phantomjs](https://github.com/dhoer/chef-selenium#selenium_phantomjs)** - Installs and configures
-[PhantomJS](http://phantomjs.org/) as a selenium-grid node or as a standalone server via
-[GhostDriver](https://github.com/detro/ghostdriver).
 
-#### Roadmap
+PhantomJS has been deprecated and is no longer supported.  It will be removed in the next major release.  
+Please use [ghostdriver](https://github.com/dhoer/chef-ghostdriver) cookbook instead.
 
-- Add support for [Appium](http://appium.io)
 
 ## Requirements
 
@@ -43,7 +39,7 @@ with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index
 These cookbooks are referenced with suggests, so be sure to depend on cookbooks that apply:
 
 - windows
-- nssm - Required for Windows services only (e.g. Hub, PhantomJS, and HtmlUnit running in background)
+- nssm - Required for Windows services only (e.g. Hub and HtmlUnit running in background)
 
 ## Usage
 
@@ -163,54 +159,6 @@ background:
     - `domain` - Optional.  Defaults to `nil`.
 
 
-## selenium_phantomjs
-
-Installs and configures [PhantomJS](http://phantomjs.org/) as a selenium-grid node or as a standalone server via
-[GhostDriver](https://github.com/detro/ghostdriver) (Mac OS X is not supported).
-
-#### Requirements
-
-- [PhantomJS](http://phantomjs.org/) must be installed outside of this cookbook.
-- Windows nodes have the option to run as a GUI service and that requires a username and password to automatically 
-login.
-Note that Windows password is stored unencrypted under windows registry
-`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
-
-#### Examples
-
-##### Install PhantomJS as a selenium-grid node
-
-```ruby
-selenium_phantomjs 'selenium_phantomjs' do
-  action :install
-end
-```
-
-##### Install PhantomJS as a standalone server by setting webdriverSeleniumGridHub to false
-
-```ruby
-selenium_phantomjs 'selenium_phantomjs_nogrid' do
-  webdriverSeleniumGridHub false
-  action :install
-end
-```
-
-#### Attributes
-
-This is a partial list of attributes available. See
-[phantomjs](https://github.com/dhoer/chef-selenium/blob/master/resources/phantomjs.rb)
-resource for the complete listing of attributes.
-
-- `name` - Name attribute. The name of the service or Windows foreground startup script.
-- `webdriver` - Webdriver ip:port.  Defaults to `#{node['ipaddress']}:8910`.
-- `webdriverSeleniumGridHub` -  Webdriver selenium-grid hub url.  Set to `false` to install PhantomJS as a standalone
-service. Defaults to `http://#{node['ipaddress']}:4444`.
-- Windows only - Set both username and password to run as a GUI service or leave nil to run service in background:
-    - `username` - Defaults to `nil`.
-    - `password` - Defaults to `nil`. Note that Windows password is stored unencrypted under windows registry
-`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`.
-    - `domain` - Optional.  Defaults to `nil`.
-
 ## ChefSpec Matchers
 
 The Selenium cookbook includes custom [ChefSpec](https://github.com/sethvargo/chefspec) matchers you can use to test 
@@ -228,7 +176,6 @@ Selenium Cookbook Matchers
 
 - install_selenium_hub(resource_name)
 - install_selenium_node(resource_name)
-- install_selenium_phantomjs(resource_name)
 
 ## Getting Help
 

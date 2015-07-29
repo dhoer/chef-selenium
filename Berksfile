@@ -2,4 +2,6 @@ source 'https://supermarket.chef.io'
 
 metadata
 
-cookbook 'selenium_test', path: 'test/fixtures/cookbooks/selenium_test'
+group :solo do
+  cookbook 'selenium_test', path: 'test/fixtures/cookbooks/selenium_test'
+end
