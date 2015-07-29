@@ -19,8 +19,8 @@ nodes with support for [ChromeDriver](http://chromedriver.storage.googleapis.com
 [HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver), and
 [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver).
 
-PhantomJS has been deprecated and is no longer supported.  It will be removed in the next major release.  
-Please use [ghostdriver](https://github.com/dhoer/chef-ghostdriver) cookbook instead.
+PhantomJS has been deprecated and is no longer supported.  It will be removed in the next major release.  Please use 
+[ghostdriver](https://github.com/dhoer/chef-ghostdriver) cookbook instead.
 
 
 ## Requirements
