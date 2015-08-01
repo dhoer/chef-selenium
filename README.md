@@ -25,7 +25,7 @@ PhantomJS has been deprecated and is no longer supported.  It will be removed in
 
 ## Requirements
 
-- Chef 11.14 or higher (`sensitive` resource introduced)
+- Chef 11.14 or higher (`sensitive` attribute introduced)
 
 ### Platforms
 

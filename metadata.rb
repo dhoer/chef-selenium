@@ -15,3 +15,7 @@ supports 'windows'
 suggests 'windows', '~> 1.0'
 suggests 'nssm', '~> 1.0'
 suggests 'macosx_autologin', '~> 2.0'
+
+# required by safaridriver
+suggests 'safari', '~> 1.0'
+suggests 'macosx_gui_login', '~> 1.0'
