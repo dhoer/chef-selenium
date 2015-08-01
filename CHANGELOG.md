@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.5.1 - 7/31/2015
+
+- Update Selenium and IE driver from 2.46.0 to 2.47.0
+- Update ChromeDriver from 2.15 to 2.16
+
 ## 2.5.0 - 7/29/2015
 
 - Deprecate PhantomJS 
