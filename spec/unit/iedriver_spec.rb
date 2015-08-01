@@ -8,25 +8,25 @@ describe 'selenium_test::iedriver' do
     end
 
     it 'creates directory' do
-      expect(chef_run).to create_directory('C:/selenium/drivers/iedriver-2.46.0')
+      expect(chef_run).to create_directory('C:/selenium/drivers/iedriver-2.47.0')
     end
 
     it 'downloads driver' do
-      expect(chef_run).to create_remote_file('C:/chef/cache/IEDriverServer_x64_2.46.0.zip').with(
-        source: 'https://selenium-release.storage.googleapis.com/2.46/IEDriverServer_x64_2.46.0.zip')
+      expect(chef_run).to create_remote_file('C:/chef/cache/IEDriverServer_x64_2.47.0.zip').with(
+        source: 'https://selenium-release.storage.googleapis.com/2.47/IEDriverServer_x64_2.47.0.zip')
     end
 
     it 'unzips driver' do
       expect(chef_run).to run_batch('unzip ie driver')
         .with(code: "powershell.exe -nologo -noprofile -command \"& { Add-Type -A "\
         "'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory("\
-        "'C:/chef/cache/IEDriverServer_x64_2.46.0.zip', "\
-        "'C:/selenium/drivers/iedriver-2.46.0'); }\"")
+        "'C:/chef/cache/IEDriverServer_x64_2.47.0.zip', "\
+        "'C:/selenium/drivers/iedriver-2.47.0'); }\"")
     end
 
     it 'links driver' do
       expect(chef_run).to create_link('C:/selenium/drivers/iedriver').with(
-        to: 'C:/selenium/drivers/iedriver-2.46.0'
+        to: 'C:/selenium/drivers/iedriver-2.47.0'
       )
     end
   end
