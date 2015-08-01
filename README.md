@@ -151,12 +151,12 @@ Installed if capabilities contains browser name `chrome`
     - [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver) - 32-bit or 64-bit
 installed if capabilities contains browser name `internet explorer`
 - Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
-background:
+background (HtmlUnit only):
     - `username` - Defaults to `nil`.
     - `password` - Defaults to `nil`. Note that Windows password is stored unencrypted under windows registry
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
 `/etc/kcpassword` but it can be easily decrypted.
-    - `domain` - Optional.  Defaults to `nil`.
+    - `domain` - Optional for Windows only.  Defaults to `nil`.
 
 
 ## ChefSpec Matchers
