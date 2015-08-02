@@ -12,5 +12,5 @@ if platform_family?('mac_os_x')
     safariextz "#{Chef::Config[:file_cache_path]}/SafariDriver.safariextz"
   end
 else
-  log('SafariDriver cannot be installed on this platform using this cookbook.') { level :warn }
+  log('SafariDriver cannot be installed on this platform using this cookbook!') { level :warn }
 end
