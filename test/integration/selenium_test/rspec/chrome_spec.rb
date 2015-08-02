@@ -1,6 +1,7 @@
 require 'rspec_helper'
+require 'rbconfig'
 
-unless `cat /etc/*-release` =~ /CentOS release 6/
+unless RbConfig::CONFIG['host_os'] =~ /linux/ && `cat /etc/*-release` =~ /CentOS release 6/
   describe 'Chrome Grid' do
     before(:all) do
       @selenium = Selenium::WebDriver.for(:remote, desired_capabilities: :chrome)

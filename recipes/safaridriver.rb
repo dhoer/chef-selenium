@@ -4,8 +4,8 @@ if platform_family?('mac_os_x')
     checksum node['selenium']['safaridriver_checksum']
   end
 
-  macosx_gui_login node['selenium']['node']['username'] do
-    password node['selenium']['node']['password']
+  macosx_gui_login node['selenium']['safaridriver_username'] do
+    password node['selenium']['safaridriver_password']
   end
 
   safari_extension 'SafariDriver Extension' do

@@ -4,11 +4,9 @@ when 'debian'
   execute 'sudo apt-get update' do
     action :nothing
   end.run_action(:run)
+
   # selenium-webdriver includes ffi which requires the following dependencies
   package 'gcc' do
-    action :nothing
-  end.run_action(:install)
-  package 'g++' do
     action :nothing
   end.run_action(:install)
   package 'libffi-dev' do
@@ -16,6 +14,7 @@ when 'debian'
   end.run_action(:install)
 when 'rhel'
   include_recipe 'yum'
+
   # selenium-webdriver includes ffi which requires the following dependencies
   package 'gcc'
   package 'libffi-devel'

@@ -34,18 +34,25 @@ def args
   args.flatten!
 end
 
-def install_recipes
+# rubocop:disable Metrics/AbcSize
+def selenium_include_recipes
   recipe_eval do
     run_context.include_recipe 'selenium::server'
     run_context.include_recipe 'selenium::chromedriver' if selenium_browser?(CHROME, new_resource.capabilities)
     run_context.include_recipe 'selenium::iedriver' if selenium_browser?(IE, new_resource.capabilities)
+    if selenium_browser?(SAFARI, new_resource.capabilities)
+      node.set['selenium']['safaridriver_username'] = new_resource.username
+      node.set['selenium']['safaridriver_password'] = new_resource.password
+      run_context.include_recipe 'selenium::safaridriver'
+    end
     run_context.include_recipe 'windows::reboot_handler' if platform_family?('windows')
   end
 end
+# rubocop:enable Metrics/AbcSize
 
 action :install do
   converge_by("Install Node Service: #{new_resource.name}") do
-    install_recipes
+    selenium_include_recipes
 
     case node['platform']
     when 'windows'

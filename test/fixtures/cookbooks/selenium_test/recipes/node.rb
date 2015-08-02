@@ -23,10 +23,9 @@ unless platform_family?('rhel') && node['platform_version'].split('.')[0] == '6'
 end
 
 if platform?('mac_os_x')
-  # include_recipe 'safari'
   capabilities << {
     browserName: 'safari',
-    maxInstances: 5,
+    maxInstances: 2,
     version: safari_version,
     seleniumProtocol: 'WebDriver'
   }
