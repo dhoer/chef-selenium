@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.2 - 8/2/2015
+
+- Fix #18 Selenium iedriver does not extract 
+
 ## 2.5.1 - 7/31/2015
 
 - Update Selenium and IE driver from 2.46.0 to 2.47.0
@@ -15,8 +19,8 @@
 
 ## 2.4.1 - 6/29/2015
 
-- Fix #16: Errror provisioning chromedriver on centos7
-- Fix #15: Drivers not copied to /selenium/drivers/ folders on Windows 7
+- Fix #16 Errror provisioning chromedriver on centos7
+- Fix #15 Drivers not copied to /selenium/drivers/ folders on Windows 7
 
 ## 2.4.0 - 6/9/2015
 
