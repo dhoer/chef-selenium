@@ -35,8 +35,7 @@ describe 'selenium_test::safaridriver' do
 
     it 'downloads driver' do
       expect(chef_run).to create_remote_file('/var/chef/cache/SafariDriver.safariextz').with(
-        source: 'https://selenium-release.storage.googleapis.com/2.45/SafariDriver.safariextz',
-        checksum: '00e8f1a5ca68f25d4e18d29ffc71af916a4b1f9471c1062ef08f7a0fce3d889b'
+        source: 'https://selenium-release.storage.googleapis.com/2.45/SafariDriver.safariextz'
       )
     end
 
