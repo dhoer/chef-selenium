@@ -1,6 +1,7 @@
 CHROME ||= 'chrome'
 FIREFOX ||= 'firefox'
 IE ||= 'internet explorer'
+SAFARI ||= 'safari'
 
 private
 

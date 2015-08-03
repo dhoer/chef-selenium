@@ -4,7 +4,7 @@ maintainer_email 'dennis.hoer@gmail.com'
 license 'MIT'
 description 'Installs/Configures Selenium'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.5.2'
+version '2.6.0'
 
 supports 'centos'
 supports 'redhat'
@@ -15,3 +15,7 @@ supports 'windows'
 suggests 'windows', '~> 1.0'
 suggests 'nssm', '~> 1.0'
 suggests 'macosx_autologin', '~> 2.0'
+
+# required by safaridriver
+suggests 'safari', '~> 1.0'
+suggests 'macosx_gui_login', '~> 1.0'
