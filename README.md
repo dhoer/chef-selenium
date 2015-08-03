@@ -14,10 +14,11 @@ This cookbook comes with the following Resource/Providers:
 
 - **[selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub)** - Installs and configures selenium-grid hubs.
 - **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid
-nodes with support for [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
-[FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver),
-[HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver), and
-[InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver).
+nodes with support for [ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver),
+[FirefoxDriver](https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver),
+[HtmlUnitDriver](https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver),
+[InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver), and
+[SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver).
 
 PhantomJS has been deprecated and is no longer supported.  It will be removed in the next major release.  Please use 
 [ghostdriver](https://github.com/dhoer/chef-ghostdriver) cookbook instead.
@@ -25,7 +26,7 @@ PhantomJS has been deprecated and is no longer supported.  It will be removed in
 
 ## Requirements
 
-- Chef 11.14 or higher (`sensitive` attribute introduced)
+- Chef 11.14 or higher (sensitive attribute introduced)
 
 ### Platforms
 
@@ -39,7 +40,11 @@ PhantomJS has been deprecated and is no longer supported.  It will be removed in
 These cookbooks are referenced with suggests, so be sure to depend on cookbooks that apply:
 
 - windows
-- nssm - Required for Windows services only (e.g. Hub and HtmlUnit running in background)
+- nssm - Required by Windows services only (e.g. Hub and HtmlUnit running in background)
+- macosx_autologin - Required by Mac OS X GUI services
+- safari -  Required by safaridriver
+- macosx_gui_login - Required by safaridriver
+
 
 ## Usage
 
@@ -78,10 +83,11 @@ resource for the complete listing of attributes.
 ## selenium_node
 
 Installs and configures selenium-grid nodes with support for
-[ChromeDriver](http://chromedriver.storage.googleapis.com/index.html),
-[FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver),
-[HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver), and
-[InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver).
+[ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver),
+[FirefoxDriver](https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver),
+[HtmlUnitDriver](https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver),
+[InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver), and
+[SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver).
 
 #### Requirements
 
@@ -144,12 +150,14 @@ resource for the complete listing of attributes.
 - `hubPort` - Selenium-grid hub port. Defaults to `4444`.
 - `capabilities` - The following drivers are supported and installed based on
 [capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities):
-    - [ChromeDriver](http://chromedriver.storage.googleapis.com/index.html) -
-Installed if capabilities contains browser name `chrome`
-    - [FirefoxDriver](https://code.google.com/p/selenium/wiki/FirefoxDriver) - Pre-installed with Selenium server
-    - [HtmlUnitDriver](https://code.google.com/p/selenium/wiki/HtmlUnitDriver) - Pre-installed with Selenium server
-    - [InternetExplorerDriver](https://code.google.com/p/selenium/wiki/InternetExplorerDriver) - 32-bit or 64-bit
-installed if capabilities contains browser name `internet explorer`
+    - [ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver) - Installed if capabilities contains 
+    browser name `chrome`
+    - [FirefoxDriver](https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver) - Pre-installed with Selenium server
+    - [HtmlUnitDriver](https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver) - Pre-installed with Selenium server
+    - [InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver) - 32-bit or 64-bit
+    installed if capabilities contains browser name `internet explorer`
+    - [SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver) - Installed if capabilities contains 
+    browser name `safari`
 - Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
 background (HtmlUnit only):
     - `username` - Defaults to `nil`.

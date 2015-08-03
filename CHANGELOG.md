@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0 - 8/2/2015
+
+- Support Safari
+
 ## 2.5.2 - 8/2/2015
 
 - Fix #18 Selenium iedriver does not extract 
