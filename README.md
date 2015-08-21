@@ -12,7 +12,7 @@ This cookbook installs and configures Selenium and WebDriver components (http://
 
 This cookbook comes with the following:
  
-Recipes:
+**Recipes:**
 
 - **[hub](https://github.com/dhoer/chef-selenium#hub)** - Installs and configures a selenium-grid hub.
 - **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a selenium-grid
@@ -22,7 +22,7 @@ node with support for [ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki
 [InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver), and
 [SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver).
  
-Resource/Providers:
+**Resource/Providers:**
 
 - **[selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub)** - Installs and configures selenium-grid hubs.
 - **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid
@@ -195,7 +195,7 @@ background (HtmlUnit only):
 `/etc/kcpassword` but it can be easily decrypted.
     - `domain` - Optional for Windows only.  Defaults to `nil`.
 
-## Resource Providers
+## Resource/Providers
 
 ### selenium_hub
 
