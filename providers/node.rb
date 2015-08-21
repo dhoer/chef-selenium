@@ -17,6 +17,7 @@ def config
   config_file
 end
 
+# rubocop:disable Metrics/AbcSize
 def args
   args = []
   args << new_resource.jvm_args unless new_resource.jvm_args.nil?
@@ -38,6 +39,7 @@ def args
 
   args.flatten!
 end
+# rubocop:enable Metrics/AbcSize
 
 # rubocop:disable Metrics/AbcSize
 def selenium_include_recipes
