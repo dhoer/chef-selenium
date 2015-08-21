@@ -19,7 +19,9 @@ describe 'selenium::server' do
     let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0').converge(described_recipe) }
 
     it 'downloads jar' do
-      expect(chef_run).to create_remote_file('/usr/local/selenium/server/selenium-server-standalone-2.47.0.jar')
+      expect(chef_run).to create_remote_file('/usr/local/selenium/server/selenium-server-standalone-2.47.0.jar').with(
+        source: 'https://selenium-release.storage.googleapis.com/2.47/selenium-server-standalone-2.47.0.jar'
+      )
     end
 
     it 'creates link to jar' do
@@ -39,6 +41,20 @@ describe 'selenium::server' do
     it 'creates link to jar' do
       expect(chef_run).to create_link('/usr/local/selenium/server/selenium-server-standalone.jar').with(
         to: '/usr/local/selenium/server/selenium-server-standalone-2.47.0.jar'
+      )
+    end
+  end
+
+  context 'override_url' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0') do |node|
+        node.set['selenium']['override_url'] = 'https://example.com/path/to/custom_standalone.jar'
+      end.converge(described_recipe)
+    end
+
+    it 'downloads jar' do
+      expect(chef_run).to create_remote_file('/usr/local/selenium/server/selenium-server-standalone-2.47.0.jar').with(
+        source: 'https://example.com/path/to/custom_standalone.jar'
       )
     end
   end
