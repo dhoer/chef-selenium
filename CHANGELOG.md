@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.7.0 8/21/2015
+
+- Allow custom arguments to be added to node service
+- Allow custom download url for selenium standalone jar
+
 ## 2.6.0 - 8/2/2015
 
 - Support Safari
