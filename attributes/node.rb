@@ -8,6 +8,7 @@ default['selenium']['node']['registerCycle'] = 5000
 default['selenium']['node']['hubPort'] = 4444
 default['selenium']['node']['hubHost'] = 'ip'
 default['selenium']['node']['capabilities'] = []
+default['selenium']['node']['additional_args'] = []
 default['selenium']['node']['display'] = ':0'
 default['selenium']['node']['username'] = nil
 default['selenium']['node']['password'] = nil

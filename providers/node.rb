@@ -31,6 +31,11 @@ def args
     iedriver_path = "#{selenium_home}/drivers/iedriver/IEDriverServer.exe"
     args << %(-Dwebdriver.ie.driver="#{iedriver_path}")
   end
+
+  new_resource.additional_args.each do |arg|
+    args << arg
+  end
+
   args.flatten!
 end
 

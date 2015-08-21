@@ -12,6 +12,7 @@ attribute :registerCycle, kind_of: Integer, default: node['selenium']['node']['r
 attribute :hubPort, kind_of: Integer, default: node['selenium']['node']['hubPort']
 attribute :hubHost, kind_of: String, default: node['selenium']['node']['hubHost']
 attribute :capabilities, kind_of: [Array, Hash], default: node['selenium']['node']['capabilities']
+attribute :additional_args, kind_of: [Array, Hash], default: node['selenium']['node']['additional_args']
 
 # linux only - DISPLAY must match running instance of Xvfb, x11vnc or equivalent
 attribute :display, kind_of: String, default: node['selenium']['node']['display']
