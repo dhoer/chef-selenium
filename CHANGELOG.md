@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.8.0 8/21/2015
+
+- Add hub and node recipes
+
 ## 2.7.0 8/21/2015
 
 - Allow custom arguments to be added to node service
