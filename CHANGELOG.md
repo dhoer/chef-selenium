@@ -1,10 +1,14 @@
 # Changelog
 
-## 2.8.0 8/21/2015
+## 2.8.1 - 8/24/2015
+
+- Fix #20 Unable to set hub and node recipe attributes 
+
+## 2.8.0 - 8/21/2015
 
 - Add hub and node recipes
 
-## 2.7.0 8/21/2015
+## 2.7.0 - 8/21/2015
 
 - Allow custom arguments to be added to node service
 - Allow custom download url for selenium standalone jar
