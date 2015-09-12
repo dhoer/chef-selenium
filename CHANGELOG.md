@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.0 - 9/x/2015
+
+- Merge server recipe into default recipe
+- Replace server_version, release_url and override attributes with just url attribute
+- Replace server_name attribute and provision name attribute with just servername attribute
+- Move drivers to their own cookbooks
+- Remove PhantomJS
+
 ## 2.8.1 - 8/24/2015
 
 - Fix #20 Unable to set hub and node recipe attributes 

@@ -1,4 +1,4 @@
-default['selenium']['hub']['service_name'] = 'selenium_hub' # used by hub recipe only
+default['selenium']['hub']['servicename'] = 'selenium_hub' # used by hub recipe only
 default['selenium']['hub']['host'] = 'null'
 default['selenium']['hub']['port'] = 4444
 default['selenium']['hub']['jvm_args'] = nil

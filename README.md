@@ -15,12 +15,7 @@ This cookbook comes with the following:
 **Recipes:**
 
 - **[hub](https://github.com/dhoer/chef-selenium#hub)** - Installs and configures a selenium-grid hub.
-- **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a selenium-grid
-node with support for [ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver),
-[FirefoxDriver](https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver),
-[HtmlUnitDriver](https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver),
-[InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver), and
-[SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver).
+- **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a selenium-grid node.
  
 **Resource/Providers:**
 
@@ -28,13 +23,9 @@ node with support for [ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki
 - **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid
 nodes with the same support as node recipe.
 
-PhantomJS has been deprecated and is no longer supported.  It will be removed in the next major release.  Please use 
-[ghostdriver](https://github.com/dhoer/chef-ghostdriver) cookbook instead.
-
-
 ## Requirements
 
-- Chef 11.14 or higher (sensitive attribute introduced)
+- Chef 12.3+
 
 ### Platforms
 
@@ -50,9 +41,6 @@ These cookbooks are referenced with suggests, so be sure to depend on cookbooks 
 - windows
 - nssm - Required by Windows services only (e.g. Hub and HtmlUnit running in background)
 - macosx_autologin - Required by Mac OS X GUI services
-- safari -  Required by safaridriver
-- macosx_gui_login - Required by safaridriver
-
 
 ## Usage
 
@@ -103,12 +91,7 @@ resource for the complete listing of attributes.
 
 ### node
 
-Installs and configures a selenium-grid node with support for
-[ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver),
-[FirefoxDriver](https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver),
-[HtmlUnitDriver](https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver),
-[InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver), and
-[SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver).
+Installs and configures a selenium-grid node.
 
 #### Requirements
 
@@ -175,16 +158,8 @@ Defaults to 'selenium_node'
 - `node['selenium']['node']['registerCycle']` - Defaults to 5000
 - `node['selenium']['node']['hubPort']` - Selenium-grid hub hostname. Defaults to 4444
 - `node['selenium']['node']['hubHost']` - Selenium-grid hub port. Defaults to 'ip'
-- `node['selenium']['node']['capabilities']` -  Defaults to []. The following drivers are supported and installed 
-based on [capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities):
-    - [ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver) - Installed if capabilities contains 
-    browser name `chrome`
-    - [FirefoxDriver](https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver) - Pre-installed with Selenium server
-    - [HtmlUnitDriver](https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver) - Pre-installed with Selenium server
-    - [InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver) - 32-bit or 64-bit
-    installed if capabilities contains browser name `internet explorer`
-    - [SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver) - Installed if capabilities contains 
-    browser name `safari`
+- `node['selenium']['node']['capabilities']` -  Based on 
+[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Defaults to [].
 - `node['selenium']['node']['additional_args']` - Defaults to []
 - `node['selenium']['node']['display']` - Defaults to ':0'
 - Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
@@ -227,12 +202,7 @@ resource for the complete listing of attributes.
 
 ### selenium_node
 
-Installs and configures selenium-grid nodes with support for
-[ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver),
-[FirefoxDriver](https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver),
-[HtmlUnitDriver](https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver),
-[InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver), and
-[SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver).
+Installs and configures selenium-grid nodes.
 
 #### Requirements
 

@@ -26,7 +26,7 @@ describe 'selenium_test::htmlunit' do
 
     it 'install selenium_htmlunit' do
       expect(chef_run).to install_nssm('selenium_htmlunit').with(
-        program: 'C:\\Windows\\System32\\java.exe',
+        program: 'C:\\java\\bin\\java.exe',
         args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
           ' -role node -nodeConfig """C:/selenium/config/selenium_htmlunit.json"""',
         params: {
@@ -63,7 +63,7 @@ describe 'selenium_test::htmlunit' do
     end
 
     it 'creates node config file' do
-      expect(chef_run).to create_template('/usr/local/selenium/config/selenium_htmlunit.json')
+      expect(chef_run).to create_template('/opt/selenium/config/selenium_htmlunit.json')
     end
 
     it 'install selenium_htmlunit' do
@@ -75,8 +75,8 @@ describe 'selenium_test::htmlunit' do
           name: 'selenium_htmlunit',
           user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar \"/usr/local/selenium/server/selenium-server-standalone.jar\" -role node '\
-            '-nodeConfig \"/usr/local/selenium/config/selenium_htmlunit.json\"',
+          args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role node '\
+            '-nodeConfig \"/opt/selenium/config/selenium_htmlunit.json\"',
           port: 5556,
           display: ':0'
         }

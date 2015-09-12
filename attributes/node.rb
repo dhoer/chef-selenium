@@ -1,4 +1,4 @@
-default['selenium']['node']['service_name'] = 'selenium_node' # used by node recipe only
+default['selenium']['node']['servicename'] = 'selenium_node' # used by node recipe only
 default['selenium']['node']['host'] = 'ip'
 default['selenium']['node']['port'] = 5555
 default['selenium']['node']['jvm_args'] = nil

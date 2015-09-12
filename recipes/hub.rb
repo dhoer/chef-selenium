@@ -1,4 +1,4 @@
-selenium_hub node['selenium']['hub']['service_name'] do
+selenium_hub node['selenium']['hub']['servicename'] do
   host node['selenium']['hub']['host']
   port node['selenium']['hub']['port']
   jvm_args node['selenium']['hub']['jvm_args']

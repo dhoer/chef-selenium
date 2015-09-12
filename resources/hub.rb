@@ -1,7 +1,7 @@
 actions :install
 default_action :install
 
-attribute :name, kind_of: String, name_attribute: true
+attribute :servicename, kind_of: String, name_attribute: true
 attribute :host, kind_of: String, default: node['selenium']['hub']['host']
 attribute :port, kind_of: Integer, default: node['selenium']['hub']['port']
 attribute :jvm_args, kind_of: String, default: node['selenium']['hub']['jvm_args']
