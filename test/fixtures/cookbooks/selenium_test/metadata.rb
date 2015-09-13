@@ -7,19 +7,22 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.1.0'
 
 depends 'java_se', '~> 8.0'
-depends 'firefox'
-depends 'chrome'
-depends 'safari'
+depends 'firefox', '~> 2.0'
+depends 'chrome', '~> 1.0'
+# depends 'chromedriver', '~> 1.0'
+# depends 'iedriver', '~> 1.0'
+# depends 'safaridriver', '~> 1.0'
+depends 'selenium'
+
+depends 'xvfb'
+depends 'windows_screenresolution'
+
 depends 'windows', '~> 1.37.0' # 1.38 spams warning about windows_reboot being removed
 depends 'nssm'
-depends 'ie'
-depends 'windows_screenresolution'
+
 depends 'apt'
 depends 'yum'
 depends 'dmg'
-depends 'homebrew'
-depends 'xvfb'
-depends 'selenium'
-depends 'phantomjs'
+
 depends 'macosx_autologin'
 depends 'macosx_gui_login'

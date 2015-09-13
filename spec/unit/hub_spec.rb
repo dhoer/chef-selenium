@@ -26,7 +26,7 @@ describe 'selenium_test::hub' do
 
     it 'install selenium_hub' do
       expect(chef_run).to install_nssm('selenium_hub').with(
-        program: 'C:\\Windows\\System32\\java.exe',
+        program: 'C:\java\bin\java.exe',
         args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
           ' -role hub -hubConfig """C:/selenium/config/selenium_hub.json"""',
         params: {
@@ -62,7 +62,7 @@ describe 'selenium_test::hub' do
     end
 
     it 'creates hub config file' do
-      expect(chef_run).to create_template('/usr/local/selenium/config/selenium_hub.json').with(
+      expect(chef_run).to create_template('/opt/selenium/config/selenium_hub.json').with(
         source: 'hub_config.erb',
         cookbook: 'selenium'
       )
@@ -77,8 +77,8 @@ describe 'selenium_test::hub' do
           name: 'selenium_hub',
           user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar \"/usr/local/selenium/server/selenium-server-standalone.jar\" -role hub '\
-          '-hubConfig \"/usr/local/selenium/config/selenium_hub.json\"',
+          args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role hub '\
+          '-hubConfig \"/opt/selenium/config/selenium_hub.json\"',
           port: 4444,
           display: nil
         }
@@ -93,7 +93,7 @@ describe 'selenium_test::hub' do
   context 'mac_os_x' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10', step_into: ['selenium_hub']) do
-        stub_command('which git').and_return('') # have no clue why this is needed
+        # stub_command('which git').and_return('') # have no clue why this is needed
       end.converge(described_recipe)
     end
 
@@ -102,7 +102,7 @@ describe 'selenium_test::hub' do
     end
 
     it 'creates hub config file' do
-      expect(chef_run).to create_template('/usr/local/selenium/config/selenium_hub.json').with(
+      expect(chef_run).to create_template('/opt/selenium/config/selenium_hub.json').with(
         source: 'hub_config.erb',
         cookbook: 'selenium'
       )

@@ -6,7 +6,7 @@
 - Replace server_version, release_url and override attributes with just url attribute
 - Replace server_name attribute and provision name attribute with just servername attribute
 - Move drivers to their own cookbooks
-- Remove PhantomJS
+- Remove PhantomJS 
 
 ## 2.8.1 - 8/24/2015
 

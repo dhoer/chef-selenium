@@ -44,12 +44,8 @@ action :install do
 
     case node['platform']
     when 'windows'
-      if new_resource.username && new_resource.password
-        windows_foreground(new_resource.servicename, selenium_java_exec, args, new_resource.username)
-        autologon(new_resource.username, new_resource.password, new_resource.domain)
-      else
-        windows_service(new_resource.servicename, selenium_java_exec, args)
-      end
+      windows_foreground(new_resource.servicename, selenium_java_exec, args, new_resource.username)
+      autologon(new_resource.username, new_resource.password, new_resource.domain)
 
       windows_firewall(new_resource.servicename, new_resource.port)
 

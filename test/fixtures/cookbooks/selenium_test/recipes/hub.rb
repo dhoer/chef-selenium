@@ -1,3 +1,3 @@
-selenium_hub 'selenium_hub' do
-  action :install
-end
+include_recipe 'java_se'
+
+include_recipe 'selenium::hub'
