@@ -25,7 +25,7 @@ end
 
 unless platform_family?('rhel') && node['platform_version'].split('.')[0] == '6'
   include_recipe 'chrome'
-  # include_recipe 'chromedriver'
+  include_recipe 'chromedriver'
   capabilities << {
     browserName: 'chrome',
     maxInstances: 5,
@@ -35,9 +35,9 @@ unless platform_family?('rhel') && node['platform_version'].split('.')[0] == '6'
 end
 
 if platform?('mac_os_x')
-  # node.set['safaridriver']['username'] = username
-  # node.set['safaridriver']['password'] = password
-  # include_recipe 'safaridriver'
+  node.set['safaridriver']['username'] = username
+  node.set['safaridriver']['password'] = password
+  include_recipe 'safaridriver'
   capabilities << {
     browserName: 'safari',
     maxInstances: 2,
@@ -47,7 +47,7 @@ if platform?('mac_os_x')
 end
 
 if platform?('windows')
-  # include_recipe 'iedriver'
+  include_recipe 'iedriver'
   capabilities << {
     browserName: 'internet explorer',
     maxInstances: 1,
