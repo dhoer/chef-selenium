@@ -1,6 +1,3 @@
-
-private
-
 def selenium_java_exec
   java = platform_family?('windows') ? node['selenium']['windows']['java'] : node['selenium']['unix']['java']
   validate_exec(%("#{java}" -version))
