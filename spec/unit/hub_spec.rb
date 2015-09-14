@@ -100,7 +100,7 @@ describe 'selenium_test::hub' do
       ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10', step_into: ['selenium_hub']) do |node|
         node.set['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
-        allow_any_instance_of(Chef::Recipe).to receive(:java_version_on_osx?).and_return(false)
+        allow_any_instance_of(Chef::Recipe).to receive(:java_version_on_macosx?).and_return(false)
       end.converge(described_recipe)
     end
 
