@@ -8,6 +8,9 @@ describe 'selenium_test::hub' do
   context 'windows' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2', step_into: ['selenium_hub']) do |node|
+        ENV['SYSTEMDRIVE'] = 'C:'
+        node.set['selenium']['url'] =
+          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         node.set['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
         stub_command("netsh advfirewall firewall show rule name=\"selenium_hub\" > nul").and_return(false)
       end.converge(described_recipe)
@@ -49,8 +52,10 @@ describe 'selenium_test::hub' do
 
   context 'linux' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(
-        platform: 'centos', version: '7.0', step_into: ['selenium_hub']).converge(described_recipe)
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0', step_into: ['selenium_hub'])do |node|
+        node.set['selenium']['url'] =
+          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+      end.converge(described_recipe)
     end
 
     it 'installs selenium_hub server' do
@@ -92,8 +97,10 @@ describe 'selenium_test::hub' do
 
   context 'mac_os_x' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10', step_into: ['selenium_hub']) do
-        # stub_command('which git').and_return('') # have no clue why this is needed
+      ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10', step_into: ['selenium_hub']) do |node|
+        node.set['selenium']['url'] =
+          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+        allow_any_instance_of(Chef::Recipe).to receive(:java_version_on_osx?).and_return(false)
       end.converge(described_recipe)
     end
 
@@ -124,8 +131,8 @@ describe 'selenium_test::hub' do
         variables: {
           name: 'org.seleniumhq.selenium_hub',
           exec: '/usr/bin/java',
-          args: ['-jar', "\"/usr/local/selenium/server/selenium-server-standalone.jar\"", '-role', 'hub',
-                 '-hubConfig', "\"/usr/local/selenium/config/selenium_hub.json\""]
+          args: ['-jar', "\"/opt/selenium/server/selenium-server-standalone.jar\"", '-role', 'hub',
+                 '-hubConfig', "\"/opt/selenium/config/selenium_hub.json\""]
         }
       )
     end

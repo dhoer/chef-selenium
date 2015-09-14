@@ -14,14 +14,9 @@ This cookbook comes with the following:
  
 **Recipes:**
 
-- **[hub](https://github.com/dhoer/chef-selenium#hub)** - Installs and configures a selenium-grid hub.
-- **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a selenium-grid node.
- 
-**Resource/Providers:**
-
-- **[selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub)** - Installs and configures selenium-grid hubs.
-- **[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node)** - Installs and configures selenium-grid
-nodes with the same support as node recipe.
+- **[hub](https://github.com/dhoer/chef-selenium#hub)** - Installs and configures a Selenium Hub as a service.
+- **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a Selenium Node as service
+ on Linux and a GUI service on Mac OS X and Windows.
 
 ## Requirements
 

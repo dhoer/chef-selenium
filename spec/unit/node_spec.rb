@@ -15,6 +15,9 @@ describe 'selenium_test::node' do
         platform: 'windows',
         version: '2008R2',
         step_into: ['selenium_node']) do |node|
+        ENV['SYSTEMDRIVE'] = 'C:'
+        node.set['selenium']['url'] =
+          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         node.set['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
@@ -49,10 +52,8 @@ describe 'selenium_test::node' do
 
     it 'creates selenium foreground command' do
       expect(chef_run).to create_file('C:/selenium/bin/selenium_node.cmd').with(
-        content: '"C:\Windows\System32\java.exe" -jar "C:/selenium/server/selenium-server-standalone.jar" '\
+        content: '"C:\java\bin\java.exe" -jar "C:/selenium/server/selenium-server-standalone.jar" '\
           '-role node -nodeConfig "C:/selenium/config/selenium_node.json" '\
-          '-Dwebdriver.chrome.driver="C:/selenium/drivers/chromedriver/chromedriver.exe" '\
-          '-Dwebdriver.ie.driver="C:/selenium/drivers/iedriver/IEDriverServer.exe" '\
           '-log "C:/selenium/log/selenium_node.log"'
       )
     end
@@ -69,7 +70,9 @@ describe 'selenium_test::node' do
   context 'linux' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']) do
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']) do |node|
+        node.set['selenium']['url'] =
+          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
       end.converge(described_recipe)
@@ -84,7 +87,7 @@ describe 'selenium_test::node' do
     end
 
     it 'creates node config file' do
-      expect(chef_run).to create_template('/usr/local/selenium/config/selenium_node.json')
+      expect(chef_run).to create_template('/opt/selenium/config/selenium_node.json')
     end
 
     it 'install selenium_node' do
@@ -96,9 +99,8 @@ describe 'selenium_test::node' do
           name: 'selenium_node',
           user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar \"/usr/local/selenium/server/selenium-server-standalone.jar\" -role node '\
-            '-nodeConfig \"/usr/local/selenium/config/selenium_node.json\" '\
-            '-Dwebdriver.chrome.driver=\"/usr/local/selenium/drivers/chromedriver/chromedriver\"',
+          args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role node '\
+            '-nodeConfig \"/opt/selenium/config/selenium_node.json\"',
           port: 5555,
           display: ':0'
         }

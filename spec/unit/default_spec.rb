@@ -4,6 +4,7 @@ describe 'selenium::default' do
   context 'windows' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2') do |node|
+        ENV['SYSTEMDRIVE'] = 'C:'
         node.set['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
       end.converge(described_recipe)
