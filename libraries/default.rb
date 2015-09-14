@@ -37,7 +37,7 @@ def windows_service(name, exec, args)
 end
 
 # http://sqa.stackexchange.com/a/6267
-def windows_foreground(name, exec, args, username)
+def windows_gui_service(name, exec, args, username)
   args << %(-log "#{selenium_home}/log/#{name}.log")
   cmd = "#{selenium_home}/bin/#{name}.cmd"
 
@@ -120,7 +120,7 @@ def mac_service(name, exec, args, plist, username)
     command "launchctl unload -w #{plist}; launchctl load -w #{plist}"
     user username
     action :nothing
-    returns [0, 112] # 112 not logged in to gui
+    returns [0, 112] # 112 not logged into gui
   end
 
   directory '/var/log/selenium' do

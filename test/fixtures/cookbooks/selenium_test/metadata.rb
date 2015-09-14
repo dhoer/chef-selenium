@@ -6,13 +6,16 @@ description 'Tests Selenium'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.1.0'
 
+depends 'selenium'
+
 depends 'java_se', '~> 8.0'
+
 depends 'firefox', '~> 2.0'
 depends 'chrome', '~> 1.0'
+
 depends 'chromedriver' # , '~> 1.0'
 depends 'iedriver' # , '~> 1.0'
 depends 'safaridriver' # , '~> 1.0'
-depends 'selenium'
 
 depends 'xvfb'
 depends 'windows_screenresolution'

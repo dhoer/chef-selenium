@@ -45,7 +45,7 @@ describe 'selenium::default' do
       it { should be_owned_by 'root' }
     end
 
-    describe file('/opt/selenium/server/selenium-server-standalone-2.47.0.jar') do
+    describe file('/opt/selenium/server/selenium-server-standalone-2.47.1.jar') do
       it { should be_file }
       it { should be_executable.by_user('root') }
     end

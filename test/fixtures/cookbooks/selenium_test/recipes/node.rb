@@ -23,39 +23,6 @@ unless platform?('debian')
   }
 end
 
-unless platform_family?('rhel') && node['platform_version'].split('.')[0] == '6'
-  include_recipe 'chrome'
-  include_recipe 'chromedriver'
-  capabilities << {
-    browserName: 'chrome',
-    maxInstances: 5,
-    version: chrome_version,
-    seleniumProtocol: 'WebDriver'
-  }
-end
-
-if platform?('mac_os_x')
-  node.set['safaridriver']['username'] = username
-  node.set['safaridriver']['password'] = password
-  include_recipe 'safaridriver'
-  capabilities << {
-    browserName: 'safari',
-    maxInstances: 2,
-    version: safari_version,
-    seleniumProtocol: 'WebDriver'
-  }
-end
-
-if platform?('windows')
-  include_recipe 'iedriver'
-  capabilities << {
-    browserName: 'internet explorer',
-    maxInstances: 1,
-    version: ie_version,
-    seleniumProtocol: 'WebDriver'
-  }
-end
-
 node.set['selenium']['node']['capabilities'] = capabilities
 node.set['selenium']['node']['username'] = username
 node.set['selenium']['node']['password'] = password
