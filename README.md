@@ -51,10 +51,10 @@ Downloads and installs Selenium Standalone jar.
 
 - `node['selenium']['url'] - The download URL of Selenium Standalone jar. 
 - `node['selenium']['windows']['home']` -  Home directory. Defaults to '#{ENV['SYSTEMDRIVE']}/selenium' 
-- `node['selenium']['windows']['java']` -  Path to Jave executable. Defaults to 
+- `node['selenium']['windows']['java']` -  Path to Java executable. Defaults to 
 '#{ENV['SYSTEMDRIVE']}\\java\\bin\\java.exe'
 - `node['selenium']['unix']['home']` -  Home directory. Defaults to ''/opt/selenium'' 
-- `node['selenium']['unix']['java']` -  Path to Jave executable. Defaults to 
+- `node['selenium']['unix']['java']` -  Path to Java executable. Defaults to 
 '/usr/bin/java'
 
 ## hub
