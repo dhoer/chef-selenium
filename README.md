@@ -14,13 +14,14 @@ This cookbook comes with the following:
  
 **Recipes:**
 
+- **[default](https://github.com/dhoer/chef-selenium#default)** - Downloads and installs Selenium Standalone jar.
 - **[hub](https://github.com/dhoer/chef-selenium#hub)** - Installs and configures a Selenium Hub as a service.
 - **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a Selenium Node as service
  on Linux and a GUI service on Mac OS X and Windows.
 
 ## Requirements
 
-- Chef 12.3+
+- Chef 11.14 or higher (sensitive attribute introduced)
 
 ### Platforms
 
