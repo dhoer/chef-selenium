@@ -1,6 +1,8 @@
 require 'serverspec_helper'
 
 describe 'selenium::default' do
+  version = '2.47.1'
+
   if os[:family] == 'windows'
     describe file('C:/selenium/config') do
       it { should be_directory }
@@ -22,7 +24,7 @@ describe 'selenium::default' do
       it { should be_owned_by 'root' }
     end
 
-    describe file('C:/selenium/selenium/server/selenium-server-standalone-2.47.0.jar') do
+    describe file("C:/selenium/selenium/server/selenium-server-standalone-#{verison}.jar") do
       it { should be_file }
       it { should be_executable.by_user('root') }
     end
@@ -45,7 +47,7 @@ describe 'selenium::default' do
       it { should be_owned_by 'root' }
     end
 
-    describe file('/opt/selenium/server/selenium-server-standalone-2.47.1.jar') do
+    describe file("/opt/selenium/server/selenium-server-standalone-#{version}.jar") do
       it { should be_file }
       it { should be_executable.by_user('root') }
     end
