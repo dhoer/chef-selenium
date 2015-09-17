@@ -42,11 +42,11 @@ These cookbooks are referenced with suggests, so be sure to depend on cookbooks 
 
 ## Recipes
 
-### default
+## default
 
 Downloads and installs Selenium Standalone jar.
 
-#### Attributes
+### Attributes
 
 - `node['selenium']['url'] - The download URL of Selenium Standalone jar. 
 - `node['selenium']['windows']['home']` -  Home directory. Defaults to '#{ENV['SYSTEMDRIVE']}/selenium' 
@@ -56,11 +56,11 @@ Downloads and installs Selenium Standalone jar.
 - `node['selenium']['unix']['java']` -  Path to Jave executable. Defaults to 
 '/usr/bin/java'
 
-### hub
+## hub
 
 Installs and configures a Selenium Hub as a service.
 
-#### Attributes
+### Attributes
 
 - `node['selenium']['hub']['service_name']` - The name of the service.  Defaults to 'selenium_hub' 
 - `node['selenium']['hub']['host']` -  Defaults to 'null'
@@ -79,7 +79,7 @@ Installs and configures a Selenium Hub as a service.
 - `node['selenium']['hub']['maxSession']` -  Defaults to 5
 - `node['selenium']['hub']['jettyMaxThreads']` -  Defaults to -1
 
-### node
+## node
 
 Installs and configures a Selenium Node as service on Linux and a GUI service on Mac OS X and Windows.
 
@@ -92,7 +92,7 @@ and password for automatic login. Note that Windows password is stored unencrypt
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
 `/etc/kcpassword` but it can be easily decrypted.
 
-#### Attributes
+### Attributes
 
 - `node['selenium']['node']['service_name']` - The name of the service or Windows foreground startup script. 
 Defaults to 'selenium_node' 
@@ -117,9 +117,9 @@ background (HtmlUnit only):
 `/etc/kcpassword` but it can be easily decrypted.
     - `domain` - Optional for Windows only.  Defaults to `nil`.
     
-#### Example
+### Example
 
-##### Install Selenium Node with Firefox and HtmlUnit
+#### Install Selenium Node with Firefox and HtmlUnit capabilities
 
 ```ruby
 node.set['selenium']['node']['username'] = 'vagrant' if platform?('windows', 'mac_os_x')
@@ -144,11 +144,11 @@ include_recipe 'selenium::node'
 
 ## Resource/Providers
 
-### selenium_hub
+## selenium_hub
 
 Installs and configures a Selenium Hub as a service.
 
-#### Attributes
+### Attributes
 
 This is a partial list of attributes available.  See
 [hub](https://github.com/dhoer/chef-selenium/blob/master/resources/hub.rb)
@@ -158,12 +158,12 @@ resource for the complete listing of attributes.
 - `host` - Hostname. Defaults to `null`.
 - `port` - Port.  Defaults to `4444`.
 
-### selenium_node
+## selenium_node
 
 Installs and configures a Selenium Node as a service.
 
 
-#### Attributes
+### Attributes
 
 This is a partial list of attributes available.  See
 [node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb)
@@ -184,9 +184,9 @@ background (HtmlUnit only):
 `/etc/kcpassword` but it can be easily decrypted.
     - `domain` - Optional for Windows only.  Defaults to `nil`.
 
-#### Example
+### Example
 
-##### Install selenium-grid node with Firefox and HtmlUnit
+#### Install Selenium Node with Firefox and HtmlUnit capabilities
 
 ```ruby
 selenium_node 'selenium_node' do

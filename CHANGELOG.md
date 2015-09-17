@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0 - 9/x/2015
+## 3.0.0 - 9/17/2015
 
 - Merge server recipe into default recipe
 - Replace server_version, release_url and override attributes with just url attribute
