@@ -20,5 +20,4 @@ when 'rhel'
   package 'libffi-devel'
 when 'mac_os_x'
   include_recipe 'dmg'
-  include_recipe 'homebrew'
 end
