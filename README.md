@@ -15,7 +15,8 @@ This cookbook comes with the following recipes:
 - **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a Selenium Node as service
  on Linux and a GUI service on Mac OS X and Windows.
  
-Hub and Node LWRPs are also available.
+LWRPs [selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub) and 
+[selenium_node](https://github.com/dhoer/chef-selenium#selenium_node) are also available.
 
 See [selenium_grid](https://github.com/dhoer/chef-selenium_grid) cookbook for cross platform installs and configuration
 of Selenium and 3rd party drivers.
@@ -83,7 +84,7 @@ Installs and configures a Selenium Hub as a service.
 
 Installs and configures a Selenium Node as service on Linux and a GUI service on Mac OS X and Windows.
 
-- Browsers (e.g., chrome, firefox, etc...) must be installed outside of this cookbook.
+- Firefox browser must be installed outside of this cookbook.
 - Linux nodes without a physical monitor require a headless display
 (e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), [x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
 etc...) and must be installed and configured outside this cookbook.
@@ -161,7 +162,6 @@ resource for the complete listing of attributes.
 ## selenium_node
 
 Installs and configures a Selenium Node as a service.
-
 
 ### Attributes
 
