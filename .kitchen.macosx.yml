@@ -16,7 +16,7 @@ platforms:
       box: macosx-10.10
     driver_config:
       network:
-      - ["forwarded_port", {guest: 4444, host: 4444}]
+      - ["forwarded_port", {guest: 4444, host: 4447}]
 
 suites:
   - name: selenium_test
@@ -25,7 +25,4 @@ suites:
       - recipe[selenium_test::java]
       - recipe[selenium_test::hub]
       - recipe[selenium_test::node]
-      - recipe[selenium_test::htmlunit]
     attributes:
-      java:
-        jdk_version: '7'

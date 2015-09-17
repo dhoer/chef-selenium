@@ -26,13 +26,6 @@ platforms:
       - ["forwarded_port", {guest: 4444, host: 4446}]
       - ["forwarded_port", {guest: 5555, host: 5557}]
     attributes:
-      java:
-        windows:
-          # export WIN_JDK_URL=http://example.com/path/to/jdk-8u51-windows-i586.exe; kitchen dia
-          url: <%= ENV['WIN_JDK_URL'] %>
-      selenium:
-        windows:
-          java: C:\\Program Files (x86)\\Java\\jdk1.8.0_51\\bin\\java.exe
 
 suites:
   - name: selenium_test
@@ -41,5 +34,3 @@ suites:
       - recipe[selenium_test::hub]
       - recipe[selenium_test::node]
     attributes:
-      java:
-        jdk_version: '7'
