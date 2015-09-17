@@ -2,11 +2,9 @@
 
 [![Cookbook Version](http://img.shields.io/cookbook/v/selenium.svg?style=flat-square)][supermarket]
 [![Build Status](http://img.shields.io/travis/dhoer/chef-selenium.svg?style=flat-square)][travis]
-[![GitHub Issues](http://img.shields.io/github/issues/dhoer/chef-selenium.svg?style=flat-square)][github]
 
 [supermarket]: https://supermarket.chef.io/cookbooks/selenium
 [travis]: https://travis-ci.org/dhoer/chef-selenium
-[github]: https://github.com/dhoer/chef-selenium/issues
 
 This cookbook installs and configures Selenium (http://www.seleniumhq.org/).
 
@@ -18,6 +16,9 @@ This cookbook comes with the following recipes:
  on Linux and a GUI service on Mac OS X and Windows.
  
 Hub and Node LWRPs are also available.
+
+See [selenium_grid](https://github.com/dhoer/chef-selenium_grid) cookbook for cross platform installs and configuration
+of Selenium and 3rd party drivers.
 
 ## Requirements
 
@@ -37,12 +38,7 @@ These cookbooks are referenced with suggests, so be sure to depend on cookbooks 
 
 - windows
 - nssm - Required by Windows services only (e.g. Hub and HtmlUnit running in background)
-- macosx_autologin - Required by Mac OS X GUI services
-
-## Usage
-
-See [selenium_grid](https://github.com/dhoer/chef-selenium_grid) cookbook for cross platform installs and configuration
-of Selenium. 
+- macosx_autologin - Required by Mac OS X GUI services 
 
 ## Recipes
 
@@ -150,7 +146,7 @@ include_recipe 'selenium::node'
 
 ### selenium_hub
 
-Installs and configures selenium-grid hubs.
+Installs and configures a Selenium Hub as a service.
 
 #### Attributes
 
@@ -164,20 +160,29 @@ resource for the complete listing of attributes.
 
 ### selenium_node
 
-Installs and configures selenium-grid nodes.
+Installs and configures a Selenium Node as a service.
 
-#### Requirements
 
-- Java must be installed outside of this cookbook.
-- Browsers (e.g., chrome, firefox, etc...) must be installed outside of this cookbook.
-- Linux nodes without a physical monitor require a headless display
-(e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), [x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
-etc...) and must be installed and configured outside this cookbook.
-- Mac OS X/Windows nodes (with the exception of HtmlUnitDriver) must run as a GUI service and that requires a username
-and password for automatic login. Note that Windows password is stored unencrypted under windows registry
+#### Attributes
+
+This is a partial list of attributes available.  See
+[node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb)
+resource for the complete listing of attributes.
+
+- `name` - Name attribute. The name of the service or Windows foreground startup script.
+- `host` - Hostname. Defaults to `null`.
+- `port` - Port.  Defaults to `5555`.
+- `hubHost` - Selenium-grid hub hostname. Defaults to `ip`.
+- `hubPort` - Selenium-grid hub port. Defaults to `4444`.
+- `capabilities` -  Based on 
+[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Defaults to [].
+- Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
+background (HtmlUnit only):
+    - `username` - Defaults to `nil`.
+    - `password` - Defaults to `nil`. Note that Windows password is stored unencrypted under windows registry
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
 `/etc/kcpassword` but it can be easily decrypted.
-
+    - `domain` - Optional for Windows only.  Defaults to `nil`.
 
 #### Example
 
@@ -203,36 +208,6 @@ selenium_node 'selenium_node' do
   action :install
 end
 ```
-
-#### Attributes
-
-This is a partial list of attributes available.  See
-[node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb)
-resource for the complete listing of attributes.
-
-- `name` - Name attribute. The name of the service or Windows foreground startup script.
-- `host` - Hostname. Defaults to `null`.
-- `port` - Port.  Defaults to `5555`.
-- `hubHost` - Selenium-grid hub hostname. Defaults to `ip`.
-- `hubPort` - Selenium-grid hub port. Defaults to `4444`.
-- `capabilities` - The following drivers are supported and installed based on
-[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities):
-    - [ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver) - Installed if capabilities contains 
-    browser name `chrome`
-    - [FirefoxDriver](https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver) - Pre-installed with Selenium server
-    - [HtmlUnitDriver](https://github.com/SeleniumHQ/selenium/wiki/HtmlUnitDriver) - Pre-installed with Selenium server
-    - [InternetExplorerDriver](https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver) - 32-bit or 64-bit
-    installed if capabilities contains browser name `internet explorer`
-    - [SafariDriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver) - Installed if capabilities contains 
-    browser name `safari`
-- Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
-background (HtmlUnit only):
-    - `username` - Defaults to `nil`.
-    - `password` - Defaults to `nil`. Note that Windows password is stored unencrypted under windows registry
-`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
-`/etc/kcpassword` but it can be easily decrypted.
-    - `domain` - Optional for Windows only.  Defaults to `nil`.
-
 
 ## ChefSpec Matchers
 
