@@ -8,20 +8,21 @@
 [travis]: https://travis-ci.org/dhoer/chef-selenium
 [github]: https://github.com/dhoer/chef-selenium/issues
 
-This cookbook installs and configures Selenium and WebDriver components (http://www.seleniumhq.org/).
+This cookbook installs and configures Selenium (http://www.seleniumhq.org/).
 
-This cookbook comes with the following:
- 
-**Recipes:**
+This cookbook comes with the following recipes:
 
 - **[default](https://github.com/dhoer/chef-selenium#default)** - Downloads and installs Selenium Standalone jar.
 - **[hub](https://github.com/dhoer/chef-selenium#hub)** - Installs and configures a Selenium Hub as a service.
 - **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a Selenium Node as service
  on Linux and a GUI service on Mac OS X and Windows.
+ 
+Hub and Node LWRPs are also available.
 
 ## Requirements
 
-- Chef 11.14 or higher (sensitive attribute introduced)
+- Java (not installed by this cookbook)
+- Chef 11.14+ (sensitive attribute introduced)
 
 ### Platforms
 
@@ -40,33 +41,30 @@ These cookbooks are referenced with suggests, so be sure to depend on cookbooks 
 
 ## Usage
 
-See [selenium_test](https://github.com/dhoer/chef-selenium/tree/master/test/fixtures/cookbooks/selenium_test)
-cookbook for working cross platform examples. Note that provided examples in this cookbook have passwords
-unencrypted for simplicity.
+See [selenium_grid](https://github.com/dhoer/chef-selenium_grid) cookbook for cross platform installs and configuration
+of Selenium. 
 
 ## Recipes
 
-### hub
+### default
 
-Installs and configures a selenium-grid hub.
-
-#### Requirements
-
-- Java must be installed outside of this cookbook.
-
-#### Example
-
-##### Install selenium-grid hub
-
-```ruby
-include_recipe 'selenium::hub'
-```
+Downloads and installs Selenium Standalone jar.
 
 #### Attributes
 
-This is a partial list of attributes available.  See
-[hub](https://github.com/dhoer/chef-selenium/blob/master/resources/hub.rb)
-resource for the complete listing of attributes.
+- `node['selenium']['url'] - The download URL of Selenium Standalone jar. 
+- `node['selenium']['windows']['home']` -  Home directory. Defaults to '#{ENV['SYSTEMDRIVE']}/selenium' 
+- `node['selenium']['windows']['java']` -  Path to Jave executable. Defaults to 
+'#{ENV['SYSTEMDRIVE']}\\java\\bin\\java.exe'
+- `node['selenium']['unix']['home']` -  Home directory. Defaults to ''/opt/selenium'' 
+- `node['selenium']['unix']['java']` -  Path to Jave executable. Defaults to 
+'/usr/bin/java'
+
+### hub
+
+Installs and configures a Selenium Hub as a service.
+
+#### Attributes
 
 - `node['selenium']['hub']['service_name']` - The name of the service.  Defaults to 'selenium_hub' 
 - `node['selenium']['hub']['host']` -  Defaults to 'null'
@@ -87,11 +85,8 @@ resource for the complete listing of attributes.
 
 ### node
 
-Installs and configures a selenium-grid node.
+Installs and configures a Selenium Node as service on Linux and a GUI service on Mac OS X and Windows.
 
-#### Requirements
-
-- Java must be installed outside of this cookbook.
 - Browsers (e.g., chrome, firefox, etc...) must be installed outside of this cookbook.
 - Linux nodes without a physical monitor require a headless display
 (e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), [x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
@@ -101,47 +96,7 @@ and password for automatic login. Note that Windows password is stored unencrypt
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
 `/etc/kcpassword` but it can be easily decrypted.
 
-
-#### Example
-
-##### Install selenium-grid node with Chrome, Firefox, HtmlUnit and Internet Explorer capability
-
-```ruby
-node.set['selenium']['node']['username'] = 'vagrant' if platform?('windows', 'mac_os_x')
-node.set['selenium']['node']['password'] = 'vagrant' if platform?('windows', 'mac_os_x')
-
-node.set['selenium']['node']['capabilities'] = [
-  {
-    browserName: 'chrome',
-    maxInstances: 5,
-    seleniumProtocol: 'WebDriver'
-  },
-  {
-    browserName: 'firefox',
-    maxInstances: 5,
-    seleniumProtocol: 'WebDriver'
-  },
-  {
-    browserName: 'htmlunit',
-    maxInstances: 1,
-    platform: 'ANY',
-    seleniumProtocol: 'WebDriver'
-  },
-  {
-    browserName: 'internet explorer',
-    maxInstances: 1,
-    seleniumProtocol: 'WebDriver'
-  }
-]
-  
-include_recipe 'selenium::node'
-```
-
 #### Attributes
-
-This is a partial list of attributes available.  See
-[node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb)
-resource for the complete listing of attributes.
 
 - `node['selenium']['node']['service_name']` - The name of the service or Windows foreground startup script. 
 Defaults to 'selenium_node' 
@@ -165,26 +120,37 @@ background (HtmlUnit only):
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
 `/etc/kcpassword` but it can be easily decrypted.
     - `domain` - Optional for Windows only.  Defaults to `nil`.
+    
+#### Example
+
+##### Install Selenium Node with Firefox and HtmlUnit
+
+```ruby
+node.set['selenium']['node']['username'] = 'vagrant' if platform?('windows', 'mac_os_x')
+node.set['selenium']['node']['password'] = 'vagrant' if platform?('windows', 'mac_os_x')
+
+node.set['selenium']['node']['capabilities'] = [
+  {
+    browserName: 'firefox',
+    maxInstances: 5,
+    seleniumProtocol: 'WebDriver'
+  },
+  {
+    browserName: 'htmlunit',
+    maxInstances: 1,
+    platform: 'ANY',
+    seleniumProtocol: 'WebDriver'
+  }
+]
+  
+include_recipe 'selenium::node'
+```
 
 ## Resource/Providers
 
 ### selenium_hub
 
 Installs and configures selenium-grid hubs.
-
-#### Requirements
-
-- Java must be installed outside of this cookbook.
-
-#### Example
-
-##### Install selenium-grid hub
-
-```ruby
-selenium_hub 'selenium_hub' do
-  action :install
-end
-```
 
 #### Attributes
 
@@ -215,18 +181,13 @@ and password for automatic login. Note that Windows password is stored unencrypt
 
 #### Example
 
-##### Install selenium-grid node with Chrome, Firefox, HtmlUnit and Internet Explorer capability
+##### Install selenium-grid node with Firefox and HtmlUnit
 
 ```ruby
 selenium_node 'selenium_node' do
   username 'vagrant' if platform?('windows', 'mac_os_x')
   password 'vagrant' if platform?('windows', 'mac_os_x')
   capabilities [
-    {
-      browserName: 'chrome',
-      maxInstances: 5,
-      seleniumProtocol: 'WebDriver'
-    },
     {
       browserName: 'firefox',
       maxInstances: 5,
@@ -236,11 +197,6 @@ selenium_node 'selenium_node' do
       browserName: 'htmlunit',
       maxInstances: 1,
       platform: 'ANY',
-      seleniumProtocol: 'WebDriver'
-    },
-    {
-      browserName: 'internet explorer',
-      maxInstances: 1,
       seleniumProtocol: 'WebDriver'
     }
   ]
@@ -298,7 +254,7 @@ Selenium Cookbook Matchers
 
 ## Getting Help
 
-- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/chef-selenium).
+- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/selenium).
 - Report bugs and discuss potential features in [Github issues](https://github.com/dhoer/chef-selenium/issues).
 
 ## Contributing
