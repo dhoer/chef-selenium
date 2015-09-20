@@ -13,5 +13,5 @@ supports 'ubuntu'
 supports 'windows'
 
 suggests 'windows', '~> 1.0'
-suggests 'nssm', '~> 1.0'
-suggests 'macosx_autologin', '~> 2.0'
+suggests 'nssm', '~> 1.2'
+suggests 'macosx_autologin', '~> 3.0'
