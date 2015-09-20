@@ -15,3 +15,7 @@ supports 'windows'
 suggests 'windows', '~> 1.0'
 suggests 'nssm', '~> 1.2'
 suggests 'macosx_autologin', '~> 3.0'
+
+source_url 'https://github.com/dhoer/chef-selenium' if respond_to?(:source_url)
+issues_url 'https://github.com/dhoer/chef-selenium/issues' if respond_to?(:issues_url)
+
