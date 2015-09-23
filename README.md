@@ -24,7 +24,7 @@ of Selenium and 3rd party drivers.
 ## Requirements
 
 - Java (not installed by this cookbook)
-- Chef 11.14+ (sensitive attribute introduced)
+- Chef 11.16+ (sensitive attribute introduced)
 
 ### Platforms
 
@@ -49,13 +49,12 @@ Downloads and installs Selenium Standalone jar.
 
 ### Attributes
 
-- `node['selenium']['url'] - The download URL of Selenium Standalone jar. 
-- `node['selenium']['windows']['home']` -  Home directory. Defaults to '#{ENV['SYSTEMDRIVE']}/selenium' 
-- `node['selenium']['windows']['java']` -  Path to Java executable. Defaults to 
-'#{ENV['SYSTEMDRIVE']}\\java\\bin\\java.exe'
-- `node['selenium']['unix']['home']` -  Home directory. Defaults to ''/opt/selenium'' 
-- `node['selenium']['unix']['java']` -  Path to Java executable. Defaults to 
-'/usr/bin/java'
+- `node['selenium']['url']` - The download URL of Selenium Standalone jar. 
+- `node['selenium']['windows']['home']` -  Home directory. Default `#{ENV['SYSTEMDRIVE']}/selenium`.
+- `node['selenium']['windows']['java']` -  Path to Java executable. Default 
+`#{ENV['SYSTEMDRIVE']}\\java\\bin\\java.exe`.
+- `node['selenium']['unix']['home']` -  Home directory. Default `/opt/selenium`. 
+- `node['selenium']['unix']['java']` -  Path to Java executable. Default `/usr/bin/java`.
 
 ## hub
 
@@ -63,22 +62,21 @@ Installs and configures a Selenium Hub as a service.
 
 ### Attributes
 
-- `node['selenium']['hub']['service_name']` - The name of the service.  Defaults to 'selenium_hub' 
-- `node['selenium']['hub']['host']` -  Defaults to 'null'
-- `node['selenium']['hub']['port']` -  Defaults to 4444
-- `node['selenium']['hub']['jvm_args']` -  Defaults to nil
-- `node['selenium']['hub']['newSessionWaitTimeout']` -  Defaults to -1
-- `node['selenium']['hub']['servlets']` -  Defaults to []
-- `node['selenium']['hub']['prioritizer']` -  Defaults to 'null'
-- `node['selenium']['hub']['capabilityMatcher']` -  Defaults to 
-'org.openqa.grid.internal.utils.DefaultCapabilityMatcher'
-- `node['selenium']['hub']['throwOnCapabilityNotPresent']` -  Defaults to true
-- `node['selenium']['hub']['nodePolling']` -  Defaults to 5000
-- `node['selenium']['hub']['cleanUpCycle']` -  Defaults to 5000
-- `node['selenium']['hub']['timeout']` -  Defaults to 30_000
-- `node['selenium']['hub']['browserTimeout']` -  Defaults to 0
-- `node['selenium']['hub']['maxSession']` -  Defaults to 5
-- `node['selenium']['hub']['jettyMaxThreads']` -  Defaults to -1
+- `node['selenium']['hub']['service_name']` - The name of the service.  Default `selenium_hub`. 
+- `node['selenium']['hub']['host']` -  Default `null`.
+- `node['selenium']['hub']['port']` -  Default `4444`.
+- `node['selenium']['hub']['jvm_args']` -  Default `nil`.
+- `node['selenium']['hub']['newSessionWaitTimeout']` -  Default `-1`.
+- `node['selenium']['hub']['servlets']` -  Default `[]`.
+- `node['selenium']['hub']['prioritizer']` -  Default `null`.
+- `node['selenium']['hub']['capabilityMatcher']` -  Default `org.openqa.grid.internal.utils.DefaultCapabilityMatcher`.
+- `node['selenium']['hub']['throwOnCapabilityNotPresent']` -  Default `true`.
+- `node['selenium']['hub']['nodePolling']` -  Default `5000`.
+- `node['selenium']['hub']['cleanUpCycle']` -  Default `5000`.
+- `node['selenium']['hub']['timeout']` -  Default `30_000`.
+- `node['selenium']['hub']['browserTimeout']` -  Default `0`.
+- `node['selenium']['hub']['maxSession']` -  Default `5`.
+- `node['selenium']['hub']['jettyMaxThreads']` -  Default `-1`.
 
 ## node
 
@@ -96,27 +94,27 @@ and password for automatic login. Note that Windows password is stored unencrypt
 ### Attributes
 
 - `node['selenium']['node']['service_name']` - The name of the service or Windows foreground startup script. 
-Defaults to 'selenium_node' 
-- `node['selenium']['node']['host']` - Defaults to 'ip'
-- `node['selenium']['node']['port']` - Defaults to 5555
-- `node['selenium']['node']['jvm_args']` - Defaults to nil
-- `node['selenium']['node']['proxy']` - Defaults to 'org.openqa.grid.selenium.proxy.DefaultRemoteProxy'
-- `node['selenium']['node']['maxSession']` - Defaults to 5
-- `node['selenium']['node']['register']` - Defaults to true
-- `node['selenium']['node']['registerCycle']` - Defaults to 5000
-- `node['selenium']['node']['hubPort']` - Selenium-grid hub hostname. Defaults to 4444
-- `node['selenium']['node']['hubHost']` - Selenium-grid hub port. Defaults to 'ip'
+Default `'selenium_node`.
+- `node['selenium']['node']['host']` - Default `ip`.
+- `node['selenium']['node']['port']` - Default `5555`.
+- `node['selenium']['node']['jvm_args']` - Default `nil`.
+- `node['selenium']['node']['proxy']` - Default `org.openqa.grid.selenium.proxy.DefaultRemoteProxy`.
+- `node['selenium']['node']['maxSession']` - Default `5`.
+- `node['selenium']['node']['register']` - Default `true`.
+- `node['selenium']['node']['registerCycle']` - Default `5000`.
+- `node['selenium']['node']['hubPort']` - Selenium-grid hub hostname. Default `4444`.
+- `node['selenium']['node']['hubHost']` - Selenium-grid hub port. Default `ip`.
 - `node['selenium']['node']['capabilities']` -  Based on 
-[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Defaults to [].
-- `node['selenium']['node']['additional_args']` - Defaults to []
-- `node['selenium']['node']['display']` - Defaults to ':0'
+[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Default `[]`.
+- `node['selenium']['node']['additional_args']` - Default `[]`.
+- `node['selenium']['node']['display']` - Default `:0`.
 - Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
 background (HtmlUnit only):
-    - `username` - Defaults to `nil`.
-    - `password` - Defaults to `nil`. Note that Windows password is stored unencrypted under windows registry
+    - `username` - Default `nil`.
+    - `password` - Default `nil`. Note that Windows password is stored unencrypted under windows registry
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
 `/etc/kcpassword` but it can be easily decrypted.
-    - `domain` - Optional for Windows only.  Defaults to `nil`.
+    - `domain` - Optional for Windows only.  Default `nil`.
     
 ### Example
 
@@ -156,8 +154,8 @@ This is a partial list of attributes available.  See
 resource for the complete listing of attributes.
 
 - `name` - Name attribute. The name of the service.
-- `host` - Hostname. Defaults to `null`.
-- `port` - Port.  Defaults to `4444`.
+- `host` - Hostname. Default `null`.
+- `port` - Port.  Default `4444`.
 
 ## selenium_node
 
@@ -170,19 +168,19 @@ This is a partial list of attributes available.  See
 resource for the complete listing of attributes.
 
 - `name` - Name attribute. The name of the service or Windows foreground startup script.
-- `host` - Hostname. Defaults to `null`.
-- `port` - Port.  Defaults to `5555`.
-- `hubHost` - Selenium-grid hub hostname. Defaults to `ip`.
-- `hubPort` - Selenium-grid hub port. Defaults to `4444`.
+- `host` - Hostname. Default `null`.
+- `port` - Port.  Default `5555`.
+- `hubHost` - Selenium-grid hub hostname. Default `ip`.
+- `hubPort` - Selenium-grid hub port. Default `4444`.
 - `capabilities` -  Based on 
-[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Defaults to [].
+[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Default `[]`.
 - Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
 background (HtmlUnit only):
-    - `username` - Defaults to `nil`.
-    - `password` - Defaults to `nil`. Note that Windows password is stored unencrypted under windows registry
+    - `username` - Default `nil`.
+    - `password` - Default `nil`. Note that Windows password is stored unencrypted under windows registry
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
 `/etc/kcpassword` but it can be easily decrypted.
-    - `domain` - Optional for Windows only.  Defaults to `nil`.
+    - `domain` - Optional for Windows only.  Default `nil`.
 
 ### Example
 
