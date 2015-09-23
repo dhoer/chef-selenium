@@ -62,7 +62,7 @@ Installs and configures a Selenium Hub as a service.
 
 ### Attributes
 
-- `node['selenium']['hub']['service_name']` - The name of the service.  Default `selenium_hub`. 
+- `node['selenium']['hub']['servicename']` - The name of the service.  Default `selenium_hub`. 
 - `node['selenium']['hub']['host']` -  Default `null`.
 - `node['selenium']['hub']['port']` -  Default `4444`.
 - `node['selenium']['hub']['jvm_args']` -  Default `nil`.
@@ -93,8 +93,8 @@ and password for automatic login. Note that Windows password is stored unencrypt
 
 ### Attributes
 
-- `node['selenium']['node']['service_name']` - The name of the service or Windows foreground startup script. 
-Default `'selenium_node`.
+- `node['selenium']['node']['servicename']` - The name of the service or Windows foreground startup 
+script. Default `selenium_node`.
 - `node['selenium']['node']['host']` - Default `ip`.
 - `node['selenium']['node']['port']` - Default `5555`.
 - `node['selenium']['node']['jvm_args']` - Default `nil`.
