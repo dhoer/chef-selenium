@@ -18,8 +18,10 @@ This cookbook comes with the following recipes:
 LWRPs [selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub) and 
 [selenium_node](https://github.com/dhoer/chef-selenium#selenium_node) are also available.
 
-See [selenium_grid](https://github.com/dhoer/chef-selenium_grid) cookbook for cross platform installs and configuration
-of Selenium and 3rd party drivers.
+## Usage
+
+See [selenium_grid](https://github.com/dhoer/chef-selenium_grid) cookbook that wraps selenium, browsers, drivers, 
+and screenresolution cookbooks into one comprehensive cookbook.
 
 ## Requirements
 
@@ -34,8 +36,6 @@ of Selenium and 3rd party drivers.
 - Windows
 
 ### Cookbooks
-
-These cookbooks are referenced with suggests, so be sure to depend on cookbooks that apply:
 
 - windows
 - nssm - Required by Windows services only (e.g. Hub and HtmlUnit running in background)

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0 - 9/26/2015
+
+- Fix FC052: Metadata uses the unimplemented "suggests" keyword
+
 ## 3.0.0 - 9/17/2015
 
 - Merge server recipe into default recipe
