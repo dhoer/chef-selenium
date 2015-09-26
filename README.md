@@ -20,8 +20,8 @@ LWRPs [selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub) and
 
 ## Usage
 
-See [selenium_grid](https://github.com/dhoer/chef-selenium_grid) cookbook that wraps selenium, browsers, drivers, 
-and screenresolution cookbooks into one comprehensive cookbook.
+See [selenium_grid](https://github.com/dhoer/chef-selenium_grid#selenium-grid-cookbook) cookbook that wraps selenium, 
+browsers, drivers, and screenresolution cookbooks into one comprehensive cookbook.
 
 ## Requirements
 
