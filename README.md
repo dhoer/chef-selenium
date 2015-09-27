@@ -26,7 +26,7 @@ browsers, drivers, and screenresolution cookbooks into one comprehensive cookboo
 ## Requirements
 
 - Java (not installed by this cookbook)
-- Chef 11.16+ (sensitive attribute introduced)
+- Chef 11.16+ 
 
 ### Platforms
 

@@ -4,7 +4,7 @@ gem 'foodcritic', '~> 5.0'
 gem 'rubocop', '~> 0.31'
 gem 'chefspec', '~> 4.2'
 gem 'berkshelf', '~> 3.1.5' # 3.2 has performance issue with vmware_fusion
-gem 'chef', '~> 11.14'
+gem 'chef', '~> 11.16'
 gem 'net-ssh', '= 2.9.1'
 
 group :integration do
