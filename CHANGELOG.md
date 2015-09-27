@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1 - 9/27/2015
+
+- Fix #22 Firefox on Ubuntu fails to start 
+
 ## 3.1.0 - 9/26/2015
 
 - Fix FC052: Metadata uses the unimplemented "suggests" keyword

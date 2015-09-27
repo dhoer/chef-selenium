@@ -33,10 +33,6 @@ describe 'selenium::default' do
       it { should be_symlink }
     end
   else
-    describe package('unzip') do
-      it { should be_installed }
-    end
-
     describe file('/opt/selenium/config') do
       it { should be_directory }
       it { should be_owned_by 'root' }

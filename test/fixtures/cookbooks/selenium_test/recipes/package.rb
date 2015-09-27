@@ -18,6 +18,4 @@ when 'rhel'
   # selenium-webdriver includes ffi which requires the following dependencies
   package 'gcc'
   package 'libffi-devel'
-when 'mac_os_x'
-  include_recipe 'dmg'
 end

@@ -11,5 +11,9 @@ depends 'selenium'
 depends 'java_se', '~> 8.0'
 depends 'firefox', '~> 2.0'
 
-depends 'xvfb'
-depends 'windows_screenresolution'
+depends 'xvfb', '~> 2.0'
+depends 'windows_screenresolution', '~> 1.0'
+
+depends 'apt'
+depends 'yum'
+depends 'dmg'
