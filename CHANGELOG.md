@@ -1,8 +1,9 @@
 # Changelog
 
-## 3.1.2 - 10/7/2015
+## 3.2.0 - 10/7/2015
 
-- Fix #23 WARN: Cannot create resource windows_service with more than one argument.
+- Selenium release 2.48.0
+- Fix #23 WARN: Cannot create resource windows_service with more than one argument
 
 ## 3.1.1 - 9/27/2015
 
