@@ -86,15 +86,14 @@ Installs and configures a Selenium Node as service on Linux and a GUI service on
 - Linux nodes without a physical monitor require a headless display
 (e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), [x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
 etc...) and must be installed and configured outside this cookbook.
-- Mac OS X/Windows nodes (with the exception of HtmlUnitDriver) must run as a GUI service and that requires a username
+- Mac OS X/Windows nodes must run as a GUI service and that requires a username
 and password for automatic login. Note that Windows password is stored unencrypted under windows registry
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
 `/etc/kcpassword` but it can be easily decrypted.
 
 ### Attributes
 
-- `node['selenium']['node']['servicename']` - The name of the service or Windows foreground startup 
-script. Default `selenium_node`.
+- `node['selenium']['node']['servicename']` - The name of the service. Default `selenium_node`.
 - `node['selenium']['node']['host']` - Default `ip`.
 - `node['selenium']['node']['port']` - Default `5555`.
 - `node['selenium']['node']['jvm_args']` - Default `nil`.
@@ -108,8 +107,7 @@ script. Default `selenium_node`.
 [capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Default `[]`.
 - `node['selenium']['node']['additional_args']` - Default `[]`.
 - `node['selenium']['node']['display']` - Default `:0`.
-- Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
-background (HtmlUnit only):
+- Mac OS X/Windows only - Set both username and password to run as a GUI service:
     - `username` - Default `nil`.
     - `password` - Default `nil`. Note that Windows password is stored unencrypted under windows registry
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
@@ -167,15 +165,14 @@ This is a partial list of attributes available.  See
 [node](https://github.com/dhoer/chef-selenium/blob/master/resources/node.rb)
 resource for the complete listing of attributes.
 
-- `name` - Name attribute. The name of the service or Windows foreground startup script.
+- `name` - Name attribute. The name of the service.
 - `host` - Hostname. Default `null`.
 - `port` - Port.  Default `5555`.
 - `hubHost` - Selenium-grid hub hostname. Default `ip`.
 - `hubPort` - Selenium-grid hub port. Default `4444`.
 - `capabilities` -  Based on 
 [capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Default `[]`.
-- Mac OS X/Windows only - Set both username and password to run as a GUI service or leave nil to run service in 
-background (HtmlUnit only):
+- Mac OS X/Windows only - Set both username and password to run as a GUI service:
     - `username` - Default `nil`.
     - `password` - Default `nil`. Note that Windows password is stored unencrypted under windows registry
 `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 

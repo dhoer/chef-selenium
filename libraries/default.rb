@@ -18,7 +18,7 @@ def selenium_jar_link
   "#{selenium_home}/server/selenium-server-standalone.jar"
 end
 
-def windows_service(name, exec, args)
+def selenium_windows_service(name, exec, args)
   log_file = "#{selenium_home}/log/#{name}.log"
   nssm name do
     program exec
@@ -34,7 +34,7 @@ def windows_service(name, exec, args)
 end
 
 # http://sqa.stackexchange.com/a/6267
-def windows_gui_service(name, exec, args, username)
+def selenium_windows_gui_service(name, exec, args, username)
   args << %(-log "#{selenium_home}/log/#{name}.log")
   cmd = "#{selenium_home}/bin/#{name}.cmd"
 
@@ -52,7 +52,7 @@ def windows_gui_service(name, exec, args, username)
   end
 end
 
-def windows_firewall(name, port)
+def selenium_windows_firewall(name, port)
   execute "Firewall rule #{name} for port #{port}" do
     command "netsh advfirewall firewall add rule name=\"#{name}\" protocol=TCP dir=in profile=any"\
       " localport=#{port} remoteip=any localip=any action=allow"
@@ -61,7 +61,7 @@ def windows_firewall(name, port)
   end
 end
 
-def autologon(username, password, domain = nil)
+def selenium_autologon(username, password, domain = nil)
   case node['platform_family']
   when 'windows'
     # TODO: REPLACE WITH windows_autologin cookbook
@@ -83,7 +83,7 @@ def autologon(username, password, domain = nil)
   end
 end
 
-def linux_service(name, exec, args, port, display)
+def selenium_linux_service(name, exec, args, port, display)
   # TODO: make selenium username default and pass it in as a param
   username = 'selenium'
 
@@ -117,7 +117,7 @@ def linux_service(name, exec, args, port, display)
   end
 end
 
-def mac_service(name, exec, args, plist, username)
+def selenium_mac_service(name, exec, args, plist, username)
   execute "reload #{name}" do
     command "launchctl unload -w #{plist}; launchctl load -w #{plist}"
     user username
@@ -149,6 +149,6 @@ def mac_service(name, exec, args, plist, username)
   end
 end
 
-def mac_domain(name)
+def selenium_mac_domain(name)
   "org.seleniumhq.#{name}"
 end

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.2 - 10/7/2015
+
+- Fix #23 WARN: Cannot create resource windows_service with more than one argument.
+
 ## 3.1.1 - 9/27/2015
 
 - Fix #22 Firefox on Ubuntu fails to start 
