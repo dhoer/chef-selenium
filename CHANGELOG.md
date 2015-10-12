@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.1 - 10/11/2015
+
+- Selenium release 2.48.2
+
 ## 3.2.0 - 10/7/2015
 
 - Selenium release 2.48.0
