@@ -136,7 +136,7 @@ node.set['selenium']['node']['capabilities'] = [
   }
 ]
   
-include_recipe 'selenium::node'
+include_recipe 'selenium_grid::node'
 ```
 
 ## Resources
