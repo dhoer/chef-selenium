@@ -15,7 +15,7 @@ This cookbook comes with the following recipes:
 - **[node](https://github.com/dhoer/chef-selenium#node)** - Installs and configures a Selenium Node as service
  on Linux and a GUI service on Mac OS X and Windows.
  
-LWRPs [selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub) and 
+Resources [selenium_hub](https://github.com/dhoer/chef-selenium#selenium_hub) and 
 [selenium_node](https://github.com/dhoer/chef-selenium#selenium_node) are also available.
 
 ## Usage
@@ -139,7 +139,7 @@ node.set['selenium']['node']['capabilities'] = [
 include_recipe 'selenium::node'
 ```
 
-## Resource/Providers
+## Resources
 
 ## selenium_hub
 
