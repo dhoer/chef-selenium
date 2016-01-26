@@ -4,7 +4,7 @@ describe 'selenium_test::node' do
   let(:shellout) { double(run_command: nil, error!: nil, stdout: ' ') }
 
   before do
-    stub_command("netsh advfirewall firewall show rule name=\"RDP\" > nul").and_return(true)
+    stub_command('netsh advfirewall firewall show rule name="RDP" > nul').and_return(true)
     allow(Mixlib::ShellOut).to receive(:new).and_return(shellout)
   end
 
@@ -23,7 +23,7 @@ describe 'selenium_test::node' do
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:ie_version).and_return('11.0.0.0')
         allow_any_instance_of(Chef::DSL::RegistryHelper).to receive(:registry_key_exists?).and_return(true)
-        stub_command("netsh advfirewall firewall show rule name=\"selenium_node\" > nul")
+        stub_command('netsh advfirewall firewall show rule name="selenium_node" > nul')
       end.converge(described_recipe)
     end
 

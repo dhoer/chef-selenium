@@ -1,3 +1,5 @@
+use_inline_resources
+
 def whyrun_supported?
   true
 end
@@ -55,11 +57,11 @@ action :install do
         action :nothing
       end
     when 'mac_os_x'
-      if new_resource.username && new_resource.password
-        plist = "/Library/LaunchAgents/#{selenium_mac_domain(new_resource.servicename)}.plist"
-      else
-        plist = "/Library/LaunchDaemons/#{selenium_mac_domain(new_resource.servicename)}.plist"
-      end
+      plist = if new_resource.username && new_resource.password
+                "/Library/LaunchAgents/#{selenium_mac_domain(new_resource.servicename)}.plist"
+              else
+                "/Library/LaunchDaemons/#{selenium_mac_domain(new_resource.servicename)}.plist"
+              end
 
       selenium_mac_service(
         selenium_mac_domain(new_resource.servicename), selenium_java_exec, args, plist, new_resource.username)

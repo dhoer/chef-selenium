@@ -12,7 +12,7 @@ describe 'selenium_test::hub' do
         node.set['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         node.set['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
-        stub_command("netsh advfirewall firewall show rule name=\"selenium_hub\" > nul").and_return(false)
+        stub_command('netsh advfirewall firewall show rule name="selenium_hub" > nul').and_return(false)
       end.converge(described_recipe)
     end
 
@@ -131,8 +131,8 @@ describe 'selenium_test::hub' do
         variables: {
           name: 'org.seleniumhq.selenium_hub',
           exec: '/usr/bin/java',
-          args: ['-jar', "\"/opt/selenium/server/selenium-server-standalone.jar\"", '-role', 'hub',
-                 '-hubConfig', "\"/opt/selenium/config/selenium_hub.json\""]
+          args: ['-jar', '"/opt/selenium/server/selenium-server-standalone.jar"', '-role', 'hub',
+                 '-hubConfig', '"/opt/selenium/config/selenium_hub.json"']
         }
       )
     end
