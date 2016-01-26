@@ -31,3 +31,5 @@ suites:
       - recipe[selenium_test::hub]
       - recipe[selenium_test::node]
     attributes:
+      mozilla_firefox:
+        32bit_only: true
