@@ -13,14 +13,9 @@ when 'debian'
     action :nothing
   end.run_action(:install)
 when 'rhel'
-  execute 'sudo yum update' do
-    action :nothing
-  end.run_action(:run)
+  include_recipe 'yum'
 
   # selenium-webdriver includes ffi which requires the following dependencies
   package 'gcc'
   package 'libffi-devel'
-
-  # docker centos throws: no such file or directory - /sbin/service
-  package 'initscripts'
 end
