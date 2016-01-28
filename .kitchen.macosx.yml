@@ -1,4 +1,4 @@
-# Usage: KITCHEN_YAML=.kitchen.macosx.yml kitchen list
+# Usage: KITCHEN_YAML=.kitchen.macosx.yml bundle exec kitchen list
 ---
 driver:
   name: vagrant
