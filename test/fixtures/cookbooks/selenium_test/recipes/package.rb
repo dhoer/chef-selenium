@@ -1,6 +1,6 @@
 case node[:platform_family]
 when 'debian'
-  # firefox runs at compile time and firefox package is not up to date on Ubuntu 14.04-1
+  # firefox runs at compile time and firefox package is not up to date on Ubuntu
   execute 'sudo apt-get update' do
     action :nothing
   end.run_action(:run)
@@ -13,7 +13,10 @@ when 'debian'
     action :nothing
   end.run_action(:install)
 when 'rhel'
-  include_recipe 'yum'
+  # firefox runs at compile time and firefox package is not up to date on CentOS
+  execute 'yum update -y' do
+    action :nothing
+  end.run_action(:run)
 
   # selenium-webdriver includes ffi which requires the following dependencies
   package 'gcc'
