@@ -14,7 +14,7 @@ capabilities << {
 }
 
 unless platform?('debian')
-  include_recipe 'firefox'
+  include_recipe 'mozilla_firefox'
   capabilities << {
     browserName: 'firefox',
     maxInstances: 5,

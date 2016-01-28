@@ -9,7 +9,7 @@ version '0.1.0'
 depends 'selenium'
 
 depends 'java_se', '~> 8.0'
-depends 'firefox', '~> 2.0'
+depends 'mozilla_firefox', '~> 1.0'
 
 depends 'xvfb', '~> 2.0'
 depends 'windows_screenresolution', '~> 1.0'
