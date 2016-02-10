@@ -52,7 +52,7 @@ describe 'selenium_test::hub' do
 
   context 'linux' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0', step_into: ['selenium_hub'])do |node|
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0', step_into: ['selenium_hub']) do |node|
         node.set['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
       end.converge(described_recipe)
