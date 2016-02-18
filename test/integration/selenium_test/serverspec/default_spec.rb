@@ -1,7 +1,7 @@
 require 'serverspec_helper'
 
 describe 'selenium::default' do
-  version = '2.51.0'
+  version = '2.52.0'
 
   if os[:family] == 'windows'
     describe file('C:/selenium/config') do
