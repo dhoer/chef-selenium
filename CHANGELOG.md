@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.0 2016-03-22
+
+- Selenium release 2.53.0
+
 ## 3.5.0 2016-02-18
 
 - Selenium release 2.52.0
