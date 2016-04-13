@@ -73,6 +73,5 @@ platforms:
 suites:
 - name: default
   run_list:
-    - recipe[selenium_test::package]
     - recipe[selenium_test::hub]
     - recipe[selenium_test::node]
