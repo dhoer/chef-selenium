@@ -2,7 +2,9 @@
 
 ## 3.6.1 2016-04-13
 
-- Include default and windows bootstrap handler recipe in provide only if required
+- No more native HtmlUnitDriver, removed integration test
+- Include default recipe in provide only if required
+- Include windows::bootstrap_handler recipe in provide only if required
 
 ## 3.6.0 2016-03-22
 
