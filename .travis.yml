@@ -12,8 +12,12 @@ services: docker
 
 env:
   matrix:
+  - INSTANCE=default-ubuntu-1204
   - INSTANCE=default-ubuntu-1404
-  #- INSTANCE=default-centos-7 TODO: FIX No such file or directory - /sbin/service
+  - INSTANCE=default-centos-6
+  - INSTANCE=default-centos-7
+  - INSTANCE=default-debian-8
+  - INSTANCE=default-fedora-21
 
 # Don't `bundle install`
 install: echo "skip bundle install"
