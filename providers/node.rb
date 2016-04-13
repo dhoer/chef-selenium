@@ -33,19 +33,18 @@ def args
   args.flatten!
 end
 
-def selenium_include_recipes
-  recipe_eval do
-    run_context.include_recipe 'selenium::default'
-    run_context.include_recipe 'windows::reboot_handler' if platform_family?('windows')
-  end
-end
-
 action :install do
   converge_by("Install Node Service: #{new_resource.servicename}") do
-    selenium_include_recipes
+    recipe_eval do
+      run_context.include_recipe 'selenium::default'
+    end unless run_context.loaded_recipe? 'selenium::default'
 
     case node['platform']
     when 'windows'
+      recipe_eval do
+        run_context.include_recipe 'windows::reboot_handler'
+      end unless run_context.loaded_recipe? 'windows::reboot_handler'
+
       selenium_windows_gui_service(new_resource.servicename, selenium_java_exec, args, new_resource.username)
       selenium_autologon(new_resource.username, new_resource.password, new_resource.domain)
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.1 2016-04-13
+
+- Include default and windows bootstrap handler recipe in provide only if required
+
 ## 3.6.0 2016-03-22
 
 - Selenium release 2.53.0

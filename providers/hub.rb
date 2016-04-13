@@ -26,15 +26,11 @@ def args
   args.flatten!
 end
 
-def install_recipes
-  recipe_eval do
-    run_context.include_recipe 'selenium::default'
-  end
-end
-
 action :install do
   converge_by("Install Hub Service: #{new_resource.servicename}") do
-    install_recipes
+    recipe_eval do
+      run_context.include_recipe 'selenium::default'
+    end unless run_context.loaded_recipe? 'selenium::default'
 
     case node['platform']
     when 'windows'
