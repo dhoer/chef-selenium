@@ -55,5 +55,6 @@ platforms:
 suites:
 - name: default
   run_list:
+    - recipe[selenium_test::docker]
     - recipe[selenium_test::hub]
     - recipe[selenium_test::node]
