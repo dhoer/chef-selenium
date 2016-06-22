@@ -1,4 +1,4 @@
-# Usage: KITCHEN_YAML=.kitchen.macosx.yml bundle exec kitchen list
+# Usage: KITCHEN_YAML=.kitchen.vmware.yml bundle exec kitchen list
 ---
 driver:
   name: vagrant
@@ -19,9 +19,8 @@ platforms:
       - ["forwarded_port", {guest: 4444, host: 4447}]
 
 suites:
-  - name: selenium_test
-    run_list:
-      - recipe[selenium_test::package]
-      - recipe[selenium_test::hub]
-      - recipe[selenium_test::node]
-    attributes:
+- name: selenium_test
+  run_list:
+    - selenium_test::package
+    - selenium_test::hub
+    - selenium_test::node

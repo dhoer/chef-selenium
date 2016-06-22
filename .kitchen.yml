@@ -27,9 +27,9 @@ platforms:
 suites:
   - name: selenium_test
     run_list:
-      - recipe[selenium_test::package]
-      - recipe[selenium_test::hub]
-      - recipe[selenium_test::node]
+      - selenium_test::package
+      - selenium_test::hub
+      - selenium_test::node
     attributes:
       mozilla_firefox:
         32bit_only: true

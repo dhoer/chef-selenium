@@ -1,10 +1,14 @@
 # Selenium Cookbook
 
-[![Cookbook Version](http://img.shields.io/cookbook/v/selenium.svg?style=flat-square)][supermarket]
-[![Build Status](http://img.shields.io/travis/dhoer/chef-selenium.svg?style=flat-square)][travis]
+[![Cookbook Version](http://img.shields.io/cookbook/v/selenium.svg?style=flat-square)][cookbook]
+[![linux](http://img.shields.io/travis/dhoer/chef-selenium/master.svg?label=linux&style=flat-square)][linux]
+[![osx](http://img.shields.io/travis/dhoer/chef-selenium/macosx.svg?label=macosx&style=flat-square)][osx]
+[![win](https://img.shields.io/appveyor/ci/dhoer/chef-selenium/master.svg?label=windows&style=flat-square)][win]
 
-[supermarket]: https://supermarket.chef.io/cookbooks/selenium
-[travis]: https://travis-ci.org/dhoer/chef-selenium
+[cookbook]: https://supermarket.chef.io/cookbooks/selenium
+[linux]: https://travis-ci.org/dhoer/chef-selenium/branches
+[osx]: https://travis-ci.org/dhoer/chef-selenium/branches
+[win]: https://ci.appveyor.com/project/dhoer/chef-selenium
 
 This cookbook installs and configures Selenium (http://www.seleniumhq.org/).
 
