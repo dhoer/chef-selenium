@@ -14,7 +14,8 @@ describe 'selenium_test::node' do
         file_cache_path: 'C:/chef/cache',
         platform: 'windows',
         version: '2008R2',
-        step_into: ['selenium_node']) do |node|
+        step_into: ['selenium_node']
+      ) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
         node.set['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
@@ -70,7 +71,8 @@ describe 'selenium_test::node' do
   context 'linux' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']) do |node|
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
+      ) do |node|
         node.set['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
