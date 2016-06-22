@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'foodcritic', '~> 6.0'
 gem 'rubocop', '~> 0.39'
 gem 'chefspec', '~> 4.6'
-gem 'berkshelf', '~> 3.1.5' # 3.2 has performance issue with vmware_fusion
+gem 'berkshelf', '~> 4.3' # '~> 3.1.5' 3.2+ has performance issue with vmware_fusion
 gem 'chef', '~> 12.8'
 
 group :integration do
