@@ -1,0 +1,16 @@
+[Unit]
+Description=Selenium <%=@name%> service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=<%=@user%>
+
+Environment=DISPLAY=<%=@display%>
+ExecStart= "<%=@exec%>" "<%=@args%>"
+KillMode=process
+Restart=on-failure
+RestartSec=45s
+
+[Install]
+WantedBy=multi-user.target

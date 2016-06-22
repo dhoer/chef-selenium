@@ -8,6 +8,7 @@ def validate_exec(cmd)
   exec = Mixlib::ShellOut.new(cmd)
   exec.run_command
   exec.error!
+  exec.stdout
 end
 
 def selenium_home
@@ -83,6 +84,12 @@ def selenium_autologon(username, password, domain = nil)
   end
 end
 
+def selenium_systype
+  cmd = '([[ `systemctl` =~ -\.mount ]] && echo systemd) || ' \
+    '([[ `/sbin/init --version` =~ upstart ]] && echo upstart) || echo sysvinit'
+  validate_exec(cmd)
+end
+
 def selenium_linux_service(name, exec, args, port, display)
   # TODO: make selenium username default and pass it in as a param
   username = 'selenium'
@@ -96,8 +103,17 @@ def selenium_linux_service(name, exec, args, port, display)
     system true
   end
 
-  template "/etc/init.d/#{name}" do
-    source "#{node['platform_family']}_initd.erb"
+  systype = selenium_systype
+
+  case systype
+  when 'systemd'
+    path = "/etc/system.d/#{name}"
+  else
+    path = "/etc/init.d/#{name}"
+  end
+
+  template path do
+    source "#{systype}.erb"
     cookbook 'selenium'
     mode '0755'
     variables(
@@ -112,8 +128,7 @@ def selenium_linux_service(name, exec, args, port, display)
   end
 
   service name do
-    supports restart: true, reload: true, status: true
-    action [:enable]
+    action [:enable, :start]
   end
 end
 
