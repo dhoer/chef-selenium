@@ -20,6 +20,8 @@ describe 'selenium_test::node' do
         node.set['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         node.set['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
+        node.set['selenium_test']['username'] = 'vagrant'
+        node.set['selenium_test']['password'] = 'vagrant'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:ie_version).and_return('11.0.0.0')
