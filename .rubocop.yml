@@ -6,7 +6,7 @@ LineLength:
   Max: 120
 
 MethodLength:
-  Max: 30
+  Max: 35
 
 AbcSize:
   Max: 25

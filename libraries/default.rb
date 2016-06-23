@@ -105,12 +105,7 @@ def selenium_linux_service(name, exec, args, port, display)
 
   systype = selenium_systype
 
-  case systype
-  when 'systemd'
-    path = "/etc/system.d/#{name}"
-  else
-    path = "/etc/init.d/#{name}"
-  end
+  path = systype == 'systemd' ? "/etc/systemd/system/#{name}.service" : "/etc/init.d/#{name}"
 
   template path do
     source "#{systype}.erb"

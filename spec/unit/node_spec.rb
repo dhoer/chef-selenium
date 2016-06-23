@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'selenium_test::node' do
-  let(:shellout) { double(run_command: nil, error!: nil, stdout: ' ') }
+  let(:shellout) { double(run_command: nil, error!: nil, stdout: 'systemd') }
 
   before do
     stub_command('netsh advfirewall firewall show rule name="RDP" > nul').and_return(true)
@@ -93,8 +93,8 @@ describe 'selenium_test::node' do
     end
 
     it 'install selenium_node' do
-      expect(chef_run).to create_template('/etc/init.d/selenium_node').with(
-        source: 'rhel_initd.erb',
+      expect(chef_run).to create_template('/etc/systemd/system/selenium_node.service').with(
+        source: 'systemd.erb',
         cookbook: 'selenium',
         mode: '0755',
         variables: {
@@ -110,7 +110,7 @@ describe 'selenium_test::node' do
     end
 
     it 'start selenium_node' do
-      expect(chef_run).to_not start_service('selenium_node')
+      expect(chef_run).to start_service('selenium_node')
     end
   end
 end

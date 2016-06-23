@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'selenium_test::hub' do
-  let(:shellout) { double(run_command: nil, error!: nil, stdout: ' ') }
+  let(:shellout) { double(run_command: nil, error!: nil, stdout: 'systemd') }
 
   before { allow(Mixlib::ShellOut).to receive(:new).and_return(shellout) }
 
@@ -74,8 +74,8 @@ describe 'selenium_test::hub' do
     end
 
     it 'install selenium_hub' do
-      expect(chef_run).to create_template('/etc/init.d/selenium_hub').with(
-        source: 'rhel_initd.erb',
+      expect(chef_run).to create_template('/etc/systemd/system/selenium_hub.service').with(
+        source: 'systemd.erb',
         cookbook: 'selenium',
         mode: '0755',
         variables: {
@@ -91,7 +91,7 @@ describe 'selenium_test::hub' do
     end
 
     it 'start selenium_hub' do
-      expect(chef_run).to_not start_service('selenium_hub')
+      expect(chef_run).to start_service('selenium_hub')
     end
   end
 
