@@ -73,6 +73,10 @@ describe 'selenium_test::hub' do
       )
     end
 
+    it 'installs pgrep' do
+      expect(chef_run).to install_package('pgrep')
+    end
+
     it 'install selenium_hub' do
       expect(chef_run).to create_template('/etc/systemd/system/selenium_hub.service').with(
         source: 'systemd.erb',
