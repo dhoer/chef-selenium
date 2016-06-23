@@ -47,6 +47,12 @@ describe 'selenium_test::node' do
       )
     end
 
+    it 'creates startup dir' do
+      expect(chef_run).to create_directory(
+        'C:\Users\vagrant\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'
+      )
+    end
+
     it 'creates shortcut to selenium cmd file' do
       expect(chef_run).to create_windows_shortcut(
         'C:\Users\vagrant\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\selenium_node.lnk'
