@@ -85,9 +85,13 @@ def selenium_autologon(username, password, domain = nil)
 end
 
 def selenium_systype
-  cmd = '([[ `systemctl` =~ -\.mount ]] && echo systemd) || ' \
-    '([[ `/sbin/init --version` =~ upstart ]] && echo upstart) || echo sysvinit'
-  validate_exec(cmd)
+  cmd = '[[ `sudo stat /proc/1/exe` =~ /usr/lib/systemd/systemd ]] && echo systemd || echo no'
+  return 'systemd' if validate_exec(cmd) == 'systemd'
+  if platform('ubuntu')
+    cmd = '[[ `/sbin/init --version` =~ upstart ]] && echo upstart) || echo no'
+    return 'upstart' if validate_exec(cmd) == 'upstart'
+  end
+  'sysvinit'
 end
 
 def selenium_linux_service(name, exec, args, port, display)
@@ -105,7 +109,7 @@ def selenium_linux_service(name, exec, args, port, display)
 
   systype = selenium_systype
 
-  path = systype == 'systemd' ? "/etc/systemd/system/#{name}.service" : "/etc/init.d/#{name}"
+  path = (systype == 'systemd') ? "/etc/systemd/system/#{name}.service" : "/etc/init.d/#{name}"
 
   template path do
     source "#{systype}.erb"
