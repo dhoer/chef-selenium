@@ -85,7 +85,7 @@ def selenium_autologon(username, password, domain = nil)
 end
 
 def selenium_systype
-  cmd = '[[ `sudo stat /proc/1/exe` =~ systemd ]] && echo systemd || echo no'
+  cmd = '[[ `systemctl` =~ -\.mount ]] && echo systemd || echo no'
   return 'systemd' if validate_exec(cmd) == 'systemd'
   if platform?('ubuntu')
     cmd = '[[ `/sbin/init --version` =~ upstart ]] && echo upstart || echo no'
