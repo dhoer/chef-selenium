@@ -95,8 +95,8 @@ describe 'selenium_test::node' do
     end
 
     it 'install selenium_node' do
-      expect(chef_run).to create_template('/etc/systemd/system/selenium_node.service').with(
-        source: 'systemd.erb',
+      expect(chef_run).to create_template('/etc/init.d/selenium_node').with(
+        source: 'sysvinit.erb',
         cookbook: 'selenium',
         mode: '0755',
         variables: {
