@@ -106,7 +106,8 @@ describe 'selenium_test::node' do
           args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role node '\
             '-nodeConfig \"/opt/selenium/config/selenium_node.json\"',
           port: 5555,
-          display: ':0'
+          display: ':0',
+          func: '/etc/init.d/functions'
         }
       )
     end

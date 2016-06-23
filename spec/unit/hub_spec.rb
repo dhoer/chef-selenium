@@ -85,7 +85,8 @@ describe 'selenium_test::hub' do
           args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role hub '\
           '-hubConfig \"/opt/selenium/config/selenium_hub.json\"',
           port: 4444,
-          display: nil
+          display: nil,
+          func: '/etc/init.d/functions'
         }
       )
     end
