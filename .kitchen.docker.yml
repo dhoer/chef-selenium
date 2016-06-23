@@ -30,7 +30,7 @@ platforms:
     run_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install apt-transport-https net-tools -y
+      - RUN /usr/bin/apt-get install apt-transport-https net-tools pgrep -y
 
 - name: debian-8
   driver:
