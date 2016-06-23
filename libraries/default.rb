@@ -85,8 +85,7 @@ def selenium_autologon(username, password, domain = nil)
 end
 
 def selenium_systype
-  cmd = '[[ `systemctl` =~ -\.mount ]] && echo systemd || echo no'
-  return 'systemd' if validate_exec(cmd) == 'systemd'
+  return 'systemd' if ::Dir.exist?('/usr/lib/systemd/systemd') || ::Dir.exist?('/bin/systemd')
   if platform?('ubuntu')
     cmd = '[[ `/sbin/init --version` =~ upstart ]] && echo upstart || echo no'
     return 'upstart' if validate_exec(cmd) == 'upstart'
