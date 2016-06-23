@@ -45,8 +45,11 @@ def selenium_windows_gui_service(name, exec, args, username)
     notifies :request, "windows_reboot[Reboot to start #{name}]"
   end
 
-  windows_shortcut "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu"\
-      "\\Programs\\Startup\\#{name}.lnk" do
+  startup_dir = "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
+
+  directory startup_dir
+
+  windows_shortcut "#{startup_dir}\\#{name}.lnk" do
     target cmd
     cwd selenium_home
     action :create
