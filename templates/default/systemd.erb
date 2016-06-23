@@ -6,7 +6,9 @@ After=syslog.target network.target
 Type=simple
 User=<%=@user%>
 
+<% if @display %>
 Environment=DISPLAY=<%=@display%>
+<% end %>
 ExecStart= "<%=@exec%>" "<%=@args%>"
 KillMode=process
 Restart=on-failure
