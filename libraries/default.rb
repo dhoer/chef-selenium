@@ -87,7 +87,7 @@ end
 def selenium_systype
   cmd = '[[ `sudo stat /proc/1/exe` =~ /usr/lib/systemd/systemd ]] && echo systemd || echo no'
   return 'systemd' if validate_exec(cmd) == 'systemd'
-  if platform('ubuntu')
+  if platform?('ubuntu')
     cmd = '[[ `/sbin/init --version` =~ upstart ]] && echo upstart) || echo no'
     return 'upstart' if validate_exec(cmd) == 'upstart'
   end
