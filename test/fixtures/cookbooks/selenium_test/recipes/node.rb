@@ -1,5 +1,5 @@
-username = default['selenium_test']['username']
-password = default['selenium_test']['password']
+username = node['selenium_test']['username']
+password = node['selenium_test']['password']
 
 include_recipe 'java_se'
 
