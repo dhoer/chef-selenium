@@ -85,11 +85,9 @@ def selenium_autologon(username, password, domain = nil)
 end
 
 def selenium_systype
-  return 'systemd' if ::Dir.exist?('/usr/lib/systemd/systemd') || ::Dir.exist?('/bin/systemd')
-  if platform?('ubuntu')
-    cmd = '[[ `/sbin/init --version` =~ upstart ]] && echo upstart || echo no'
-    return 'upstart' if validate_exec(cmd) == 'upstart'
-  end
+  return 'systemd' if ::File.exist?(Chef.path_to("/proc/1/comm")) &&
+    ::File.open(Chef.path_to("/proc/1/comm")).gets.chomp == "systemd"
+  return 'upstart' if ::File.exist?(Chef.path_to("/sbin/initctl"))
   'sysvinit'
 end
 
