@@ -1,2 +1,2 @@
-default['selenium_test']['username'] = nil
-default['selenium_test']['password'] = nil
+default['selenium_test']['username'] = ''
+default['selenium_test']['password'] = ''
