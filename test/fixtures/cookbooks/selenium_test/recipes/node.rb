@@ -1,5 +1,5 @@
-username = platform?('windows', 'mac_os_x') ? 'vagrant' : nil
-password = platform?('windows', 'mac_os_x') ? 'vagrant' : nil
+username = default['selenium_test']['username']
+password = default['selenium_test']['password']
 
 include_recipe 'java_se'
 
