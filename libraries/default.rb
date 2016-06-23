@@ -106,7 +106,6 @@ def selenium_linux_service(name, exec, args, port, display)
 
   systype = selenium_systype
   path = (systype == 'systemd') ? "/etc/systemd/system/#{name}.service" : "/etc/init.d/#{name}"
-  package 'pgrep'
 
   template path do
     source "#{systype}.erb"
@@ -118,8 +117,7 @@ def selenium_linux_service(name, exec, args, port, display)
       exec: exec,
       args: args.join(' ').gsub('"', '\"'),
       port: port,
-      display: display,
-      func: platform?('debian') ? '/lib/lsb/init-functions' : '/etc/init.d/functions'
+      display: display
     )
     notifies :restart, "service[#{name}]"
   end

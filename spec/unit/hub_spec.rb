@@ -73,10 +73,6 @@ describe 'selenium_test::hub' do
       )
     end
 
-    it 'installs pgrep' do
-      expect(chef_run).to install_package('pgrep')
-    end
-
     it 'install selenium_hub' do
       expect(chef_run).to create_template('/etc/init.d/selenium_hub').with(
         source: 'sysvinit.erb',
@@ -89,8 +85,7 @@ describe 'selenium_test::hub' do
           args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role hub '\
           '-hubConfig \"/opt/selenium/config/selenium_hub.json\"',
           port: 4444,
-          display: nil,
-          func: '/etc/init.d/functions'
+          display: nil
         }
       )
     end
