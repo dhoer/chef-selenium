@@ -1,5 +1,5 @@
 [Unit]
-Description=Selenium <%=@name%> service
+Description=<%=@name%>
 After=syslog.target network.target
 
 [Service]
@@ -9,7 +9,7 @@ User=<%=@user%>
 <% if @display %>
 Environment=DISPLAY=<%=@display%>
 <% end %>
-ExecStart= "<%=@exec%>" "<%=@args%>"
+ExecStart= "<%=@exec%>" <%=@args%>
 KillMode=process
 Restart=on-failure
 RestartSec=45s
