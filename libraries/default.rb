@@ -121,7 +121,8 @@ def selenium_linux_service(name, exec, args, port, display)
       exec: exec,
       args: args.join(' ').gsub('"', '\"'),
       port: port,
-      display: display
+      display: display,
+      func: platform?('debian') ? '/lib/lsb/init-functions' : '/etc/init.d/functions'
     )
     notifies :restart, "service[#{name}]"
   end
