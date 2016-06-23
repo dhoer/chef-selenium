@@ -79,6 +79,7 @@ describe 'selenium_test::node' do
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
+        allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
       end.converge(described_recipe)
     end
 
@@ -95,8 +96,8 @@ describe 'selenium_test::node' do
     end
 
     it 'install selenium_node' do
-      expect(chef_run).to create_template('/etc/init.d/selenium_node').with(
-        source: 'sysvinit.erb',
+      expect(chef_run).to create_template('/etc/systemd/system/selenium_node.service').with(
+        source: 'systemd.erb',
         cookbook: 'selenium',
         mode: '0755',
         variables: {
