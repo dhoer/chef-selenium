@@ -8,7 +8,6 @@ def validate_exec(cmd)
   exec = Mixlib::ShellOut.new(cmd)
   exec.run_command
   exec.error!
-  exec.stdout.strip
 end
 
 def selenium_home
