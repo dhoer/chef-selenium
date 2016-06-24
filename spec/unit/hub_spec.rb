@@ -85,8 +85,8 @@ describe 'selenium_test::hub' do
           name: 'selenium_hub',
           user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role hub '\
-          '-hubConfig \"/opt/selenium/config/selenium_hub.json\"',
+          args: '-jar "/opt/selenium/server/selenium-server-standalone.jar" -role hub ' \
+          '-hubConfig "/opt/selenium/config/selenium_hub.json"',
           port: 4444,
           display: nil
         }

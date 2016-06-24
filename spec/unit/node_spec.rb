@@ -110,8 +110,8 @@ describe 'selenium_test::node' do
           name: 'selenium_node',
           user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role node '\
-            '-nodeConfig \"/opt/selenium/config/selenium_node.json\"',
+          args: '-jar "/opt/selenium/server/selenium-server-standalone.jar" -role node ' \
+            '-nodeConfig "/opt/selenium/config/selenium_node.json"',
           port: 5555,
           display: ':0'
         }
