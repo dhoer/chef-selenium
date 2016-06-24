@@ -111,7 +111,7 @@ def selenium_linux_service(name, exec, args, port, display)
     path = "/etc/systemd/system/#{name}.service"
     formatted_args = args.join(' ')
   else
-    path =  "/etc/init.d/#{name}"
+    path = "/etc/init.d/#{name}"
     formatted_args = args.join(' ').gsub('"', '\"')
   end
 
