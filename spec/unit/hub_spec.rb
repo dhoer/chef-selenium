@@ -3,7 +3,9 @@ require 'spec_helper'
 describe 'selenium_test::hub' do
   let(:shellout) { double(run_command: nil, error!: nil, stdout: ' ') }
 
-  before { allow(Mixlib::ShellOut).to receive(:new).and_return(shellout) }
+  before do
+    allow(Mixlib::ShellOut).to receive(:new).and_return(shellout)
+  end
 
   context 'windows' do
     let(:chef_run) do
@@ -55,6 +57,7 @@ describe 'selenium_test::hub' do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0', step_into: ['selenium_hub']) do |node|
         node.set['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+        allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
       end.converge(described_recipe)
     end
 
@@ -74,16 +77,16 @@ describe 'selenium_test::hub' do
     end
 
     it 'install selenium_hub' do
-      expect(chef_run).to create_template('/etc/init.d/selenium_hub').with(
-        source: 'rhel_initd.erb',
+      expect(chef_run).to create_template('/etc/systemd/system/selenium_hub.service').with(
+        source: 'systemd.erb',
         cookbook: 'selenium',
         mode: '0755',
         variables: {
           name: 'selenium_hub',
           user: 'selenium',
           exec: '/usr/bin/java',
-          args: '-jar \"/opt/selenium/server/selenium-server-standalone.jar\" -role hub '\
-          '-hubConfig \"/opt/selenium/config/selenium_hub.json\"',
+          args: '-jar "/opt/selenium/server/selenium-server-standalone.jar" -role hub ' \
+          '-hubConfig "/opt/selenium/config/selenium_hub.json"',
           port: 4444,
           display: nil
         }
@@ -91,7 +94,7 @@ describe 'selenium_test::hub' do
     end
 
     it 'start selenium_hub' do
-      expect(chef_run).to_not start_service('selenium_hub')
+      expect(chef_run).to start_service('selenium_hub')
     end
   end
 

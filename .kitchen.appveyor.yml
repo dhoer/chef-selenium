@@ -17,6 +17,9 @@ platforms:
 suites:
   - name: default
     run_list:
-      - selenium_test::package
       - selenium_test::hub
       - selenium_test::node
+    attributes:
+      selenium_test:
+        username: <%= ENV["machine_user"] %>
+        password: <%= ENV["machine_pass"] %>

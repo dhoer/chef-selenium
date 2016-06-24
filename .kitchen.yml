@@ -4,7 +4,7 @@ driver:
 
 provisioner:
   name: chef_solo
-  require_chef_omnibus: 11.16
+  require_chef_omnibus: '12.10'
 
 platforms:
   - name: centos-7.1
@@ -25,8 +25,9 @@ platforms:
     attributes:
 
 suites:
-  - name: selenium_test
+  - name: default
     run_list:
+      - selenium_test::package_update
       - selenium_test::package
       - selenium_test::hub
       - selenium_test::node
