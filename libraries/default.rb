@@ -44,8 +44,11 @@ def selenium_windows_gui_service(name, exec, args, username)
     notifies :request, "windows_reboot[Reboot to start #{name}]"
   end
 
-  windows_shortcut "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu"\
-      "\\Programs\\Startup\\#{name}.lnk" do
+  startup_dir = "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
+
+  directory startup_dir
+
+  windows_shortcut "#{startup_dir}\\#{name}.lnk" do
     target cmd
     cwd selenium_home
     action :create
@@ -83,6 +86,13 @@ def selenium_autologon(username, password, domain = nil)
   end
 end
 
+def selenium_systype
+  return 'systemd' if ::File.exist?(Chef.path_to('/proc/1/comm')) &&
+                      ::File.open(Chef.path_to('/proc/1/comm')).gets.chomp == 'systemd'
+  return 'upstart' if ::File.exist?(Chef.path_to('/sbin/initctl'))
+  'sysvinit'
+end
+
 def selenium_linux_service(name, exec, args, port, display)
   # TODO: make selenium username default and pass it in as a param
   username = 'selenium'
@@ -96,15 +106,24 @@ def selenium_linux_service(name, exec, args, port, display)
     system true
   end
 
-  template "/etc/init.d/#{name}" do
-    source "#{node['platform_family']}_initd.erb"
+  systype = selenium_systype
+  if systype == 'systemd'
+    path = "/etc/systemd/system/#{name}.service"
+    formatted_args = args.join(' ')
+  else
+    path = "/etc/init.d/#{name}"
+    formatted_args = args.join(' ').gsub('"', '\"')
+  end
+
+  template path do
+    source "#{systype}.erb"
     cookbook 'selenium'
     mode '0755'
     variables(
       name: name,
       user: username,
       exec: exec,
-      args: args.join(' ').gsub('"', '\"'),
+      args: formatted_args,
       port: port,
       display: display
     )
@@ -113,7 +132,7 @@ def selenium_linux_service(name, exec, args, port, display)
 
   service name do
     supports restart: true, reload: true, status: true
-    action [:enable]
+    action [:enable, :start]
   end
 end
 
