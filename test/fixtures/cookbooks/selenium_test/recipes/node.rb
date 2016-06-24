@@ -4,12 +4,6 @@ include_recipe 'xvfb' unless platform?('windows', 'mac_os_x')
 
 capabilities = []
 
-capabilities << {
-  browserName: 'htmlunit',
-  maxInstances: 1,
-  seleniumProtocol: 'WebDriver'
-}
-
 unless platform?('debian')
   include_recipe 'mozilla_firefox'
   capabilities << {
