@@ -108,7 +108,13 @@ def selenium_linux_service(name, exec, args, port, display)
   end
 
   systype = selenium_systype
-  path = (systype == 'systemd') ? "/etc/systemd/system/#{name}.service" : "/etc/init.d/#{name}"
+  if systype == 'systemd'
+    path = "/etc/systemd/system/#{name}.service"
+    formatted_args = args.join(' ')
+  else
+    path =  "/etc/init.d/#{name}"
+    formatted_args = args.join(' ').gsub('"', '\"')
+  end
 
   template path do
     source "#{systype}.erb"
@@ -118,7 +124,7 @@ def selenium_linux_service(name, exec, args, port, display)
       name: name,
       user: username,
       exec: exec,
-      args: args.join(' ').gsub('"', '\"'),
+      args: formatted_args,
       port: port,
       display: display
     )
