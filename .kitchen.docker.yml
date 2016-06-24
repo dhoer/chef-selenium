@@ -76,6 +76,7 @@ platforms:
 suites:
 - name: default
   run_list:
+    - selenium_test::package
     - selenium_test::hub
     - selenium_test::node
   attributes:

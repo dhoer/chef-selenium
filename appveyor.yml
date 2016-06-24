@@ -33,5 +33,4 @@ build_script:
 
 test_script:
   - bundle exec kitchen conv
-  - ping 192.0.2.2 -n 1 -w 120000 > nul
   - bundle exec kitchen veri
