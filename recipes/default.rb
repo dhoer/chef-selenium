@@ -15,7 +15,7 @@ target = "#{selenium_home}/server/#{url.split('/')[-1]}"
 
 remote_file target do
   source url
-  mode 0775
+  mode '0775'
   not_if { ::File.exist?(target) }
 end
 
