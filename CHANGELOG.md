@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.0 2016-06-25
+
+- Add support for systemd
+
 ## 3.6.1 2016-04-13
 
 - No more native HtmlUnitDriver, removed integration test
