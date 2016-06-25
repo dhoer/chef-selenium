@@ -16,6 +16,20 @@ verifier:
   sudo: false
 
 platforms:
+- name: centos-5
+  driver:
+    image: centos:5
+    platform: rhel
+    run_command: /sbin/init
+    provision_command:
+      - /usr/bin/yum install -y initscripts net-tools wget
+
+- name: centos-6
+  driver:
+    image: centos:6
+    intermediate_instructions:
+      - RUN yum -y install tar which initscripts
+
 - name: centos-7
   driver:
     image: centos:7
@@ -43,6 +57,15 @@ platforms:
 - name: fedora-23
   driver:
     image: fedora:23
+    intermediate_instructions:
+    - RUN yum clean all
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN yum -y install tar yum
+
+- name: fedora-24
+  driver:
+    image: fedora:24
     intermediate_instructions:
     - RUN yum clean all
     pid_one_command: /usr/lib/systemd/systemd
