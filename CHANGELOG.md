@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.1 2016-07-03
+
+- Selenium release 2.53.1
+
 ## 3.7.0 2016-06-25
 
 - Add support for systemd
