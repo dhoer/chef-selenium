@@ -6,7 +6,7 @@ when 'debian'
       action :nothing
     end.run_action(:install)
   end
-when 'rhel'
+when 'rhel', 'fedora'
   %w(gcc libffi-devel make).each do |pkg|
     package pkg
   end
