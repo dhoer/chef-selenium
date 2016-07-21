@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.2 2016-07-21
+
+- Fix Undefined method 'path_to' for Chef:Class in selenium/libraries/default.rb
+
 ## 3.7.1 2016-07-03
 
 - Selenium release 2.53.1
