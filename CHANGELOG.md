@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.2 2016-08-04
+
+- Fix #27 Cannot create directory due to insufficient permissions
+
 ## 3.7.1 2016-07-21
 
 - Selenium release 2.53.1

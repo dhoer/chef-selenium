@@ -44,11 +44,15 @@ def selenium_windows_gui_service(name, exec, args, username)
     notifies :request, "windows_reboot[Reboot to start #{name}]"
   end
 
-  startup_dir = "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
+  startup_path = "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
 
-  directory startup_dir
+  ruby_block 'hack to mkdir on windows' do
+    block do
+      FileUtils.mkdir_p startup_path
+    end
+  end
 
-  windows_shortcut "#{startup_dir}\\#{name}.lnk" do
+  windows_shortcut "#{startup_path}\\#{name}.lnk" do
     target cmd
     cwd selenium_home
     action :create

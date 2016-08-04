@@ -48,9 +48,7 @@ describe 'selenium_test::node' do
     end
 
     it 'creates startup dir' do
-      expect(chef_run).to create_directory(
-        'C:\Users\vagrant\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'
-      )
+      expect(chef_run).to run_ruby_block('hack to mkdir on windows')
     end
 
     it 'creates shortcut to selenium cmd file' do
