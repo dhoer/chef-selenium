@@ -14,7 +14,7 @@ def config
     )
     notifies :restart, "service[#{new_resource.servicename}]", :delayed unless platform_family?('windows', 'mac_os_x')
     notifies :run, "execute[reload #{selenium_mac_domain(new_resource.servicename)}]",
-             :immediately if platform_family?('mac_os_x')
+             :delayed if platform_family?('mac_os_x')
   end
   config_file
 end
