@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.3 2016-08-22
+
+- Fix #29 Error executing action run on resource 'execute[reload org.seleniumhq.selenium_hub]'
+
 ## 3.7.2 2016-08-04
 
 - Fix #27 Cannot create directory due to insufficient permissions
