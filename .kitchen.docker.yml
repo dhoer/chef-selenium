@@ -16,6 +16,12 @@ verifier:
   sudo: false
 
 platforms:
+- name: centos-6
+  driver:
+    image: centos:6
+    intermediate_instructions:
+      - RUN yum -y install tar which initscripts
+
 - name: centos-7
   driver:
     image: centos:7
@@ -23,14 +29,6 @@ platforms:
       - RUN yum clean all
       - RUN yum -y install net-tools lsof
     pid_one_command: /usr/lib/systemd/systemd
-
-- name: debian-7
-  driver:
-    image: debian:7
-    run_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install apt-transport-https net-tools -y
 
 - name: debian-8
   driver:
@@ -43,6 +41,15 @@ platforms:
 - name: fedora-23
   driver:
     image: fedora:23
+    intermediate_instructions:
+    - RUN yum clean all
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN yum -y install tar yum
+
+- name: fedora-24
+  driver:
+    image: fedora:24
     intermediate_instructions:
     - RUN yum clean all
     pid_one_command: /usr/lib/systemd/systemd

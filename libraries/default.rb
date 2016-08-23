@@ -44,11 +44,15 @@ def selenium_windows_gui_service(name, exec, args, username)
     notifies :request, "windows_reboot[Reboot to start #{name}]"
   end
 
-  startup_dir = "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
+  startup_path = "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
 
-  directory startup_dir
+  ruby_block 'hack to mkdir on windows' do
+    block do
+      FileUtils.mkdir_p startup_path
+    end
+  end
 
-  windows_shortcut "#{startup_dir}\\#{name}.lnk" do
+  windows_shortcut "#{startup_path}\\#{name}.lnk" do
     target cmd
     cwd selenium_home
     action :create
@@ -87,9 +91,8 @@ def selenium_autologon(username, password, domain = nil)
 end
 
 def selenium_systype
-  return 'systemd' if ::File.exist?(Chef.path_to('/proc/1/comm')) &&
-                      ::File.open(Chef.path_to('/proc/1/comm')).gets.chomp == 'systemd'
-  return 'upstart' if ::File.exist?(Chef.path_to('/sbin/initctl'))
+  return 'systemd' if ::File.exist?('/proc/1/comm') && ::File.open('/proc/1/comm').gets.chomp == 'systemd'
+  return 'upstart' if platform?('ubuntu') && ::File.exist?('/sbin/initctl')
   'sysvinit'
 end
 

@@ -4,7 +4,7 @@ maintainer_email 'dennis.hoer@gmail.com'
 license 'MIT'
 description 'Installs/Configures Selenium'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '3.6.1'
+version '3.7.2'
 
 supports 'centos'
 supports 'redhat'
