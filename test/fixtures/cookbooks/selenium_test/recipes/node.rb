@@ -20,8 +20,8 @@ node.override['selenium']['node']['password'] = node['selenium_test']['password'
 include_recipe 'selenium::node'
 
 if platform?('windows')
-  # Call windows_display after selenium_node because windows_display will
-  # override auto-login created by selenium_node.
+  # Call windows_screenresolution after selenium_node because windows_screenresolution
+  # will override auto-login created by selenium_node.
   node.override['windows_screenresolution']['username'] = node['selenium_test']['username']
   node.override['windows_screenresolution']['password'] = node['selenium_test']['password']
   node.override['windows_screenresolution']['width'] = 1440
