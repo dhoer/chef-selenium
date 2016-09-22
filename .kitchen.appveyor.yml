@@ -23,3 +23,5 @@ suites:
       selenium_test:
         username: <%= ENV["machine_user"] %>
         password: <%= ENV["machine_pass"] %>
+      windows:
+        allow_pending_reboots: false

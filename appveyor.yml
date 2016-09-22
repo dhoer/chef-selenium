@@ -31,7 +31,8 @@ build_script:
   - bundle install || bundle install || bundle install
   - bundle exec rake
   - bundle exec kitchen conv
-  - ps: Start-Sleep -s 2
+  - ps: Restart-Computer -Force
+  - ps: Start-Sleep -s 10
 
 test_script:
   - bundle exec kitchen veri
