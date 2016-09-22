@@ -4,15 +4,14 @@ include_recipe 'xvfb' unless platform?('windows', 'mac_os_x')
 
 capabilities = []
 
-unless platform?('debian')
-  include_recipe 'mozilla_firefox'
-  capabilities << {
-    browserName: 'firefox',
-    maxInstances: 5,
-    version: firefox_version,
-    seleniumProtocol: 'WebDriver'
-  }
-end
+include_recipe 'mozilla_firefox'
+
+capabilities << {
+  browserName: 'firefox',
+  maxInstances: 5,
+  version: firefox_version,
+  seleniumProtocol: 'WebDriver'
+}
 
 node.override['selenium']['node']['capabilities'] = capabilities
 node.override['selenium']['node']['username'] = node['selenium_test']['username']
