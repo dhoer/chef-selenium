@@ -32,7 +32,7 @@ build_script:
   - bundle exec rake
   - bundle exec kitchen conv
 #  - ps: Restart-Computer -Force
+#  - ps: Start-Sleep -s 70
 
 test_script:
-  - ps: Start-Sleep -s 70
-  - bundle exec kitchen veri
+#  - bundle exec kitchen veri
