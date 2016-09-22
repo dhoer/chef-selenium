@@ -5,7 +5,7 @@ describe 'selenium::default' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2') do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
-        node.set['selenium']['url'] =
+        node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
       end.converge(described_recipe)
     end
@@ -44,7 +44,7 @@ describe 'selenium::default' do
   context 'linux' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0') do |node|
-        node.set['selenium']['url'] =
+        node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
       end.converge(described_recipe)
     end
@@ -85,7 +85,7 @@ describe 'selenium::default' do
   context 'mac_os_x' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10') do |node|
-        node.set['selenium']['url'] =
+        node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
       end.converge(described_recipe)
     end

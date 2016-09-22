@@ -14,22 +14,22 @@ unless platform?('debian')
   }
 end
 
-node.set['selenium']['node']['capabilities'] = capabilities
-node.set['selenium']['node']['username'] = node['selenium_test']['username']
-node.set['selenium']['node']['password'] = node['selenium_test']['password']
+node.override['selenium']['node']['capabilities'] = capabilities
+node.override['selenium']['node']['username'] = node['selenium_test']['username']
+node.override['selenium']['node']['password'] = node['selenium_test']['password']
 
 include_recipe 'selenium::node'
 
 if platform?('windows')
   # Call windows_display after selenium_node because windows_display will
   # override auto-login created by selenium_node.
-  node.set['windows_screenresolution']['username'] = node['selenium_test']['username']
-  node.set['windows_screenresolution']['password'] = node['selenium_test']['password']
-  node.set['windows_screenresolution']['width'] = 1440
-  node.set['windows_screenresolution']['height'] = 900
+  node.override['windows_screenresolution']['username'] = node['selenium_test']['username']
+  node.override['windows_screenresolution']['password'] = node['selenium_test']['password']
+  node.override['windows_screenresolution']['width'] = 1440
+  node.override['windows_screenresolution']['height'] = 900
 
   # Meets windows password policy requirements for a new user
-  node.set['windows_screenresolution']['rdp_password'] = 'S6M;b.v+{DTYAQW4'
+  node.override['windows_screenresolution']['rdp_password'] = 'S6M;b.v+{DTYAQW4'
 
   include_recipe 'windows_screenresolution'
 end

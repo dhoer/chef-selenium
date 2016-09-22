@@ -17,11 +17,11 @@ describe 'selenium_test::node' do
         step_into: ['selenium_node']
       ) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
-        node.set['selenium']['url'] =
+        node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
-        node.set['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
-        node.set['selenium_test']['username'] = 'vagrant'
-        node.set['selenium_test']['password'] = 'vagrant'
+        node.override['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
+        node.override['selenium_test']['username'] = 'vagrant'
+        node.override['selenium_test']['password'] = 'vagrant'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:ie_version).and_return('11.0.0.0')
@@ -79,7 +79,7 @@ describe 'selenium_test::node' do
       ChefSpec::SoloRunner.new(
         file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
       ) do |node|
-        node.set['selenium']['url'] =
+        node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')

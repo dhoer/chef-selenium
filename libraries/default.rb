@@ -82,8 +82,8 @@ def selenium_autologon(username, password, domain = nil)
       action :create
     end
   when 'mac_os_x'
-    node.set['macosx_autologin']['username'] = username
-    node.set['macosx_autologin']['password'] = password
+    node.override['macosx_autologin']['username'] = username
+    node.override['macosx_autologin']['password'] = password
     recipe_eval do
       run_context.include_recipe 'macosx_autologin::default'
     end

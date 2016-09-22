@@ -123,10 +123,10 @@ and password for automatic login. Note that Windows password is stored unencrypt
 #### Install Selenium Node with Firefox and HtmlUnit capabilities
 
 ```ruby
-node.set['selenium']['node']['username'] = 'vagrant' if platform?('windows', 'mac_os_x')
-node.set['selenium']['node']['password'] = 'vagrant' if platform?('windows', 'mac_os_x')
+node.override['selenium']['node']['username'] = 'vagrant' if platform?('windows', 'mac_os_x')
+node.override['selenium']['node']['password'] = 'vagrant' if platform?('windows', 'mac_os_x')
 
-node.set['selenium']['node']['capabilities'] = [
+node.override['selenium']['node']['capabilities'] = [
   {
     browserName: 'firefox',
     maxInstances: 5,
