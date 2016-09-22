@@ -31,7 +31,8 @@ build_script:
   - bundle install || bundle install || bundle install
   - bundle exec rake
   - bundle exec kitchen conv
-  - ps: Restart-Computer -Force -ErrorAction SilentlyContinue
+  - shutdown /a
+  - ps: Restart-Computer -Force
   - ps: Start-Sleep -s 10
 
 test_script:
