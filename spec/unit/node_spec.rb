@@ -120,4 +120,41 @@ describe 'selenium_test::node' do
       expect(chef_run).to start_service('selenium_node')
     end
   end
+
+  context 'selenium 2' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+          file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
+      ) do |node|
+        node.override['selenium']['url'] =
+            'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+        allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
+        allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
+        allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
+      end.converge(described_recipe)
+    end
+
+    it 'uses selenium version 2 syntax for config file' do
+      expect(chef_run).to render_file('/opt/selenium/config/selenium_node.json').with_content(/configuration/)
+    end
+  end
+
+  context 'selenium 3' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+          file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
+      ) do |node|
+        node.override['selenium']['url'] =
+            'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.0.jar'
+        allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
+        allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
+        allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
+      end.converge(described_recipe)
+    end
+
+    it 'uses selenium version 3 syntax for config file' do
+      expect(chef_run).to render_file('/opt/selenium/config/selenium_node.json')
+      expect(chef_run).not_to render_file('/opt/selenium/config/selenium_node.json').with_content(/"configuration"/)
+    end
+  end
 end
