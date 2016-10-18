@@ -124,10 +124,10 @@ describe 'selenium_test::node' do
   context 'selenium 2' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-          file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
       ) do |node|
         node.override['selenium']['url'] =
-            'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
         allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
@@ -142,10 +142,10 @@ describe 'selenium_test::node' do
   context 'selenium 3' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-          file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
       ) do |node|
         node.override['selenium']['url'] =
-            'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.0.jar'
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.0.jar'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
         allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
