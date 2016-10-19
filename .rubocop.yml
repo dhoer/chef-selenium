@@ -10,3 +10,6 @@ MethodLength:
 
 AbcSize:
   Max: 25
+
+BlockLength:
+  Max: 50
