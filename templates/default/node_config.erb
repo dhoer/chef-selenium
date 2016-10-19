@@ -1,7 +1,9 @@
 {
   "capabilities": <%= JSON.pretty_generate(@resource.capabilities) %>,
+  <% if @use_selenium2_syntax %>
   "configuration":
   {
+  <% end %>
     "proxy": "<%= @resource.proxy %>",
     "maxSession": <%= @resource.maxSession %>,
     "port": <%= @resource.port %>,
@@ -10,5 +12,7 @@
     "registerCycle": <%= @resource.registerCycle %>,
     "hubPort": <%= @resource.hubPort %>,
     "hubHost": "<%= @resource.hubHost %>"
+<% if @use_selenium2_syntax %>
   }
+<% end %>
 }
