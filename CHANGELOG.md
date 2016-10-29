@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.4 2016-10-29
+
+- Fix #31 Adding support for selenium 3 in node config file
+
 ## 3.7.3 2016-08-22
 
 - Fix #29 Error executing action run on resource 'execute[reload org.seleniumhq.selenium_hub]'
