@@ -14,7 +14,7 @@ capabilities << {
 }
 
 # chrome not supported on rhel 6
-if !(platform_family?('rhel') && node['platform_version'].split('.')[0] == '6')
+unless platform_family?('rhel') && node['platform_version'].split('.')[0] == '6'
   include_recipe 'chrome'
   include_recipe 'chromedriver'
 

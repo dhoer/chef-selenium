@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.0 2017-
+
+- Support Selenium 3.0
+- Drop support for Chef 11
+
 ## 3.7.4 2016-10-29
 
 - Fix #31 Adding support for selenium 3 in node config file
