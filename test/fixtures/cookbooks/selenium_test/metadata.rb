@@ -11,6 +11,7 @@ depends 'selenium'
 depends 'java_se', '~> 8.0'
 depends 'chrome'
 depends 'chromedriver'
+depends 'mozilla_firefox'
 
 depends 'xvfb'
 depends 'windows_screenresolution'
