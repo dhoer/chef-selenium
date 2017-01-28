@@ -102,7 +102,6 @@ def selenium_linux_service(name, exec, args, port, display)
 
   user "ensure user #{username} exits for #{name}" do
     username username
-    supports manage_home: true
     manage_home true
     shell '/bin/bash'
     home "/home/#{username}"
