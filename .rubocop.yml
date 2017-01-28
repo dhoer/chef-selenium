@@ -12,4 +12,4 @@ AbcSize:
   Max: 25
 
 BlockLength:
-  Max: 50
+  Enabled: false

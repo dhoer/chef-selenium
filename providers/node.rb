@@ -18,11 +18,15 @@ def config
       resource: new_resource,
       use_selenium2_syntax: use_selenium2_syntax?
     )
-    notifies :request, "windows_reboot[Reboot to start #{new_resource.servicename}]",
-             :delayed if platform_family?('windows')
+    if platform_family?('windows')
+      notifies :request, "windows_reboot[Reboot to start #{new_resource.servicename}]",
+               :delayed
+    end
     notifies :restart, "service[#{new_resource.servicename}]", :delayed unless platform_family?('windows', 'mac_os_x')
-    notifies :run, "execute[reload #{selenium_mac_domain(new_resource.servicename)}]",
-             :immediately if platform_family?('mac_os_x')
+    if platform_family?('mac_os_x')
+      notifies :run, "execute[reload #{selenium_mac_domain(new_resource.servicename)}]",
+               :immediately
+    end
   end
   config_file
 end
@@ -41,15 +45,19 @@ end
 
 action :install do
   converge_by("Install Node Service: #{new_resource.servicename}") do
-    recipe_eval do
-      run_context.include_recipe 'selenium::default'
-    end unless run_context.loaded_recipe? 'selenium::default'
+    unless run_context.loaded_recipe? 'selenium::default'
+      recipe_eval do
+        run_context.include_recipe 'selenium::default'
+      end
+    end
 
     case node['platform']
     when 'windows'
-      recipe_eval do
-        run_context.include_recipe 'windows::reboot_handler'
-      end unless run_context.loaded_recipe? 'windows::reboot_handler'
+      unless run_context.loaded_recipe? 'windows::reboot_handler'
+        recipe_eval do
+          run_context.include_recipe 'windows::reboot_handler'
+        end
+      end
 
       selenium_windows_gui_service(new_resource.servicename, selenium_java_exec, args, new_resource.username)
       selenium_autologon(new_resource.username, new_resource.password, new_resource.domain)
