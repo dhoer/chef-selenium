@@ -4,6 +4,7 @@ include_recipe 'xvfb' unless platform?('windows', 'mac_os_x')
 
 capabilities = []
 
+node.override
 include_recipe 'mozilla_firefox'
 
 capabilities << {
