@@ -9,8 +9,6 @@ version '0.1.0'
 depends 'selenium'
 
 depends 'java_se', '~> 8.0'
-depends 'chrome'
-depends 'chromedriver'
 depends 'mozilla_firefox'
 
 depends 'xvfb'
