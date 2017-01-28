@@ -4,12 +4,13 @@ include_recipe 'xvfb' unless platform?('windows', 'mac_os_x')
 
 capabilities = []
 
-include_recipe 'mozilla_firefox'
+include_recipe 'chrome'
+include_recipe 'chromedriver'
 
 capabilities << {
-  browserName: 'firefox',
+  browserName: 'chrome',
   maxInstances: 5,
-  version: firefox_version,
+  version: chrome_version,
   seleniumProtocol: 'WebDriver'
 }
 
