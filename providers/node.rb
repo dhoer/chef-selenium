@@ -35,11 +35,6 @@ def args
   args = []
   args << new_resource.jvm_args unless new_resource.jvm_args.nil?
   args << %W(-jar "#{selenium_jar_link}" -role node -nodeConfig "#{config}")
-
-  new_resource.additional_args.each do |arg|
-    args << arg
-  end
-
   args.flatten!
 end
 
@@ -60,7 +55,7 @@ action :install do
       end
 
       selenium_windows_gui_service(new_resource.servicename, selenium_java_exec, args, new_resource.username)
-      selenium_autologon(new_resource.username, new_resource.password, new_resource.domain)
+      selenium_autologon(new_resource.username, new_resource.password)
 
       selenium_windows_firewall(new_resource.servicename, new_resource.port)
 
