@@ -12,7 +12,7 @@ describe 'selenium_test::hub' do
       ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2', step_into: ['selenium_hub']) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
         node.override['selenium']['url'] =
-          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-3.0.1.jar'
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
         node.override['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
         stub_command('netsh advfirewall firewall show rule name="selenium_hub" > nul').and_return(false)
       end.converge(described_recipe)
@@ -56,7 +56,7 @@ describe 'selenium_test::hub' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0', step_into: ['selenium_hub']) do |node|
         node.override['selenium']['url'] =
-          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-3.0.1.jar'
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
         allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
       end.converge(described_recipe)
     end
@@ -102,7 +102,7 @@ describe 'selenium_test::hub' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10', step_into: ['selenium_hub']) do |node|
         node.override['selenium']['url'] =
-          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-3.0.1.jar'
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
         allow_any_instance_of(Chef::Recipe).to receive(:java_version_on_macosx?).and_return(false)
       end.converge(described_recipe)
     end

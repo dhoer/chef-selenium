@@ -6,7 +6,7 @@ describe 'selenium::default' do
       ChefSpec::SoloRunner.new(platform: 'windows', version: '2008R2') do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
         node.override['selenium']['url'] =
-          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
       end.converge(described_recipe)
     end
 
@@ -31,12 +31,12 @@ describe 'selenium::default' do
     end
 
     it 'downloads jar' do
-      expect(chef_run).to create_remote_file('C:/selenium/server/selenium-server-standalone-2.45.0.jar')
+      expect(chef_run).to create_remote_file('C:/selenium/server/selenium-server-standalone-3.0.1.jar')
     end
 
     it 'creates link to jar' do
       expect(chef_run).to create_link('C:/selenium/server/selenium-server-standalone.jar').with(
-        to: 'C:/selenium/server/selenium-server-standalone-2.45.0.jar'
+        to: 'C:/selenium/server/selenium-server-standalone-3.0.1.jar'
       )
     end
   end
@@ -45,7 +45,7 @@ describe 'selenium::default' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0') do |node|
         node.override['selenium']['url'] =
-          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
       end.converge(described_recipe)
     end
 
@@ -70,14 +70,14 @@ describe 'selenium::default' do
     end
 
     it 'downloads jar' do
-      expect(chef_run).to create_remote_file('/opt/selenium/server/selenium-server-standalone-2.45.0.jar').with(
-        source: 'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+      expect(chef_run).to create_remote_file('/opt/selenium/server/selenium-server-standalone-3.0.1.jar').with(
+        source: 'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
       )
     end
 
     it 'creates link to jar' do
       expect(chef_run).to create_link('/opt/selenium/server/selenium-server-standalone.jar').with(
-        to: '/opt/selenium/server/selenium-server-standalone-2.45.0.jar'
+        to: '/opt/selenium/server/selenium-server-standalone-3.0.1.jar'
       )
     end
   end
@@ -86,7 +86,7 @@ describe 'selenium::default' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10') do |node|
         node.override['selenium']['url'] =
-          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
       end.converge(described_recipe)
     end
 
@@ -111,12 +111,12 @@ describe 'selenium::default' do
     end
 
     it 'downloads jar' do
-      expect(chef_run).to create_remote_file('/opt/selenium/server/selenium-server-standalone-2.45.0.jar')
+      expect(chef_run).to create_remote_file('/opt/selenium/server/selenium-server-standalone-3.0.1.jar')
     end
 
     it 'creates link to jar' do
       expect(chef_run).to create_link('/opt/selenium/server/selenium-server-standalone.jar').with(
-        to: '/opt/selenium/server/selenium-server-standalone-2.45.0.jar'
+        to: '/opt/selenium/server/selenium-server-standalone-3.0.1.jar'
       )
     end
   end
