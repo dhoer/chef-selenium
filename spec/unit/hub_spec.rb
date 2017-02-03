@@ -48,7 +48,7 @@ describe 'selenium_test::hub' do
     end
 
     it 'reboots windows server' do
-      expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_hub')
+      expect(chef_run).to_not request_reboot('Reboot to start selenium_hub')
     end
   end
 

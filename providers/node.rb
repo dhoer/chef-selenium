@@ -19,8 +19,7 @@ def config
       use_selenium2_syntax: use_selenium2_syntax?
     )
     if platform_family?('windows')
-      notifies :request, "windows_reboot[Reboot to start #{new_resource.servicename}]",
-               :delayed
+      notifies :request_reboot, "reboot[Reboot to start #{new_resource.servicename}]", :delayed
     end
     notifies :restart, "service[#{new_resource.servicename}]", :delayed unless platform_family?('windows', 'mac_os_x')
     if platform_family?('mac_os_x')
@@ -48,21 +47,15 @@ action :install do
 
     case node['platform']
     when 'windows'
-      unless run_context.loaded_recipe? 'windows::reboot_handler'
-        recipe_eval do
-          run_context.include_recipe 'windows::reboot_handler'
-        end
-      end
-
       selenium_windows_gui_service(new_resource.servicename, selenium_java_exec, args, new_resource.username)
       selenium_autologon(new_resource.username, new_resource.password)
 
       selenium_windows_firewall(new_resource.servicename, new_resource.port)
 
-      windows_reboot "Reboot to start #{new_resource.servicename}" do
-        reason "Reboot to start #{new_resource.servicename}"
-        timeout node['windows']['reboot_timeout']
+      reboot "Reboot to start #{new_resource.servicename}" do
         action :nothing
+        reason 'Need to reboot when the run completes successfully.'
+        delay_mins 1
       end
     when 'mac_os_x'
       plist = if new_resource.username && new_resource.password

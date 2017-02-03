@@ -41,10 +41,8 @@ describe 'selenium_test::node' do
       )
     end
 
-    it 'creates auto login registry_key' do
-      expect(chef_run).to create_registry_key(
-        'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
-      )
+    it 'sets up autologin' do
+      expect(chef_run).to enable_windows_autologin('vagrant')
     end
 
     it 'creates startup dir' do
@@ -70,7 +68,7 @@ describe 'selenium_test::node' do
     end
 
     it 'reboots windows server' do
-      expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_node')
+      expect(chef_run).to_not request_reboot('Reboot to start selenium_node')
     end
   end
 
