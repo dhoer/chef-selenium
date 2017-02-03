@@ -68,16 +68,24 @@ def selenium_windows_firewall(name, port)
   end
 end
 
-def selenium_autologon(username, password, domain = nil)
+def windows_domain(username)
+  '\\'.include?(username) ? username.split('\\').first : nil
+end
+
+def windows_user(username)
+  '\\'.include?(username) ? username.split('\\').last : username
+end
+
+def selenium_autologon(username, password)
   case node['platform_family']
   when 'windows'
     # TODO: REPLACE WITH windows_autologin cookbook
     registry_key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' do
       values [
         { name: 'AutoAdminLogon', type: :string, data: '1' },
-        { name: 'DefaultUsername', type: :string, data: username },
+        { name: 'DefaultUsername', type: :string, data: windows_user(username) },
         { name: 'DefaultPassword', type: :string, data: password },
-        { name: 'DefaultDomainName', type: :string, data: domain }
+        { name: 'DefaultDomainName', type: :string, data: windows_domain(username) }
       ]
       action :create
     end
