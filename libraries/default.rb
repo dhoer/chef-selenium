@@ -1,5 +1,5 @@
 def selenium_java_exec
-  java = platform_family?('windows') ? node['selenium']['windows']['java'] : node['selenium']['unix']['java']
+  java = node['selenium']['java']
   validate_exec(%("#{java}" -version))
   java
 end
@@ -11,7 +11,7 @@ def validate_exec(cmd)
 end
 
 def selenium_home
-  platform_family?('windows') ? node['selenium']['windows']['home'] : node['selenium']['unix']['home']
+  node['selenium']['home']
 end
 
 def selenium_jar_link
