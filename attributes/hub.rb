@@ -1,5 +1,5 @@
 default['selenium']['hub']['servicename'] = 'selenium_hub' # used by hub recipe only
-default['selenium']['hub']['host'] = 'null'
+default['selenium']['hub']['host'] = nil
 default['selenium']['hub']['port'] = 4444
 default['selenium']['hub']['jvm_args'] = nil
 default['selenium']['hub']['newSessionWaitTimeout'] = -1
