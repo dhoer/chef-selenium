@@ -4,7 +4,7 @@
   "maxSession": <%= @resource.maxSession %>,
   "port": <%= @resource.port %>,
 <% if  @resource.host %>
-  "host": <%= @resource.host %>,
+  "host": "<%= @resource.host %>",
 <% end %>
   "register": <%= @resource.register %>,
   "registerCycle": <%= @resource.registerCycle %>,
@@ -14,14 +14,13 @@
   "debug": <%= @resource.debug %>,
   "timeout": <%= @resource.timeout %>,
   "browserTimeout": <%= @resource.browserTimeout %>,
-  "maxSession": <%= @resource.maxSession %>,
   "jettyMaxThreads": <%= @resource.jettyMaxThreads %>,
   "nodeStatusCheckTimeout": <%= @resource.nodeStatusCheckTimeout %>,
   "nodePolling": <%= @resource.nodePolling %>,
   "unregisterIfStillDownAfter": <%= @resource.unregisterIfStillDownAfter %>,
   "downPollingLimit": <%= @resource.downPollingLimit %>,
 <% if  @resource.log %>
-  "log": <%= @resource.log %>,
+  "log": "<%= @resource.log %>",
 <% end %>
-  "hub": <%= @resource.hub %>
+  "hub": "<%= @resource.hub %>"
 }
