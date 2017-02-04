@@ -75,10 +75,8 @@ def selenium_autologon(username, password)
       password password
     end
   when 'mac_os_x'
-    node.override['macosx_autologin']['username'] = username
-    node.override['macosx_autologin']['password'] = password
-    recipe_eval do
-      run_context.include_recipe 'macosx_autologin::default'
+    macosx_autologin username do
+      password password
     end
   end
 end

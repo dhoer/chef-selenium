@@ -16,7 +16,7 @@ supports 'mac_os_x'
 supports 'ubuntu'
 supports 'windows'
 
-depends 'macosx_autologin'
+depends 'macosx_autologin', '>= 4.0'
 depends 'nssm'
 depends 'windows'
 depends 'windows_autologin', '>= 3.0'
