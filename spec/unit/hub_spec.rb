@@ -35,10 +35,7 @@ describe 'selenium_test::hub' do
         args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
           ' -role hub -hubConfig """C:/selenium/config/selenium_hub.json"""',
         params: {
-          AppDirectory: 'C:/selenium',
-          AppStdout: 'C:/selenium/log/selenium_hub.log',
-          AppStderr: 'C:/selenium/log/selenium_hub.log',
-          AppRotateFiles: 1
+          AppDirectory: 'C:/selenium'
         }
       )
     end
@@ -103,6 +100,7 @@ describe 'selenium_test::hub' do
       ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.10', step_into: ['selenium_hub']) do |node|
         node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
+        node.override['selenium']['hub']['log'] = '/var/log/selenium/org.seleniumhq.selenium_hub.log'
         allow_any_instance_of(Chef::Recipe).to receive(:java_version_on_macosx?).and_return(false)
       end.converge(described_recipe)
     end

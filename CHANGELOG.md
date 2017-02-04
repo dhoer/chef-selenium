@@ -3,8 +3,8 @@
 ## 4.0.0 2017-
 
 - Support Selenium 3.0
+- Log defaults to STDOUT when log attribute is nil
 - Drop support for Chef 11
-- Log defaults to STDOUT
 
 ## 3.7.4 2016-10-29
 

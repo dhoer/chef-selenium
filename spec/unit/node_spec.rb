@@ -58,8 +58,7 @@ describe 'selenium_test::node' do
     it 'creates selenium foreground command' do
       expect(chef_run).to create_file('C:/selenium/bin/selenium_node.cmd').with(
         content: '"C:\java\bin\java.exe" -jar "C:/selenium/server/selenium-server-standalone.jar" '\
-          '-role node -nodeConfig "C:/selenium/config/selenium_node.json" '\
-          '-log "C:/selenium/log/selenium_node.log"'
+          '-role node -nodeConfig "C:/selenium/config/selenium_node.json"'
       )
     end
 

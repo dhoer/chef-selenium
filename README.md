@@ -151,10 +151,10 @@ session requests are processed when there is a queue.
 Default to null ( no priority = FIFO ).
 - `servlets` - List of extra servlets the grid (hub or node) will make 
 available. The servlet must exist in the path, e.g.,
-/grid/admin/Servlet. Default: `[]`
+/grid/admin/Servlet. Default: `[]`.
 - `withoutServlets` - List of default (hub or node) servlets to disable. 
 Advanced use cases only. Not all default servlets can be disabled. 
-Default: `[]`
+Default: `[]`.
 - `capabilityMatcher` - A class implementing the CapabilityMatcher 
 interface. Specifies the logic the hub will follow to define whether a 
 request can be assigned to a node. For example, if you want to have the 
@@ -224,10 +224,10 @@ responded after the number of checks specified. Default: `2`.
 - `debug` -  [TrueClass, FalseClass], default: false
 - `servlets` - List of extra servlets the grid (hub or node) will make 
 available. The servlet must exist in the path, e.g.,
-/grid/admin/Servlet. Default: `[]`
+/grid/admin/Servlet. Default: `[]`.
 - `withoutServlets` - List of default (hub or node) servlets to disable. 
 Advanced use cases only. Not all default servlets can be disabled. 
-Default: `[]`
+Default: `[]`.
 - `debug` -  Enables LogLevel.FINE. Default: `false`.
 - `timeout` -  Specifies the timeout before the server automatically 
 kills a session that hasn't had any activity in the last X seconds. 

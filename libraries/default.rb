@@ -122,7 +122,29 @@ def selenium_linux_service(name, exec, args, port, display)
   end
 end
 
-def selenium_mac_service(name, exec, args, plist, username, log)
+def log_path(log, username)
+  return if log.nil?
+
+  directory 'create log dir' do
+    path log[0, log.rindex('/')]
+    mode '0755'
+    recursive true
+    not_if { ::File.exist?(log) }
+  end
+
+  file 'create log file' do
+    path log
+    mode '0664'
+    user username
+    action :touch
+    not_if { ::File.exist?(log) }
+  end
+end
+
+def selenium_mac_service(new_resource, exec, args, plist, username)
+  name = selenium_mac_domain(new_resource.servicename)
+  log = new_resource.log
+
   execute "reload #{name}" do
     command "launchctl unload -w #{plist}; launchctl load -w #{plist}"
     user username
@@ -130,18 +152,7 @@ def selenium_mac_service(name, exec, args, plist, username, log)
     returns [0, 112] # 112 not logged into gui
   end
 
-  directory log[0, log.rindex('/')] do
-    mode '0755'
-    recursive true
-    not_if ( log.nil? )
-  end
-
-  file log do
-    mode '0664'
-    user username
-    action :touch
-    not_if (log.nil?)
-  end
+  log_path(log, username)
 
   template plist do
     source 'org.seleniumhq.plist.erb'
