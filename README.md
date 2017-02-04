@@ -13,10 +13,12 @@
 This cookbook installs and configures Selenium (http://www.seleniumhq.org/).
 
 TODO:
-- change attributes to match selenium 3: https://github.com/SeleniumHQ/selenium/wiki/Grid2#configuring-the-nodes-by-json
+- done - change attributes to match selenium 3: https://github.com/SeleniumHQ/selenium/wiki/Grid2#configuring-the-nodes-by-json
 - add user and group attributes, create selenium user and group if nil
-- remove windows cookbook dependency
-- reboot windows using chef 12
+- done - use windows autologin resource
+- use macosx autologin resource
+- done - reboot windows using chef 12
+- use geckodriver for firefox
 
 This cookbook comes with the following recipes:
 

@@ -1,16 +1,21 @@
 require 'rspec_helper'
-require 'rbconfig'
 
-describe 'Chrome Grid' do
+describe 'Firefox Grid' do
   before(:all) do
-    @selenium = Selenium::WebDriver.for(:remote, desired_capabilities: :chrome)
+    @selenium = Selenium::WebDriver.for(:remote, desired_capabilities: :firefox)
   end
 
   after(:all) do
     @selenium.quit
   end
 
-  res = MACOSX ? '1024 x 768' : '1280 x 1024'
+  res = if MACOSX
+          '1024 x 768'
+        elsif WINDOWS
+          '1440 x 900'
+        else
+          '1280 x 1024'
+        end
 
   it "Should return display resolution of #{res}" do
     @selenium.get 'http://www.whatismyscreenresolution.com/'
