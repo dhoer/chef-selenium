@@ -16,9 +16,10 @@ TODO:
 - done - change attributes to match selenium 3: https://github.com/SeleniumHQ/selenium/wiki/Grid2#configuring-the-nodes-by-json
 - add user and group attributes, create selenium user and group if nil
 - done - use windows autologin resource
-- use macosx autologin resource
+- done - use macosx autologin resource
 - done - reboot windows using chef 12
-- use geckodriver for firefox
+- done - use geckodriver for firefox
+- replace logging with log attribute
 
 This cookbook comes with the following recipes:
 
@@ -38,7 +39,7 @@ browsers, drivers, and screenresolution cookbooks into one comprehensive cookboo
 ## Requirements
 
 - Java (not installed by this cookbook)
-- Chef 11.16+ 
+- Chef 12.6+ 
 
 ### Platforms
 
@@ -49,9 +50,10 @@ browsers, drivers, and screenresolution cookbooks into one comprehensive cookboo
 
 ### Cookbooks
 
-- windows
 - nssm - Required by Windows services only (e.g. Hub and HtmlUnit running in background)
 - macosx_autologin - Required by Mac OS X GUI services 
+- windows 
+- windows_autologin - Required by Windows GUI service
 
 ## Recipes
 
@@ -74,57 +76,30 @@ Installs and configures a Selenium Hub as a service.
 
 ### Attributes
 
-- `node['selenium']['hub']['servicename']` - The name of the service.  Default `selenium_hub`. 
-- `node['selenium']['hub']['host']` -  Default `null`.
-- `node['selenium']['hub']['port']` -  Default `4444`.
-- `node['selenium']['hub']['jvm_args']` -  Default `nil`.
-- `node['selenium']['hub']['newSessionWaitTimeout']` -  Default `-1`.
-- `node['selenium']['hub']['servlets']` -  Default `[]`.
-- `node['selenium']['hub']['prioritizer']` -  Default `null`.
-- `node['selenium']['hub']['capabilityMatcher']` -  Default `org.openqa.grid.internal.utils.DefaultCapabilityMatcher`.
-- `node['selenium']['hub']['throwOnCapabilityNotPresent']` -  Default `true`.
-- `node['selenium']['hub']['nodePolling']` -  Default `5000`.
-- `node['selenium']['hub']['cleanUpCycle']` -  Default `5000`.
-- `node['selenium']['hub']['timeout']` -  Default `30_000`.
-- `node['selenium']['hub']['browserTimeout']` -  Default `0`.
-- `node['selenium']['hub']['maxSession']` -  Default `5`.
-- `node['selenium']['hub']['jettyMaxThreads']` -  Default `-1`.
-
+See [selenium_hub](https://github.com/dhoer/chef-selenium#attributes-3)
+resource attributes for description.
+ 
 ## node
 
-Installs and configures a Selenium Node as service on Linux and a GUI service on Mac OS X and Windows.
+Installs and configures a Selenium Node as service on Linux and a GUI 
+service on Mac OS X and Windows.
 
 - Firefox browser must be installed outside of this cookbook.
 - Linux nodes without a physical monitor require a headless display
-(e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), [x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
+(e.g., [xvfb](https://supermarket.chef.io/cookbooks/xvfb), 
+[x11vnc](https://supermarket.chef.io/cookbooks/x11vnc),
 etc...) and must be installed and configured outside this cookbook.
-- Mac OS X/Windows nodes must run as a GUI service and that requires a username
-and password for automatic login. Note that Windows password is stored unencrypted under windows registry
-`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
-`/etc/kcpassword` but it can be easily decrypted.
+- Mac OS X/Windows nodes must run as a GUI service and that requires a 
+username and password for automatic login. Note that Windows password 
+is stored unencrypted under windows registry
+`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and 
+Mac OS X  password is stored encrypted under `/etc/kcpassword` but it 
+can be easily decrypted.
 
 ### Attributes
 
-- `node['selenium']['node']['servicename']` - The name of the service. Default `selenium_node`.
-- `node['selenium']['node']['host']` - Default `ip`.
-- `node['selenium']['node']['port']` - Default `5555`.
-- `node['selenium']['node']['jvm_args']` - Default `nil`.
-- `node['selenium']['node']['proxy']` - Default `org.openqa.grid.selenium.proxy.DefaultRemoteProxy`.
-- `node['selenium']['node']['maxSession']` - Default `5`.
-- `node['selenium']['node']['register']` - Default `true`.
-- `node['selenium']['node']['registerCycle']` - Default `5000`.
-- `node['selenium']['node']['hubPort']` - Selenium-grid hub hostname. Default `4444`.
-- `node['selenium']['node']['hubHost']` - Selenium-grid hub port. Default `ip`.
-- `node['selenium']['node']['capabilities']` -  Based on 
-[capabilities](https://code.google.com/p/selenium/wiki/DesiredCapabilities). Default `[]`.
-- `node['selenium']['node']['additional_args']` - Default `[]`.
-- `node['selenium']['node']['display']` - Default `:0`.
-- Mac OS X/Windows only - Set both username and password to run as a GUI service:
-    - `username` - Default `nil`.
-    - `password` - Default `nil`. Note that Windows password is stored unencrypted under windows registry
-`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` and Mac OS X  password is stored encrypted under 
-`/etc/kcpassword` but it can be easily decrypted.
-    - `domain` - Optional for Windows only.  Default `nil`.
+See [selenium_hub](https://github.com/dhoer/chef-selenium#attributes-4)
+resource attributes for description.
     
 ### Example
 
@@ -159,7 +134,7 @@ Installs and configures a Selenium Hub as a service.
 
 ### Attributes
 
-- `name` - Name attribute. The name of the service.
+- `servicename` - Name attribute. The name of the service.
 - `host` - IP or hostname. Usually determined automatically. Most 
 commonly useful in exotic network configurations (e.g. network with 
 VPN). Default `nil`.
@@ -219,7 +194,7 @@ Installs and configures a Selenium Node as a service.
 
 ### Attributes
 
-- `name` - Name attribute. The name of the service.
+- `servicename` - Name attribute. The name of the service.
 - `host` - IP or hostname. Usually determined automatically. Most 
 commonly useful in exotic network configurations (e.g. network with 
 VPN). Default `nil`.
@@ -305,8 +280,9 @@ end
 
 ## ChefSpec Matchers
 
-This cookbook includes custom [ChefSpec](https://github.com/sethvargo/chefspec) matchers you can use to test 
-your own cookbooks.
+This cookbook includes custom 
+[ChefSpec](https://github.com/sethvargo/chefspec) matchers you can use 
+to test your own cookbooks.
 
 Example Matcher Usage
 
@@ -323,8 +299,10 @@ Selenium Cookbook Matchers
 
 ## Getting Help
 
-- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/selenium).
-- Report bugs and discuss potential features in [Github issues](https://github.com/dhoer/chef-selenium/issues).
+- Ask specific questions on 
+[Stack Overflow](http://stackoverflow.com/questions/tagged/selenium).
+- Report bugs and discuss potential features in 
+[Github issues](https://github.com/dhoer/chef-selenium/issues).
 
 ## Contributing
 
@@ -332,4 +310,6 @@ Please refer to [CONTRIBUTING](https://github.com/dhoer/chef-selenium/blob/maste
 
 ## License
 
-MIT - see the accompanying [LICENSE](https://github.com/dhoer/chef-selenium/blob/master/LICENSE.md) file for details.
+MIT - see the accompanying 
+[LICENSE](https://github.com/dhoer/chef-selenium/blob/master/LICENSE.md) 
+file for details.
