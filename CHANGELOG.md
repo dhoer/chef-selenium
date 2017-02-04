@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.0.0 2017-
+
+- Support Selenium 3.0
+- Log defaults to STDOUT when log attribute is nil
+- Drop support for Chef 11
+
+## 3.7.4 2016-10-29
+
+- Fix #31 Adding support for selenium 3 in node config file
+
+## 3.7.3 2016-08-22
+
+- Fix #29 Error executing action run on resource 'execute[reload org.seleniumhq.selenium_hub]'
+
 ## 3.7.2 2016-08-04
 
 - Fix #27 Cannot create directory due to insufficient permissions

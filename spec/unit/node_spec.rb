@@ -17,11 +17,11 @@ describe 'selenium_test::node' do
         step_into: ['selenium_node']
       ) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
-        node.set['selenium']['url'] =
-          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
-        node.set['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
-        node.set['selenium_test']['username'] = 'vagrant'
-        node.set['selenium_test']['password'] = 'vagrant'
+        node.override['selenium']['url'] =
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
+        node.override['java']['windows']['url'] = 'http://ignore/jdk-windows-64x.tar.gz'
+        node.override['selenium_test']['username'] = 'vagrant'
+        node.override['selenium_test']['password'] = 'vagrant'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:ie_version).and_return('11.0.0.0')
@@ -41,10 +41,8 @@ describe 'selenium_test::node' do
       )
     end
 
-    it 'creates auto login registry_key' do
-      expect(chef_run).to create_registry_key(
-        'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
-      )
+    it 'sets up autologin' do
+      expect(chef_run).to enable_windows_autologin('vagrant')
     end
 
     it 'creates startup dir' do
@@ -60,8 +58,7 @@ describe 'selenium_test::node' do
     it 'creates selenium foreground command' do
       expect(chef_run).to create_file('C:/selenium/bin/selenium_node.cmd').with(
         content: '"C:\java\bin\java.exe" -jar "C:/selenium/server/selenium-server-standalone.jar" '\
-          '-role node -nodeConfig "C:/selenium/config/selenium_node.json" '\
-          '-log "C:/selenium/log/selenium_node.log"'
+          '-role node -nodeConfig "C:/selenium/config/selenium_node.json"'
       )
     end
 
@@ -70,7 +67,7 @@ describe 'selenium_test::node' do
     end
 
     it 'reboots windows server' do
-      expect(chef_run).to_not request_windows_reboot('Reboot to start selenium_node')
+      expect(chef_run).to_not request_reboot('Reboot to start selenium_node')
     end
   end
 
@@ -79,8 +76,8 @@ describe 'selenium_test::node' do
       ChefSpec::SoloRunner.new(
         file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
       ) do |node|
-        node.set['selenium']['url'] =
-          'https://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+        node.override['selenium']['url'] =
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
         allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
         allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
         allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
@@ -118,6 +115,24 @@ describe 'selenium_test::node' do
 
     it 'start selenium_node' do
       expect(chef_run).to start_service('selenium_node')
+    end
+  end
+
+  context 'selenium 3' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
+      ) do |node|
+        node.override['selenium']['url'] =
+          'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
+        allow_any_instance_of(Chef::Recipe).to receive(:firefox_version).and_return('33.0.0')
+        allow_any_instance_of(Chef::Recipe).to receive(:chrome_version).and_return('39.0.0.0')
+        allow_any_instance_of(Chef::Provider).to receive(:selenium_systype).and_return('systemd')
+      end.converge(described_recipe)
+    end
+
+    it 'uses selenium version 3 syntax for config file' do
+      expect(chef_run).to render_file('/opt/selenium/config/selenium_node.json')
     end
   end
 end

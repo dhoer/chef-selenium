@@ -12,7 +12,7 @@ environment:
   SSL_CERT_FILE: c:\projects\kitchen-machine\certs.pem
 
   matrix:
-    - ruby_version: "21"
+    - ruby_version: "22"
 
 clone_folder: c:\projects\kitchen-machine
 clone_depth: 1
@@ -28,8 +28,14 @@ install:
   - ps: Invoke-WebRequest -Uri http://curl.haxx.se/ca/cacert.pem -OutFile c:\projects\kitchen-machine\certs.pem
 
 build_script:
+#  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/set-screenresolution.ps1'))
+#  - ps: Set-ScreenResolution 1440 900
   - bundle install || bundle install || bundle install
   - bundle exec rake
-
-test_script:
   - bundle exec kitchen conv
+#  - shutdown /a
+#  - ps: Restart-Computer -Force
+#  - ps: Start-Sleep -s 10
+#
+#test_script:
+#  - bundle exec kitchen veri

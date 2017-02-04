@@ -4,7 +4,7 @@ driver:
 
 provisioner:
   name: chef_solo
-  require_chef_omnibus: '12.10'
+  require_chef_omnibus: '12'
 
 platforms:
   - name: centos-7.1
@@ -31,6 +31,7 @@ suites:
       - selenium_test::package
       - selenium_test::hub
       - selenium_test::node
+      - selenium_test::screenresolution
     attributes:
       mozilla_firefox:
         32bit_only: true
