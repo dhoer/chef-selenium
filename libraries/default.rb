@@ -19,23 +19,16 @@ def selenium_jar_link
 end
 
 def selenium_windows_service(name, exec, args)
-  log_file = "#{selenium_home}/log/#{name}.log"
   nssm name do
     program exec
     args args.join(' ').gsub('"', '"""')
-    params(
-      AppDirectory: selenium_home,
-      AppStdout: log_file,
-      AppStderr: log_file,
-      AppRotateFiles: 1
-    )
+    params(AppDirectory: selenium_home)
     action :install
   end
 end
 
 # http://sqa.stackexchange.com/a/6267
 def selenium_windows_gui_service(name, exec, args, username)
-  args << %(-log "#{selenium_home}/log/#{name}.log")
   cmd = "#{selenium_home}/bin/#{name}.cmd"
 
   file cmd do
@@ -129,7 +122,7 @@ def selenium_linux_service(name, exec, args, port, display)
   end
 end
 
-def selenium_mac_service(name, exec, args, plist, username)
+def selenium_mac_service(name, exec, args, plist, username, log)
   execute "reload #{name}" do
     command "launchctl unload -w #{plist}; launchctl load -w #{plist}"
     user username
@@ -137,14 +130,17 @@ def selenium_mac_service(name, exec, args, plist, username)
     returns [0, 112] # 112 not logged into gui
   end
 
-  directory '/var/log/selenium' do
+  directory log[0, log.rindex('/')] do
     mode '0755'
+    recursive true
+    not_if ( log.nil? )
   end
 
-  file "/var/log/selenium/#{name}.log" do
+  file log do
     mode '0664'
     user username
     action :touch
+    not_if (log.nil?)
   end
 
   template plist do

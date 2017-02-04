@@ -65,7 +65,8 @@ action :install do
               end
 
       selenium_mac_service(
-        selenium_mac_domain(new_resource.servicename), selenium_java_exec, args, plist, new_resource.username
+        selenium_mac_domain(new_resource.servicename), selenium_java_exec, args, plist,
+        new_resource.username, new_resource.log
       )
       selenium_autologon(new_resource.username, new_resource.password)
 

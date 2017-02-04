@@ -42,7 +42,8 @@ action :install do
       selenium_windows_firewall(new_resource.servicename, new_resource.port)
     when 'mac_os_x'
       plist = "/Library/LaunchDaemons/#{selenium_mac_domain(new_resource.servicename)}.plist"
-      selenium_mac_service(selenium_mac_domain(new_resource.servicename), selenium_java_exec, args, plist, nil)
+      selenium_mac_service(
+        selenium_mac_domain(new_resource.servicename), selenium_java_exec, args, plist, nil, new_resource.log)
     else
       selenium_linux_service(new_resource.servicename, selenium_java_exec, args, new_resource.port, nil)
     end

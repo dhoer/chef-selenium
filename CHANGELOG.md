@@ -4,6 +4,7 @@
 
 - Support Selenium 3.0
 - Drop support for Chef 11
+- Log defaults to STDOUT
 
 ## 3.7.4 2016-10-29
 
