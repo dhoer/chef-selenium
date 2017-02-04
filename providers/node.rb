@@ -64,10 +64,7 @@ action :install do
                 "/Library/LaunchDaemons/#{selenium_mac_domain(new_resource.servicename)}.plist"
               end
 
-      selenium_mac_service(
-        selenium_mac_domain(new_resource.servicename), selenium_java_exec, args, plist,
-        new_resource.username, new_resource.log
-      )
+      selenium_mac_service(new_resource, selenium_java_exec, args, plist, new_resource.username)
       selenium_autologon(new_resource.username, new_resource.password)
 
       execute "Reboot to start #{selenium_mac_domain(new_resource.servicename)}" do
