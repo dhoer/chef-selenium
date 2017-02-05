@@ -4,20 +4,12 @@ def whyrun_supported?
   true
 end
 
-def use_selenium2_syntax?
-  selenium_version = node['selenium']['url'][/standalone-(.*)\.jar/, 1]
-  Gem::Version.new(selenium_version) < Gem::Version.new('3')
-end
-
 def config
   config_file = "#{selenium_home}/config/#{new_resource.servicename}.json"
   template config_file do
     source 'node_config.erb'
     cookbook 'selenium'
-    variables(
-      resource: new_resource,
-      use_selenium2_syntax: use_selenium2_syntax?
-    )
+    variables(resource: new_resource)
     if platform_family?('windows')
       notifies :request_reboot, "reboot[Reboot to start #{new_resource.servicename}]", :delayed
     end
