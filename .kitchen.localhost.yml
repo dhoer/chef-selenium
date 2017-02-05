@@ -18,5 +18,3 @@ suites:
     selenium_test:
       username: travis
       password: travis
-    mozilla_firefox:
-      version: latest
