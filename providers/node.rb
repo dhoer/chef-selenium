@@ -30,43 +30,41 @@ def args
 end
 
 action :install do
-  converge_by("Install Node Service: #{new_resource.servicename}") do
-    unless run_context.loaded_recipe? 'selenium::default'
-      recipe_eval do
-        run_context.include_recipe 'selenium::default'
-      end
+  unless run_context.loaded_recipe? 'selenium::default'
+    recipe_eval do
+      run_context.include_recipe 'selenium::default'
     end
+  end
 
-    case node['platform']
-    when 'windows'
-      selenium_windows_gui_service(new_resource.servicename, selenium_java_exec, args, new_resource.username)
-      selenium_autologon(new_resource.username, new_resource.password)
+  case node['platform']
+  when 'windows'
+    selenium_windows_gui_service(new_resource.servicename, selenium_java_exec, args, new_resource.username)
+    selenium_autologon(new_resource.username, new_resource.password)
 
-      selenium_windows_firewall(new_resource.servicename, new_resource.port)
+    selenium_windows_firewall(new_resource.servicename, new_resource.port)
 
-      reboot "Reboot to start #{new_resource.servicename}" do
-        action :nothing
-        reason 'Need to reboot when the run completes successfully.'
-        delay_mins 1
-      end
-    when 'mac_os_x'
-      plist = if new_resource.username && new_resource.password
-                "/Library/LaunchAgents/#{selenium_mac_domain(new_resource.servicename)}.plist"
-              else
-                "/Library/LaunchDaemons/#{selenium_mac_domain(new_resource.servicename)}.plist"
-              end
-
-      selenium_mac_service(new_resource, selenium_java_exec, args, plist, new_resource.username)
-      selenium_autologon(new_resource.username, new_resource.password)
-
-      execute "Reboot to start #{selenium_mac_domain(new_resource.servicename)}" do
-        command 'sudo shutdown -r +1'
-        action :nothing
-      end
-    else
-      selenium_linux_service(
-        new_resource.servicename, selenium_java_exec, args, new_resource.port, new_resource.display
-      )
+    reboot "Reboot to start #{new_resource.servicename}" do
+      action :nothing
+      reason 'Need to reboot when the run completes successfully.'
+      delay_mins 1
     end
+  when 'mac_os_x'
+    plist = if new_resource.username && new_resource.password
+              "/Library/LaunchAgents/#{selenium_mac_domain(new_resource.servicename)}.plist"
+            else
+              "/Library/LaunchDaemons/#{selenium_mac_domain(new_resource.servicename)}.plist"
+            end
+
+    selenium_mac_service(new_resource, selenium_java_exec, args, plist, new_resource.username)
+    selenium_autologon(new_resource.username, new_resource.password)
+
+    execute "Reboot to start #{selenium_mac_domain(new_resource.servicename)}" do
+      command 'sudo shutdown -r +1'
+      action :nothing
+    end
+  else
+    selenium_linux_service(
+      new_resource.servicename, selenium_java_exec, args, new_resource.port, new_resource.display
+    )
   end
 end

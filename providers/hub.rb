@@ -29,22 +29,20 @@ def args
 end
 
 action :install do
-  converge_by("Install Hub Service: #{new_resource.servicename}") do
-    unless run_context.loaded_recipe? 'selenium::default'
-      recipe_eval do
-        run_context.include_recipe 'selenium::default'
-      end
+  unless run_context.loaded_recipe? 'selenium::default'
+    recipe_eval do
+      run_context.include_recipe 'selenium::default'
     end
+  end
 
-    case node['platform']
-    when 'windows'
-      selenium_windows_service(new_resource.servicename, selenium_java_exec, args)
-      selenium_windows_firewall(new_resource.servicename, new_resource.port)
-    when 'mac_os_x'
-      plist = "/Library/LaunchDaemons/#{selenium_mac_domain(new_resource.servicename)}.plist"
-      selenium_mac_service(new_resource, selenium_java_exec, args, plist, nil)
-    else
-      selenium_linux_service(new_resource.servicename, selenium_java_exec, args, new_resource.port, nil)
-    end
+  case node['platform']
+  when 'windows'
+    selenium_windows_service(new_resource.servicename, selenium_java_exec, args)
+    selenium_windows_firewall(new_resource.servicename, new_resource.port)
+  when 'mac_os_x'
+    plist = "/Library/LaunchDaemons/#{selenium_mac_domain(new_resource.servicename)}.plist"
+    selenium_mac_service(new_resource, selenium_java_exec, args, plist, nil)
+  else
+    selenium_linux_service(new_resource.servicename, selenium_java_exec, args, new_resource.port, nil)
   end
 end
