@@ -5,6 +5,7 @@ include_recipe 'xvfb' unless platform?('windows', 'mac_os_x')
 capabilities = []
 
 include_recipe 'mozilla_firefox'
+include_recipe 'geckodriver'
 
 capabilities << {
   browserName: 'firefox',

@@ -1,5 +1,5 @@
 def selenium_java_exec
-  java = platform_family?('windows') ? node['selenium']['windows']['java'] : node['selenium']['unix']['java']
+  java = node['selenium']['java']
   validate_exec(%("#{java}" -version))
   java
 end
@@ -11,7 +11,7 @@ def validate_exec(cmd)
 end
 
 def selenium_home
-  platform_family?('windows') ? node['selenium']['windows']['home'] : node['selenium']['unix']['home']
+  node['selenium']['home']
 end
 
 def selenium_jar_link
@@ -19,29 +19,22 @@ def selenium_jar_link
 end
 
 def selenium_windows_service(name, exec, args)
-  log_file = "#{selenium_home}/log/#{name}.log"
   nssm name do
     program exec
     args args.join(' ').gsub('"', '"""')
-    params(
-      AppDirectory: selenium_home,
-      AppStdout: log_file,
-      AppStderr: log_file,
-      AppRotateFiles: 1
-    )
+    params(AppDirectory: selenium_home)
     action :install
   end
 end
 
 # http://sqa.stackexchange.com/a/6267
 def selenium_windows_gui_service(name, exec, args, username)
-  args << %(-log "#{selenium_home}/log/#{name}.log")
   cmd = "#{selenium_home}/bin/#{name}.cmd"
 
   file cmd do
     content %("#{exec}" #{args.join(' ')})
     action :create
-    notifies :request, "windows_reboot[Reboot to start #{name}]"
+    notifies :request_reboot, "reboot[Reboot to start #{name}]"
   end
 
   startup_path = "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
@@ -68,24 +61,15 @@ def selenium_windows_firewall(name, port)
   end
 end
 
-def selenium_autologon(username, password, domain = nil)
+def selenium_autologon(username, password)
   case node['platform_family']
   when 'windows'
-    # TODO: REPLACE WITH windows_autologin cookbook
-    registry_key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' do
-      values [
-        { name: 'AutoAdminLogon', type: :string, data: '1' },
-        { name: 'DefaultUsername', type: :string, data: username },
-        { name: 'DefaultPassword', type: :string, data: password },
-        { name: 'DefaultDomainName', type: :string, data: domain }
-      ]
-      action :create
+    windows_autologin username do
+      password password
     end
   when 'mac_os_x'
-    node.override['macosx_autologin']['username'] = username
-    node.override['macosx_autologin']['password'] = password
-    recipe_eval do
-      run_context.include_recipe 'macosx_autologin::default'
+    macosx_autologin username do
+      password password
     end
   end
 end
@@ -138,7 +122,29 @@ def selenium_linux_service(name, exec, args, port, display)
   end
 end
 
-def selenium_mac_service(name, exec, args, plist, username)
+def log_path(log, username)
+  return if log.nil?
+
+  directory 'create log dir' do
+    path log[0, log.rindex('/')]
+    mode '0755'
+    recursive true
+    not_if { ::File.exist?(log) }
+  end
+
+  file 'create log file' do
+    path log
+    mode '0664'
+    user username
+    action :touch
+    not_if { ::File.exist?(log) }
+  end
+end
+
+def selenium_mac_service(new_resource, exec, args, plist, username)
+  name = selenium_mac_domain(new_resource.servicename)
+  log = new_resource.log
+
   execute "reload #{name}" do
     command "launchctl unload -w #{plist}; launchctl load -w #{plist}"
     user username
@@ -146,15 +152,7 @@ def selenium_mac_service(name, exec, args, plist, username)
     returns [0, 112] # 112 not logged into gui
   end
 
-  directory '/var/log/selenium' do
-    mode '0755'
-  end
-
-  file "/var/log/selenium/#{name}.log" do
-    mode '0664'
-    user username
-    action :touch
-  end
+  log_path(log, username)
 
   template plist do
     source 'org.seleniumhq.plist.erb'

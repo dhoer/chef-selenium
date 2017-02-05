@@ -8,10 +8,9 @@ version '0.1.0'
 
 depends 'selenium'
 
+depends 'dmg'
+depends 'geckodriver'
 depends 'java_se', '~> 8.0'
 depends 'mozilla_firefox'
-
-depends 'xvfb'
 depends 'windows_screenresolution'
-
-depends 'dmg'
+depends 'xvfb'
