@@ -20,7 +20,7 @@ install:
 
 script:
   - chef exec bundle exec rake
-  - KITCHEN_YAML=.kitchen.localhost.yml chef exec bundle exec kitchen test
+  - KITCHEN_YAML=.kitchen.localhost.yml chef exec bundle exec kitchen conv
 
 branches:
   only:
