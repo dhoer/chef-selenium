@@ -11,8 +11,10 @@ version '4.0.0'
 chef_version '>= 12.14'
 
 supports 'centos'
-supports 'redhat'
+supports 'debian'
+supports 'fedora'
 supports 'mac_os_x'
+supports 'redhat'
 supports 'ubuntu'
 supports 'windows'
 

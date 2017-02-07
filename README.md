@@ -34,9 +34,9 @@ browsers, drivers, and screenresolution cookbooks into one comprehensive cookboo
 
 ### Platforms
 
-- CentOS, RedHat
+- CentOS, Fedora, RedHat
 - Mac OS X
-- Ubuntu
+- Debian, Ubuntu
 - Windows
 
 ### Cookbooks
