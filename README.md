@@ -10,7 +10,7 @@
 [osx]: https://travis-ci.org/dhoer/chef-selenium/branches
 [win]: https://ci.appveyor.com/project/dhoer/chef-selenium
 
-This cookbook installs and configures Selenium (http://www.seleniumhq.org/).
+This cookbook installs and configures Selenium 3+ (http://www.seleniumhq.org/).
 
 This cookbook comes with the following recipes:
 
