@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.0.0 2017-
+## 4.0.0 2017-02-17
 
 - Support Selenium 3.0
 - Log defaults to STDOUT when log attribute is nil
