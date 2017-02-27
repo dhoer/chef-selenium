@@ -6,7 +6,7 @@ description 'Installs/Configures Selenium'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 source_url 'https://github.com/dhoer/chef-selenium'
 issues_url 'https://github.com/dhoer/chef-selenium/issues'
-version '4.0.0'
+version '4.1.0'
 
 chef_version '>= 12.14'
 

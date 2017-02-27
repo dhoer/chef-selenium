@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.0 2017-02-27
+
+- Selenium release 3.1.0
+
 ## 4.0.0 2017-02-17
 
 - Support Selenium 3.0
