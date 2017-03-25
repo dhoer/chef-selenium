@@ -19,6 +19,6 @@ supports 'ubuntu'
 supports 'windows'
 
 depends 'macosx_autologin', '>= 4.0'
-depends 'nssm', '>= '
+depends 'nssm', '>= 3.0'
 depends 'windows'
 depends 'windows_autologin', '>= 3.0'
