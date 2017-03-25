@@ -17,7 +17,7 @@ args="<%=@args%>"
 pidfile="/var/run/<%=@name%>.pid"
 logfile="/var/log/<%=@name%>.log"
 prog="<%=@name%>"
-display="<%=@display%>"
+xdisplay="<%=@xdisplay%>"
 
 if [ "$1" = "status" ]; then
   if [ -f "$pidfile" ]; then
@@ -45,6 +45,6 @@ if [ "$1" = "start" -o "$1" = "restart" ]; then
     touch $logfile
     chown $user $logfile
 
-    /bin/su - $user -c "DISPLAY=\"$display\" nohup $exec $args >> $logfile 2>&1 & echo \$! > $pidfile"
+    /bin/su - $user -c "DISPLAY=\"$xdisplay\" nohup $exec $args >> $logfile 2>&1 & echo \$! > $pidfile"
   fi
 fi

@@ -64,7 +64,7 @@ action :install do
     end
   else
     selenium_linux_service(
-      new_resource.servicename, selenium_java_exec, args, new_resource.port, new_resource.display
+      new_resource.servicename, selenium_java_exec, args, new_resource.port, new_resource.xdisplay
     )
   end
 end

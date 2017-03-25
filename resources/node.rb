@@ -24,7 +24,7 @@ attribute :hub, kind_of: String, default: 'http://localhost:4444'
 attribute :capabilities, kind_of: [Array, Hash], default: []
 
 # linux only - DISPLAY must match running instance of Xvfb, x11vnc or equivalent
-attribute :display, kind_of: String, default: ':0'
+attribute :xdisplay, kind_of: String, default: ':0'
 
 # mac/windows only - set username/password to run service in gui or leave nil to run service in background
 attribute :username, kind_of: [String, NilClass], default: nil

@@ -34,7 +34,7 @@ describe 'selenium_test::hub' do
         program: 'C:\java\bin\java.exe',
         args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
           ' -role hub -hubConfig """C:/selenium/config/selenium_hub.json"""',
-        params: {
+        parameters: {
           AppDirectory: 'C:/selenium'
         }
       )
@@ -85,7 +85,7 @@ describe 'selenium_test::hub' do
           args: '-jar "/opt/selenium/server/selenium-server-standalone.jar" -role hub ' \
           '-hubConfig "/opt/selenium/config/selenium_hub.json"',
           port: 4444,
-          display: nil
+          xdisplay: nil
         }
       )
     end

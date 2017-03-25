@@ -19,6 +19,6 @@ default['selenium']['node']['timeout'] = 1800
 default['selenium']['node']['browserTimeout'] = 0
 default['selenium']['node']['jettyMaxThreads'] = 0
 default['selenium']['node']['log'] = nil
-default['selenium']['node']['display'] = ':0'
+default['selenium']['node']['xdisplay'] = ':0'
 default['selenium']['node']['username'] = nil
 default['selenium']['node']['password'] = nil

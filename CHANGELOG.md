@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.0 2017-03-24
+
+- Rename display attribute to xdisplay to be Chef 13 compatible
+
 ## 4.1.0 2017-02-27
 
 - Selenium release 3.1.0

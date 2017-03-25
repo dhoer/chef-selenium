@@ -22,7 +22,7 @@ def selenium_windows_service(name, exec, args)
   nssm name do
     program exec
     args args.join(' ').gsub('"', '"""')
-    params(AppDirectory: selenium_home)
+    parameters(AppDirectory: selenium_home)
     action :install
   end
 end
@@ -80,7 +80,7 @@ def selenium_systype
   'sysvinit'
 end
 
-def selenium_linux_service(name, exec, args, port, display)
+def selenium_linux_service(name, exec, args, port, xdisplay)
   # TODO: make selenium username default and pass it in as a param
   username = 'selenium'
 
@@ -111,7 +111,7 @@ def selenium_linux_service(name, exec, args, port, display)
       exec: exec,
       args: formatted_args,
       port: port,
-      display: display
+      xdisplay: xdisplay
     )
     notifies :restart, "service[#{name}]"
   end
