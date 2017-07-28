@@ -28,7 +28,7 @@ def selenium_windows_service(name, exec, args)
 end
 
 # http://sqa.stackexchange.com/a/6267
-def selenium_windows_gui_service(name, exec, args, username)
+def selenium_windows_gui_service(name, exec, args)
   cmd = "#{selenium_home}/bin/#{name}.cmd"
 
   file cmd do
@@ -37,7 +37,7 @@ def selenium_windows_gui_service(name, exec, args, username)
     notifies :request_reboot, "reboot[Reboot to start #{name}]"
   end
 
-  startup_path = "C:\\Users\\#{username}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
+  startup_path = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
 
   ruby_block 'hack to mkdir on windows' do
     block do

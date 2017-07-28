@@ -38,7 +38,7 @@ action :install do
 
   case node['platform']
   when 'windows'
-    selenium_windows_gui_service(new_resource.servicename, selenium_java_exec, args, new_resource.username)
+    selenium_windows_gui_service(new_resource.servicename, selenium_java_exec, args)
     selenium_autologon(new_resource.username, new_resource.password)
 
     selenium_windows_firewall(new_resource.servicename, new_resource.port)
