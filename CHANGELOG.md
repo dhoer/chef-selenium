@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.1.0 2017-08-26
+## 5.0.1 2017-08-26
 
 - Selenium release 3.5.2
 - Update windows to use NSSM 4.0+ - which requires triple quotes to be removed
