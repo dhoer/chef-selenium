@@ -21,5 +21,6 @@ selenium_node node['selenium']['node']['servicename'] do
   log node['selenium']['node']['log']
   username node['selenium']['node']['username']
   password node['selenium']['node']['password']
+  xdisplay node['selenium']['node']['xdisplay'] unless platform?('windows') 
   action :install
 end
