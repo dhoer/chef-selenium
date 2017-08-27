@@ -6,7 +6,6 @@
 - Update windows to use NSSM 4.0+ - which requires triple quotes to be removed
 - Add missing xdisplay to node recipe
 
-
 ## 5.0.0 2017-03-24
 
 - Rename display attribute to xdisplay to be Chef 13 compatible
