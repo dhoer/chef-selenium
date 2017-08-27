@@ -43,7 +43,7 @@ describe 'selenium::default' do
 
   context 'linux' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.0') do |node|
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.3.1611') do |node|
         node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
       end.converge(described_recipe)

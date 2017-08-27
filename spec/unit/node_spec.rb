@@ -74,7 +74,7 @@ describe 'selenium_test::node' do
   context 'linux' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.3.1611', step_into: ['selenium_node']
       ) do |node|
         node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
@@ -121,7 +121,7 @@ describe 'selenium_test::node' do
   context 'selenium 3' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.0', step_into: ['selenium_node']
+        file_cache_path: '/var/chef/cache', platform: 'centos', version: '7.3.1611', step_into: ['selenium_node']
       ) do |node|
         node.override['selenium']['url'] =
           'https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
