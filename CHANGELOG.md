@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.0 2017-08-26
+
+- 
+
 ## 5.0.0 2017-03-24
 
 - Rename display attribute to xdisplay to be Chef 13 compatible
