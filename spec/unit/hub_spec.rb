@@ -35,7 +35,7 @@ describe 'selenium_test::hub' do
         args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
           ' -role hub -hubConfig """C:/selenium/config/selenium_hub.json"""',
         parameters: {
-          AppDirectory: 'C:/selenium'
+          AppDirectory: 'C:/selenium',
         }
       )
     end
@@ -85,7 +85,7 @@ describe 'selenium_test::hub' do
           args: '-jar "/opt/selenium/server/selenium-server-standalone.jar" -role hub ' \
           '-hubConfig "/opt/selenium/config/selenium_hub.json"',
           port: 4444,
-          xdisplay: nil
+          xdisplay: nil,
         }
       )
     end
@@ -133,7 +133,7 @@ describe 'selenium_test::hub' do
           name: 'org.seleniumhq.selenium_hub',
           exec: '/usr/bin/java',
           args: ['-jar', '"/opt/selenium/server/selenium-server-standalone.jar"', '-role', 'hub',
-                 '-hubConfig', '"/opt/selenium/config/selenium_hub.json"']
+                 '-hubConfig', '"/opt/selenium/config/selenium_hub.json"'],
         }
       )
     end

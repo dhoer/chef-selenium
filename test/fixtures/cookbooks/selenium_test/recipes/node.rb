@@ -11,7 +11,7 @@ capabilities << {
   browserName: 'firefox',
   maxInstances: 5,
   version: firefox_version,
-  seleniumProtocol: 'WebDriver'
+  seleniumProtocol: 'WebDriver',
 }
 
 node.override['selenium']['node']['capabilities'] = capabilities
