@@ -32,8 +32,8 @@ describe 'selenium_test::hub' do
     it 'install selenium_hub' do
       expect(chef_run).to install_nssm('selenium_hub').with(
         program: 'C:\java\bin\java.exe',
-        args: '-jar """C:/selenium/server/selenium-server-standalone.jar"""'\
-          ' -role hub -hubConfig """C:/selenium/config/selenium_hub.json"""',
+        args: '-jar "C:/selenium/server/selenium-server-standalone.jar"'\
+          ' -role hub -hubConfig "C:/selenium/config/selenium_hub.json"',
         parameters: {
           AppDirectory: 'C:/selenium',
         }
