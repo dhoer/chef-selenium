@@ -1,5 +1,5 @@
 default['selenium']['url'] =
-  'https://selenium-release.storage.googleapis.com/3.1/selenium-server-standalone-3.1.0.jar'
+  'http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.2.jar'
 
 default['selenium']['windows']['home'] = "#{ENV['SYSTEMDRIVE']}/selenium"
 default['selenium']['windows']['java'] = "#{ENV['SYSTEMDRIVE']}\\java\\bin\\java.exe"
