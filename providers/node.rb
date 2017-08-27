@@ -25,7 +25,7 @@ end
 def args
   args = []
   args << new_resource.jvm_args unless new_resource.jvm_args.nil?
-  args << %W(-jar "#{selenium_jar_link}" -role node -nodeConfig "#{config}")
+  args << %W[-jar "#{selenium_jar_link}" -role node -nodeConfig "#{config}"]
   args.flatten!
 end
 

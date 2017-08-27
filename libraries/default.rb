@@ -118,7 +118,7 @@ def selenium_linux_service(name, exec, args, port, xdisplay)
 
   service name do
     supports restart: true, reload: true, status: true
-    action [:enable, :start]
+    action %i[enable start]
   end
 end
 

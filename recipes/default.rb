@@ -1,6 +1,6 @@
 package 'unzip' unless platform?('windows', 'mac_os_x')
 
-dirs = %w(config server)
+dirs = %w[config server]
 dirs.push('bin', 'log') if platform?('windows')
 
 dirs.each do |dir|
