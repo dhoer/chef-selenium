@@ -2,7 +2,10 @@
 
 ## 5.1.0 2017-08-26
 
-- 
+- Selenium release 3.5.2
+- Update windows to use NSSM 4.0+ - which requires triple quotes to be removed
+- Add missing xdisplay to node recipe
+
 
 ## 5.0.0 2017-03-24
 

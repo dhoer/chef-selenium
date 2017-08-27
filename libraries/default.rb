@@ -21,7 +21,7 @@ end
 def selenium_windows_service(name, exec, args)
   nssm name do
     program exec
-    args args.join(' ').gsub('"', '"""')
+    args args.join(' ')
     parameters(AppDirectory: selenium_home)
     action :install
   end
