@@ -12,7 +12,7 @@ environment:
   SSL_CERT_FILE: c:\projects\kitchen-machine\certs.pem
 
   matrix:
-    - ruby_version: "22"
+    - ruby_version: "23"
 
 clone_folder: c:\projects\kitchen-machine
 clone_depth: 1
@@ -25,6 +25,8 @@ install:
   - ps: net localgroup administrators $env:machine_user /add
   - ps: $env:PATH="C:\Ruby$env:ruby_version\bin;$env:PATH"
   - ps: gem install bundler --quiet --no-ri --no-rdoc
+  - ps: |-
+       [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
   - ps: Invoke-WebRequest -Uri http://curl.haxx.se/ca/cacert.pem -OutFile c:\projects\kitchen-machine\certs.pem
 
 build_script:
